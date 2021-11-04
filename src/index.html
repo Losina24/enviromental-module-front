@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Sprint 1 - Grupo M2</title>
+
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+		/>
+
+		<style>
+			body {
+				background: #eee;
+			}
+
+			p {
+				font-weight: 400;
+				margin: 0;
+				padding: 0.5rem 1rem;
+				width: 100%;
+			}
+
+			span {
+				margin-left: 2rem;
+			}
+
+			span:first-of-type {
+				margin-left: 0;
+			}
+
+			.mm {
+				display: inline;
+			}
+
+			.list-group li {
+				margin-bottom: 12px;
+			}
+
+			.list li {
+				list-style: none;
+				padding: 10px;
+				border: 1px solid #e3dada;
+				margin-top: 12px;
+				border-radius: 5px;
+				background: #fff;
+			}
+
+			.strong {
+				font-weight: 600;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-md-12">
+					<div
+						class="
+							d-flex
+							justify-content-between
+							align-items-center
+							activity
+						"
+					>
+						<div>
+							<h1 class="activity-done">Mediciones</h1>
+						</div>
+						<div class="icons">
+                            <a class="btn btn-outline-primary" href="./dispositivo.html">Dispositivos</a>
+                            <a class="btn btn-outline-primary" href="./sensor.html">Sensores</a>
+						</div>
+					</div>
+					<div class="mt-3">
+						<ul id="lista" class="list list-inline"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="./MeasuresFakeLogic.js"></script>
+</html>

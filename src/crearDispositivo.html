@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Sprint 1 - Grupo M2</title>
+
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+		/>
+
+		<style>
+			body {
+				background: #eee;
+			}
+
+			p {
+				font-weight: 400;
+				margin: 0;
+				padding: 0.5rem 1rem;
+				width: 100%;
+			}
+
+			span {
+				margin-left: 2rem;
+			}
+
+			span:first-of-type {
+				margin-left: 0;
+			}
+
+			.mm {
+				display: inline;
+			}
+
+			.list-group li {
+				margin-bottom: 12px;
+			}
+
+			.list li {
+				list-style: none;
+				padding: 10px;
+				border: 1px solid #e3dada;
+				margin-top: 12px;
+				border-radius: 5px;
+				background: #fff;
+			}
+
+			.strong {
+				font-weight: 600;
+			}
+
+			form {
+				width: 65%;
+				margin: 0 auto;
+                margin-top: 5rem;
+			}
+
+			form > div {
+				margin-bottom: 2rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-md-12">
+					<div
+						class="
+							d-flex
+							justify-content-between
+							align-items-center
+							activity
+						"
+					>
+						<div>
+							<h1 class="activity-done">Crear dispositivo</h1>
+						</div>
+						<div class="icons">
+							<a
+								class="btn btn-outline-primary"
+								href="./dispositivo.html"
+								>Volver</a
+							>
+						</div>
+					</div>
+					<div class="mt-3">
+						<form>
+							<div class="row">
+								<div class="col">
+                                    <label for="">Nombre:</label>
+									<input
+                                        id="nombre"
+										type="text"
+										class="form-control"
+										placeholder="First name"
+                                        required
+									/>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col">
+                                    <label for="">Mac:</label>
+									<input
+                                        id="mac"
+										type="text"
+										class="form-control"
+										placeholder="First name"
+                                        required
+									/>
+								</div>
+							</div>
+							<div class="row text-center">
+								<div class="col text-center">
+									<input
+                                    onclick="enviar(event)"
+										type="submit"
+										class="w-25 btn btn-primary"
+										placeholder="Enviar"
+									/>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="./DevicesFakeLogic.js"></script>
+    <script>
+        let name = document.getElementById('nombre').value;
+        let mac = document.getElementById('mac').value;
+
+        function enviar(event) {
+            event.preventDefault()
+            storeDevice(name, mac)
+        }
+    </script>
+</html>
