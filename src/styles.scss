@@ -1,9 +1,9 @@
 @import "./app/shared/styles/colors.scss";
 
-@font-face {
+/* @font-face {
     font-family: 'Product Sans';
     src: url('./assets/fonts/Product\ Sans\ Regular.ttf');
-}
+} */
 
 // Setting rem size
 * {
@@ -90,7 +90,6 @@ label > p {
     display: inline-flex;
     color: $error;
     font-size: 1.3rem;
-    display: none;
 }
 
 // Buttons

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,14 +11,17 @@ export class LoginComponent implements OnInit {
   // Inputs
   email: string = "";
   password: string = "";
+  error: boolean = false;
+  submitted: boolean = false;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
   }
 
-  onSubmit(f: NgForm ) {
-    console.log('Form', f);
-    
+  ngOnInit(): void {}
+
+  onSubmit() {
+    if(this.email.length > 0 && this.password.length > 0) {
+      this.error= true;
+    }
   }
 }
