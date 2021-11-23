@@ -10,7 +10,8 @@ import { RootLayoutComponent } from './shared/components/layouts/root-layout/roo
 const routes: Routes = [
   { 
     path: '', 
-    component: LandingPageComponent 
+    //component: LandingPageComponent
+    component: LoginComponent
   },
   {
     path: 'login/',

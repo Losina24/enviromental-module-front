@@ -1,1 +1,24 @@
-<p>login works!</p>
+<div class="main-container">
+    <header class="login-header">
+        <a href="">Ges<span>WAT</span></a>
+    </header>
+
+    <div class="login-container">
+        <section class="login-rectangle">
+            <h1>Iniciar sesión</h1>
+            <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                <label id="label-email" for="email">Email del usuario: <p class="msg-required" id="email-required">Required</p></label>
+                <input id="email" type="email" name="email" placeholder="Escribe tu correo electrónico" required [(ngModel)]="email">
+
+                <label id="label-email" for="email">Contraseña: <p class="msg-required" id="email-required">Required</p></label>
+                <input id="email" type="password" name="password" placeholder="Escribe tu contraseña" required [(ngModel)]="password">
+                
+                <!-- <button type="submit" [disabled]="!form.form.valid">Entrar</button> -->
+                <div class="btn-div">
+                    <button id="submit-login" class="primary" type="submit">Entrar</button>
+                    <p class="msg-alert">El email o la contraseña no coinciden.</p>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

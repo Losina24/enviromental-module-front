@@ -1,1 +1,119 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./app/shared/styles/colors.scss";
+
+@font-face {
+    font-family: 'Product Sans';
+    src: url('./assets/fonts/Product\ Sans\ Regular.ttf');
+}
+
+// Setting rem size
+* {
+    font-size: 10px;
+    font-family: 'Lexend Deca', 'Work Sans', sans-serif;
+    border: none;
+    text-decoration: none;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+a:hover, a {
+    color: $black;
+}
+
+html,body {
+    background-color: $grey2;
+    color: $black;
+}
+
+// Setting headings sizes
+h1 {
+    font-family: 'Rubik','Product Sans','Lexend Deca', 'Work Sans', sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: -1px;
+    font-weight: 500;
+}
+h2 {
+    font-family: 'Rubik','Product Sans','Lexend Deca', 'Work Sans', sans-serif;
+    font-size: 2.9rem;
+}
+h3 {
+    font-family: 'Rubik','Product Sans','Lexend Deca', 'Work Sans', sans-serif;
+    font-size: 2.5rem;
+}
+h4 {
+    font-family: 'Rubik','Product Sans','Lexend Deca', 'Work Sans', sans-serif;
+    font-size: 2rem;
+}
+p {
+    font-family: 'Rubik','Product Sans','Lexend Deca', 'Work Sans', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin: 0
+}
+
+// Reset margins
+html, body, h1 {
+    margin: 0;
+}
+
+// Inputs and labels
+input {
+    background-color: $grey2;
+    width: 100%;
+    height: 4.2rem;
+    border-radius: .65rem;
+    padding: .2rem 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 400;
+    font-family: 'Rubik', 'Lexend Deca', 'Roboto', sans-serif;
+    box-sizing: border-box;
+    color: $grey-secondary;
+}
+input:focus {
+    border: none;
+    outline: none;
+}
+input::placeholder {
+    color: $grey-placeholder;
+}
+label {
+    display: flex;
+    justify-content: space-between;
+    color: $black;
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: 0 .3rem;
+    margin-bottom: .6rem;
+    font-family: 'Rubik';
+}
+
+label > p {
+    display: inline-flex;
+    color: $error;
+    font-size: 1.3rem;
+    display: none;
+}
+
+// Buttons
+button {
+    background-color: $grey2;
+    padding: 1rem 2.4rem;
+    border-radius: .9rem;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 500;
+    transition: all .2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    font-family: 'Rubik';
+}
+button:disabled {
+    background-color: $grey2;
+    color: $grey-secondary;
+    cursor: auto;
+}
+button.primary {
+    background-color: $primary;
+    color: $white;
+    font-weight: 400;
+}
+button.primary:hover {
+    background-color: $primary-effect;
+}
