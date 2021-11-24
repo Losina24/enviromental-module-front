@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ApplicationLayoutComponent } from './components/layouts/application-layout/application-layout.component';
 import { LateralMenuComponent } from './components/lateral-menu/lateral-menu.component';
-import { RootLayoutComponent } from './components/layouts/root-layout/root-layout.component';
 import { GeneralDashboardComponent } from './components/general-dashboard/general-dashboard.component';
 
 @NgModule({
@@ -16,14 +15,12 @@ import { GeneralDashboardComponent } from './components/general-dashboard/genera
     // Aqui va la declaración de componentes compartidos
     LateralMenuComponent,
     ApplicationLayoutComponent,
-    RootLayoutComponent,
     GeneralDashboardComponent,
   ],
   exports: [
     // Aqui van los componentes que queremos exportar
 	LateralMenuComponent,
     ApplicationLayoutComponent,
-    RootLayoutComponent,
     GeneralDashboardComponent,
   ],
 })

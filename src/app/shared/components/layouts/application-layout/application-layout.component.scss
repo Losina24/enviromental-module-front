@@ -1,0 +1,70 @@
+@import "../../../styles/colors.scss";
+
+.application-container {
+    display: flex;
+    overflow: hidden;
+}
+.parent-layout-container {
+    width: 100%;
+}
+.layout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 7rem;
+    padding: .2rem 2rem;
+    /* background-color: $grey3; */
+    box-sizing: border-box;
+}
+
+.layout-header-div {
+    background-color: $white;
+    border-radius: 0.9rem;
+}
+
+.layout-header-div > button {
+    background-color: $white;
+    padding: .6rem .6rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    /* border-radius: 100rem; */
+    box-sizing: border-box;
+    margin-left: .6rem;
+}
+
+.layout-header-div > button > i {
+    font-size: 2rem;
+    color: $black;
+    transition: .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.layout-header-div > button:hover > i {
+    color: $primary-effect;
+}
+
+.layout-header-div > button:last-of-type{
+    margin-right: .6rem;
+}
+
+.burger-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    background-color: $white;
+    padding: 0;
+}
+
+.burgerline {
+    margin: .2rem;
+    background-color: $black;
+    height: 2px;
+    width: 1.8rem;
+    transition: .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.burger-button:hover > .burgerline {
+    background-color: $primary-effect;
+}

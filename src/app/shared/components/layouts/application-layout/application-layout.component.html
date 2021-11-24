@@ -1,7 +1,31 @@
-<!-- Parent container -->
-<div>
-
+<div class="application-container">
+    <!-- Lateral menu -->
     <app-lateral-menu></app-lateral-menu>
 
+    <!-- Parent container -->
+    <section class="parent-layout-container">
+        <!-- Header -->
+        <header class="layout-header">
+            <button class="burger-button" (click)="changeMenuStatus()">
+                <span class="burgerline"></span>
+                <span class="burgerline"></span>
+                <span class="burgerline"></span>
+            </button>
+
+            <div class="layout-header-div">
+                <!-- <button><img src="" alt="Language flag">ES</button> -->
+                <button>
+                    <i class="bi bi-bell-fill notification-icon"></i>
+                </button>
+
+                <button>
+                    <i class="bi bi-person-circle user-icon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Page -->
+        <router-outlet></router-outlet>
+    </section>
 
 </div>

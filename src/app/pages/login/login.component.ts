@@ -1,3 +1,10 @@
+/**
+ * Name: login.component.ts
+ * Date: 22 - 11 - 2021
+ * Author: Alejandro Losa García
+ * Description: Logic for login page
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
