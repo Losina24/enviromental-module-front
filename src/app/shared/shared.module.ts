@@ -4,24 +4,26 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ApplicationLayoutComponent } from './components/layouts/application-layout/application-layout.component';
 import { LateralMenuComponent } from './components/lateral-menu/lateral-menu.component';
+import { SimpleDashboardFrameComponent } from './components/dashboard-components/simple-dashboard-frame/simple-dashboard-frame.component';
 import { GeneralDashboardComponent } from './components/general-dashboard/general-dashboard.component';
 
 @NgModule({
   imports: [
     // Aqui se declaran los módulos que utilizamos
-	RouterModule
+	  RouterModule
   ],
   declarations: [
     // Aqui va la declaración de componentes compartidos
     LateralMenuComponent,
     ApplicationLayoutComponent,
+    SimpleDashboardFrameComponent,
     GeneralDashboardComponent,
   ],
   exports: [
     // Aqui van los componentes que queremos exportar
-	LateralMenuComponent,
+	  LateralMenuComponent,
     ApplicationLayoutComponent,
-    GeneralDashboardComponent,
+    SimpleDashboardFrameComponent
   ],
 })
 export class SharedModule {}

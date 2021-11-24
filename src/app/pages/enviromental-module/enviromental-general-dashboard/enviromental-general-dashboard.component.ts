@@ -6,6 +6,7 @@
  */
 
 import { Component, OnInit } from '@angular/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-enviromental-general-dashboard',
@@ -14,7 +15,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EnviromentalGeneralDashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
   }
