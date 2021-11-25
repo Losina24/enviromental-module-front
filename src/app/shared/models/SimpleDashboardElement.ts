@@ -7,15 +7,18 @@
 import DashboardElement from "./DashboardElement"; 
 
 export default class SimpleDashboardElement extends DashboardElement {
-	
+     
+     // Atributes
+     private icon: string;
+
 	// Methods
 	/**
      * Returns the content of the dashboard element
-     * getContent() -> number
+     * getContent() -> Z
      * 
      * @returns Content
      */
-	public getContent(): number {
+	public getContent(): number | string {
 		return this.content
 	}
 
@@ -23,9 +26,29 @@ export default class SimpleDashboardElement extends DashboardElement {
      * Set the content of the dashboard element
      * Z -> setContent() -> 
      * 
-     * @param title The dashboard element's content
+     * @param content The dashboard element's content
      */
-	public setContent( content: number ): void {
+	public setContent( content: number | string ): void {
 		this.content = content
+	}
+
+     /**
+     * Returns the icon of the dashboard element
+     * getIcon() -> Text
+     * 
+     * @returns Icon
+     */
+	public getIcon(): string {
+		return this.icon
+	}
+
+	/**
+     * Set the icon of the dashboard element
+     * Z -> setIcon() -> 
+     * 
+     * @param icon The dashboard element's content
+     */
+	public setIcon( icon: string ): void {
+		this.icon = icon
 	}
 }

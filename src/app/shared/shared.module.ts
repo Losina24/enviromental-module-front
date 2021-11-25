@@ -25,7 +25,7 @@ import { GeneralDashboardComponent } from './components/general-dashboard/genera
 	  LateralMenuComponent,
     ApplicationLayoutComponent,
     SimpleDashboardFrameComponent,
-    GeneralDashboardComponent
+    GeneralDashboardComponent,
   ],
 })
 export class SharedModule {}

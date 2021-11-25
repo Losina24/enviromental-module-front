@@ -12,6 +12,8 @@ import { ApplicationLayoutComponent } from './shared/components/layouts/applicat
 import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.component';
 // Management Module
 import { ManagementDashboardComponent } from './pages/management-module/management-dashboard/management-dashboard.component';
+// Enviromental Module
+import { EnviromentalDashboardComponent } from './pages/enviromental-module/enviromental-dashboard/enviromental-dashboard.component';
 
 const routes: Routes = [
   { 
@@ -34,6 +36,10 @@ const routes: Routes = [
       {
         path: 'gestion',
         component: ManagementDashboardComponent 
+      },
+      {
+        path: 'ambiental',
+        component: EnviromentalDashboardComponent 
       }
     ]
   }

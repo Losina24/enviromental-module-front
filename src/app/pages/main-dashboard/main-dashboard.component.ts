@@ -16,33 +16,51 @@ import SimpleDashboardElement from 'src/app/shared/models/SimpleDashboardElement
 })
 export class MainDashboardComponent implements OnInit {
 
-	dashboardElements: DashboardElement[] = new Array<DashboardElement>();
+	dashboardElements: SimpleDashboardElement[] = new Array<SimpleDashboardElement>();
 
 	constructor(
 		private _cdr: ChangeDetectorRef
 	) {}
 
 	ngOnInit(): void {
-		var dashEl = new SimpleDashboardElement();
-		dashEl.setTitle('Login')
-		dashEl.setContent(51)
-		dashEl.setLink('/login')
-		this.dashboardElements.push(dashEl)
+		this.generateDashboardComponents();
+	}
 
-		var dashEl2 = new SimpleDashboardElement();
-		dashEl2.setTitle('Ambiental')
-		dashEl2.setContent(38)
-		dashEl2.setLink('/dash/enviromental')
-		this.dashboardElements.push(dashEl2)
+	generateDashboardComponents() {
+		var devicesElement = new SimpleDashboardElement();
+		devicesElement.setTitle('Dispositivos')
+		devicesElement.setContent(3)
+		devicesElement.setLink('/dash/gestion/dispositivos')
+		devicesElement.setIcon('bi-phone-vibrate-fill')
+		this.dashboardElements.push(devicesElement)
 
-		var dashEl3 = new SimpleDashboardElement();
-		dashEl3.setTitle('Gestión')
-		dashEl3.setContent(43)
-		dashEl3.setLink('/dash/gestion')
-		this.dashboardElements.push(dashEl3)	
-		this.dashboardElements.push(dashEl3)	
-		this.dashboardElements.push(dashEl3)	
-		this.dashboardElements.push(dashEl3)		
+		var sensorsElement = new SimpleDashboardElement();
+		sensorsElement.setTitle('Sensores')
+		sensorsElement.setContent(12)
+		sensorsElement.setLink('/dash/gestion/sensores')
+		sensorsElement.setIcon('bi-usb-symbol')
+		this.dashboardElements.push(sensorsElement)	
+		
+		var measuresElement = new SimpleDashboardElement();
+		measuresElement.setTitle('Nuevas mediciones')
+		measuresElement.setContent(374)
+		measuresElement.setLink('/dash/ambiental/mediciones')
+		measuresElement.setIcon('bi-speedometer2')
+		this.dashboardElements.push(measuresElement)
+		
+		var alertsElement = new SimpleDashboardElement();
+		alertsElement.setTitle('Nuevas alertas')
+		alertsElement.setContent(0)
+		alertsElement.setLink('/dash/ambiental/alertas')
+		alertsElement.setIcon('bi-exclamation-triangle-fill')
+		this.dashboardElements.push(alertsElement)
+
+		var alertsElement = new SimpleDashboardElement();
+		alertsElement.setTitle('Mapa')
+		alertsElement.setContent('Ver')
+		alertsElement.setLink('/dash/ambiental/alertas')
+		alertsElement.setIcon('bi-geo-fill')
+		this.dashboardElements.push(alertsElement)
 
 		this._cdr.detectChanges();
 	}

@@ -9,6 +9,7 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { LoginComponent } from './pages/login/login.component';
 import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.component';
 import { ManagementDashboardComponent } from './pages/management-module/management-dashboard/management-dashboard.component';
+import { EnviromentalDashboardComponent } from './pages/enviromental-module/enviromental-dashboard/enviromental-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ManagementDashboardComponent } from './pages/management-module/manageme
     LandingPageComponent,
     LoginComponent,
     MainDashboardComponent,
-    ManagementDashboardComponent
+    ManagementDashboardComponent,
+    EnviromentalDashboardComponent
   ],
   imports: [
     BrowserModule,

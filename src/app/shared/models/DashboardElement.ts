@@ -9,7 +9,7 @@ export default abstract class DashboardElement {
     // Atributes
     private title: string;
     private link: string;
-    protected content: number;
+    protected content: number | string;
 
     // Constructor
     constructor(){}
@@ -61,7 +61,7 @@ export default abstract class DashboardElement {
      * 
      * @param content The dashboard element's title
      */
-    abstract setContent( content:number ): void
+    abstract setContent( content: number | string ): void
 
     /**
      * Returns the content of the dashboard element
@@ -69,5 +69,5 @@ export default abstract class DashboardElement {
      * 
      * @returns Content
      */
-    abstract getContent(): number
+    abstract getContent(): number | string
 }

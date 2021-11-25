@@ -10,8 +10,9 @@ export class SimpleDashboardFrameComponent implements OnInit {
   
   @Input() dashboardElement: SimpleDashboardElement;
   title: string;
-  content: number;
+  content: number | string;
   link: string;
+  icon: string;
 
   constructor() { }
 
@@ -19,6 +20,7 @@ export class SimpleDashboardFrameComponent implements OnInit {
     this.title = this.dashboardElement.getTitle();
     this.content = this.dashboardElement.getContent();
     this.link = this.dashboardElement.getLink();
+    this.icon = this.dashboardElement.getIcon();
   }
 
 }
