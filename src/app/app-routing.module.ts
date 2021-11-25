@@ -10,6 +10,8 @@ import { ApplicationLayoutComponent } from './shared/components/layouts/applicat
 
 // Session pages
 import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.component';
+// Management Module
+import { ManagementDashboardComponent } from './pages/management-module/management-dashboard/management-dashboard.component';
 
 const routes: Routes = [
   { 
@@ -31,7 +33,7 @@ const routes: Routes = [
       },
       {
         path: 'gestion',
-        component: MainDashboardComponent 
+        component: ManagementDashboardComponent 
       }
     ]
   }

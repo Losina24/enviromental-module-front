@@ -10,7 +10,8 @@ import { GeneralDashboardComponent } from './components/general-dashboard/genera
 @NgModule({
   imports: [
     // Aqui se declaran los módulos que utilizamos
-	  RouterModule
+	  RouterModule,
+    CommonModule
   ],
   declarations: [
     // Aqui va la declaración de componentes compartidos
@@ -23,7 +24,8 @@ import { GeneralDashboardComponent } from './components/general-dashboard/genera
     // Aqui van los componentes que queremos exportar
 	  LateralMenuComponent,
     ApplicationLayoutComponent,
-    SimpleDashboardFrameComponent
+    SimpleDashboardFrameComponent,
+    GeneralDashboardComponent
   ],
 })
 export class SharedModule {}

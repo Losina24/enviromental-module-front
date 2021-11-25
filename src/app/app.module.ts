@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.component';
+import { ManagementDashboardComponent } from './pages/management-module/management-dashboard/management-dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     LoginComponent,
-    MainDashboardComponent
+    MainDashboardComponent,
+    ManagementDashboardComponent
   ],
   imports: [
     BrowserModule,

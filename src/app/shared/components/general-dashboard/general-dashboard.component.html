@@ -1,1 +1,5 @@
-<p>general-dashboard works!</p>
+<section style="display: flex;" [ngStyle]="{'justify-content': (dashboardElements.length > 4) ? 'center' : 'flex-start'}">
+    <section class="dashboard-element-container">
+        <app-simple-dashboard-frame *ngFor="let element of dashboardElements" [dashboardElement]="element" class="simple-frame"></app-simple-dashboard-frame>
+    </section>
+</section>
