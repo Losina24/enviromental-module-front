@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import ListElement from 'src/app/shared/models/ListElement';
 import ListField from 'src/app/shared/models/ListField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
+import { EnviromentalDevicesService } from '../enviromental-devices.service';
 
 @Component({
   selector: 'app-enviromental-device-list',
@@ -11,10 +12,15 @@ import { TitleUpdaterService } from 'src/app/shared/services/title-updater.servi
 export class EnviromentalDeviceListComponent implements OnInit {
 
   listElements: ListElement[]
+  orderIndex: number = 0;
+  pageIndex: number = 1;
+  pageSize: number = 10;
+  total: number = 0;
 
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
-		private _cdr: ChangeDetectorRef
+		private _cdr: ChangeDetectorRef,
+    private _service: EnviromentalDevicesService
   ) { }
 
   ngOnInit(): void {
@@ -23,6 +29,14 @@ export class EnviromentalDeviceListComponent implements OnInit {
   }
 
   generateListElements() {
+
+    /* this._service.getEnviromentalDevicePagination(this.email, this.password).subscribe( res => {
+      if(res.response.http != 204) {
+        sessionStorage.setItem('user', JSON.stringify(res.response));
+      } else {
+        this.error= true;
+      }
+    }) */
     let lf1 = new ListField();
     lf1.setName("Nombre");
     lf1.setValue("Alejandro");

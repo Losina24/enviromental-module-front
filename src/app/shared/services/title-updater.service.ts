@@ -14,13 +14,10 @@ export class TitleUpdaterService {
   }
 
   changeTitle(title: string) {
-    console.log('jajajajaj');
-    
     this.title$.next(title);
   }
 
   getTitle$(): Observable<string> {
-    console.log('jujuju');
     return this.title$.asObservable();
   }
 }

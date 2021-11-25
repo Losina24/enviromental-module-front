@@ -6,7 +6,8 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -21,14 +22,25 @@ export class LoginComponent implements OnInit {
   error: boolean = false;
   submitted: boolean = false;
 
-  constructor() {
+  constructor(
+    private _service: LoginService,
+    private _router: Router
+  ) {
   }
 
   ngOnInit(): void {}
 
   onSubmit() {
     if(this.email.length > 0 && this.password.length > 0) {
-      this.error= true;
+      this._router.navigateByUrl("/dash");
+      this._service.checkLogin(this.email, this.password).subscribe( res => {
+        if(res.response.http != 204) {
+          sessionStorage.setItem('userId', "1");
+          sessionStorage.setItem('role', "root");
+        } else {
+          this.error= true;
+        }
+      })
     }
   }
 }
