@@ -16,6 +16,14 @@ import { EnviromentalMeasureListComponent } from './pages/enviromental-module/en
 import { EnviromentalAlertListComponent } from './pages/enviromental-module/enviromental-alerts/enviromental-alert-list/enviromental-alert-list.component';
 import { EnviromentalDeviceFormComponent } from './pages/enviromental-module/enviromental-devices/enviromental-device-form/enviromental-device-form.component';
 import { EnviromentalSensorFormComponent } from './pages/enviromental-module/enviromental-sensors/enviromental-sensor-form/enviromental-sensor-form.component';
+import { ManagementCouncilListComponent } from './pages/management-module/management-councils/management-council-list/management-council-list.component';
+import { ManagementCouncilFormComponent } from './pages/management-module/management-councils/management-council-form/management-council-form.component';
+import { ManagementGatewayFormComponent } from './pages/management-module/management-gateways/management-gateway-form/management-gateway-form.component';
+import { ManagementGatewayListComponent } from './pages/management-module/management-gateways/management-gateway-list/management-gateway-list.component';
+import { ManagementNetworkServerListComponent } from './pages/management-module/management-network-servers/management-network-server-list/management-network-server-list.component';
+import { ManagementNetworkServerFormComponent } from './pages/management-module/management-network-servers/management-network-server-form/management-network-server-form.component';
+import { ManagementUserListComponent } from './pages/management-module/management-users/management-user-list/management-user-list.component';
+import { ManagementUserFormComponent } from './pages/management-module/management-users/management-user-form/management-user-form.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +38,15 @@ import { EnviromentalSensorFormComponent } from './pages/enviromental-module/env
     EnviromentalMeasureListComponent,
     EnviromentalAlertListComponent,
     EnviromentalDeviceFormComponent,
-    EnviromentalSensorFormComponent
+    EnviromentalSensorFormComponent,
+    ManagementCouncilListComponent,
+    ManagementCouncilFormComponent,
+    ManagementGatewayFormComponent,
+    ManagementGatewayListComponent,
+    ManagementNetworkServerListComponent,
+    ManagementNetworkServerFormComponent,
+    ManagementUserListComponent,
+    ManagementUserFormComponent
   ],
   imports: [
     BrowserModule,

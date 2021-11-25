@@ -42,14 +42,14 @@ export class ManagementDashboardComponent implements OnInit {
 		var gatewaysElement = new SimpleDashboardElement();
 		gatewaysElement.setTitle('Gateways')
 		gatewaysElement.setContent(42)
-		gatewaysElement.setLink('/dash/gestion/usuarios')
+		gatewaysElement.setLink('/dash/gestion/gateways')
 		gatewaysElement.setIcon('bi-router-fill')
 		this.dashboardElements.push(gatewaysElement)
 		
 		var networkServersElement = new SimpleDashboardElement();
 		networkServersElement.setTitle('Network Servers')
 		networkServersElement.setContent(42)
-		networkServersElement.setLink('/dash/gestion/usuarios')
+		networkServersElement.setLink('/dash/gestion/network_servers')
 		networkServersElement.setIcon('bi-server')
 		this.dashboardElements.push(networkServersElement)
 

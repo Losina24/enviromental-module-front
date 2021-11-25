@@ -10,8 +10,18 @@ import { ApplicationLayoutComponent } from './shared/components/layouts/applicat
 
 // Session pages
 import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.component';
+
 // Management Module
 import { ManagementDashboardComponent } from './pages/management-module/management-dashboard/management-dashboard.component';
+import { ManagementCouncilListComponent } from './pages/management-module/management-councils/management-council-list/management-council-list.component';
+import { ManagementCouncilFormComponent } from './pages/management-module/management-councils/management-council-form/management-council-form.component';
+import { ManagementGatewayListComponent } from './pages/management-module/management-gateways/management-gateway-list/management-gateway-list.component';
+import { ManagementGatewayFormComponent } from './pages/management-module/management-gateways/management-gateway-form/management-gateway-form.component';
+import { ManagementNetworkServerListComponent } from './pages/management-module/management-network-servers/management-network-server-list/management-network-server-list.component';
+import { ManagementNetworkServerFormComponent } from './pages/management-module/management-network-servers/management-network-server-form/management-network-server-form.component';
+import { ManagementUserListComponent } from './pages/management-module/management-users/management-user-list/management-user-list.component';
+import { ManagementUserFormComponent } from './pages/management-module/management-users/management-user-form/management-user-form.component';
+
 // Enviromental Module
 import { EnviromentalDashboardComponent } from './pages/enviromental-module/enviromental-dashboard/enviromental-dashboard.component';
 import { EnviromentalDeviceListComponent } from './pages/enviromental-module/enviromental-devices/enviromental-device-list/enviromental-device-list.component';
@@ -39,11 +49,45 @@ const routes: Routes = [
         path: '',
         component: MainDashboardComponent 
       },
+
       // Management module
       {
         path: 'gestion',
         component: ManagementDashboardComponent 
       },
+      {
+        path: 'gestion/ayuntamientos',
+        component: ManagementCouncilListComponent 
+      },
+      {
+        path: 'gestion/ayuntamientos/crear',
+        component: ManagementCouncilFormComponent 
+      },
+      {
+        path: 'gestion/gateways',
+        component: ManagementGatewayListComponent 
+      },
+      {
+        path: 'gestion/gateways/crear',
+        component: ManagementGatewayFormComponent 
+      },
+      {
+        path: 'gestion/network_servers',
+        component: ManagementNetworkServerListComponent 
+      },
+      {
+        path: 'gestion/network_servers/crear',
+        component: ManagementNetworkServerFormComponent 
+      },
+      {
+        path: 'gestion/usuarios',
+        component: ManagementUserListComponent 
+      },
+      {
+        path: 'gestion/usuarios/crear',
+        component: ManagementUserFormComponent 
+      },
+
       // Enviromental module
       {
         path: 'ambiental',
