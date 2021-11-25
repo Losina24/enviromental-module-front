@@ -1,0 +1,16 @@
+<table class="list-table">
+    <!-- Automatic generated header -->
+    <tr class="list-table-header">
+        <th *ngFor="let title of titles;" class="list-table-header-field">{{ title }} <i class="bi bi-arrow-down-short icon-down"></i></th>
+    </tr>
+
+    <!-- Automatic generated body -->
+    <tr *ngFor="let element of listElements; let i = index;" class="list-table-entry">
+        <td *ngFor="let field of element.getListFieldValues();" class="list-table-entry-field">{{ field }}</td>
+    </tr>
+</table>
+
+<div class="list-buttons">
+    <button (click)="prevPage()" class="primary"><!-- <i class="bi bi-arrow-left"></i> --> Anterior </button>
+    <button (click)="nextPage()" class="primary">Siguiente <!-- <i class="bi bi-arrow-right"></i> --></button>
+</div>

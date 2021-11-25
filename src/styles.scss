@@ -38,7 +38,7 @@ h4 {
     font-family: 'Rubik','Product Sans','Lexend Deca', 'Work Sans', sans-serif;
     font-size: 2rem;
 }
-p {
+p,a {
     font-family: 'Rubik','Product Sans','Lexend Deca', 'Work Sans', sans-serif;
     font-size: 1.4rem;
     font-weight: 400;
@@ -51,7 +51,7 @@ html, body, h1 {
 }
 
 // Inputs and labels
-input {
+input, select {
     background-color: $grey2;
     width: 100%;
     height: 4.2rem;
@@ -63,7 +63,7 @@ input {
     box-sizing: border-box;
     color: $grey-secondary;
 }
-input:focus {
+input:focus, select:focus {
     border: none;
     outline: none;
 }
@@ -88,7 +88,7 @@ label > p {
 }
 
 // Buttons
-button {
+button, a.link-button {
     background-color: $grey2;
     padding: 1rem 2.4rem;
     border-radius: .9rem;
@@ -97,26 +97,204 @@ button {
     font-weight: 500;
     transition: all .2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
     font-family: 'Rubik';
+    transition: .2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 button:disabled {
     background-color: $grey2;
     color: $grey-secondary;
     cursor: auto;
 }
-button.primary {
+button.primary, a.primary {
     background-color: $primary;
     color: $white;
     font-weight: 400;
 }
-button.primary:hover {
+button.primary:hover, a.primary:hover {
     background-color: $primary-effect;
 }
+button.cancel, a.cancel {
+    background-color: $red;
+    color: $white;
+    font-weight: 400;
+}
+button.cancel:hover, a.cancel:hover {
+    background-color: $red-effect;
+}
+button.white, a.white {
+    background-color: $white;
+    color: $black2;
+    color: $primary;
+    font-weight: 500;
+}
+button.white:hover, a.white:hover {
+    background-color: $white-soft;
+    color: $primary-effect;
+}
+option {
+    font-family: 'Rubik';
+    font-size: 1.5rem;
+}
 
-.dashboard-container {
+// Dashboards
+.dashboard-container, .list-container {
     display: flex;
     margin: 2rem 1rem;
 }
 
 .general-dashboard {
     width: 100%;
+}
+
+// Lists
+.list-container {
+    display: flex;
+    margin-right: 0;
+}
+
+.list-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.list-table > tr {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.list-table-header-field {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 1.8rem;
+    font-weight: 500;
+    font-size: 1.4rem;
+    /* border-left: 1px solid $grey3; */
+    flex: 1 1 0;
+    color: $black2;
+    color: $primary;
+    color: rgb(197, 197, 206);
+    font-family: 'Rubik', 'Roboto', sans-serif;
+    cursor: pointer;
+    transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.list-table-header-field:first-of-type {
+    border-left: 0;
+}
+
+.list-table-entry-field {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1 1 0;
+    padding: 2rem;
+    padding-left: 1.8rem;
+    padding-right: 0rem;
+    font-size: 1.3rem;
+    font-family: 'Rubik', 'Roboto', sans-serif;
+    font-weight: 500;
+    color: rgb(197, 197, 206);
+    color: $black2;
+}
+
+.list-table-entry {
+    border-radius: 1rem;
+    margin: .5rem 0;
+    cursor: pointer;
+    transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.list-table-entry:hover {
+    background-color: $white-soft;
+}
+
+.list-table-header-field:hover {
+    color:rgb(142, 142, 145);
+}
+
+.list-table-header {
+    background-color: $white;
+    height: 5.6rem;
+    /* border-radius: 1rem; */
+    padding: 1.9rem 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid $grey3;
+}
+
+.list-table-field-big {
+    flex: 1.5 1 0;
+}
+
+.list-table-field-small {
+    flex: .5 1 0;
+}
+
+.list-component {
+    width: 100%;
+}
+
+.list-table {
+    background-color: $white;
+    border-radius: 1rem;
+    padding: 0 1.5rem 1rem 1.5rem;
+}
+
+.icon-down {
+    font-size: 1.7rem;
+    margin-left: .2rem;
+}
+
+.list-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.4rem;
+}
+
+.list-buttons > button, .list-buttons > a {
+    /* margin-left: 1rem; */
+    font-size: 1.3rem;
+    margin-left: 1rem;
+}
+
+.list-buttons > button > .bi-arrow-right {
+    font-size: 1.3rem;
+    margin-left: .4rem;
+}
+
+.list-buttons > button > .bi-arrow-left {
+    font-size: 1.3rem;
+    margin-right: .4rem;
+}
+
+.upper-buttons {
+    position: absolute;
+    right: 2.8rem;
+    top: 8.8rem;
+}
+
+.formulary-container {
+    display: flex;
+    margin-top: 2rem;
+}
+
+.formulary {
+    width: 100%;
+}
+
+.form-div {
+    display: flex;
+    border-radius: 1rem;
+    background-color: $white;
+    padding: 3rem 1.5rem;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.formulary-basic {
+    width: 100%;
+    max-width: 50rem;
+    margin: 0 2.5rem;
 }

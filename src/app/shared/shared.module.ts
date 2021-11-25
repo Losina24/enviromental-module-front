@@ -6,6 +6,8 @@ import { ApplicationLayoutComponent } from './components/layouts/application-lay
 import { LateralMenuComponent } from './components/lateral-menu/lateral-menu.component';
 import { SimpleDashboardFrameComponent } from './components/dashboard-components/simple-dashboard-frame/simple-dashboard-frame.component';
 import { GeneralDashboardComponent } from './components/general-dashboard/general-dashboard.component';
+import { GeneralListComponent } from './components/general-list/general-list.component';
+import { GeneralFormComponent } from './components/general-form/general-form.component';
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import { GeneralDashboardComponent } from './components/general-dashboard/genera
     ApplicationLayoutComponent,
     SimpleDashboardFrameComponent,
     GeneralDashboardComponent,
+    GeneralListComponent,
+    GeneralFormComponent,
   ],
   exports: [
     // Aqui van los componentes que queremos exportar
@@ -26,6 +30,7 @@ import { GeneralDashboardComponent } from './components/general-dashboard/genera
     ApplicationLayoutComponent,
     SimpleDashboardFrameComponent,
     GeneralDashboardComponent,
+    GeneralListComponent
   ],
 })
 export class SharedModule {}
