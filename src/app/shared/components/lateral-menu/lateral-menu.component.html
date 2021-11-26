@@ -1,0 +1,54 @@
+<nav class="lateral-menu">
+    <h2 class="menu-title">GESWAT</h2>
+
+    <div class="menu-modules">
+        <a href="/dash" class="module">
+            <span>
+                <i class="bi bi-house-door-fill notification-icon"></i>
+            </span>
+            Home
+        </a>
+
+        <a *ngIf="role == 'admin' || role == 'root'" href="/dash/gestion" class="module">
+            <span>
+                <i class="bi bi-wrench notification-icon"></i>
+            </span>
+            Gestión
+        </a>
+
+        <a href="/dash/ambiental" class="module">
+            <span>
+                <i class="bi bi-recycle notification-icon"></i>
+            </span>
+            Ambiental
+        </a>
+
+        <a class="module module-future">
+            <span>
+                <i class="bi bi-droplet-fill notification-icon"></i>
+            </span>
+            Agua
+        </a>
+
+        <a class="module module-future">
+            <span>
+                <i class="bi bi-lightning-charge-fill notification-icon"></i>
+            </span>
+            Alumbrado público
+        </a>
+
+        <a class="module module-future">
+            <span>
+                <i class="bi bi-people-fill notification-icon"></i>
+            </span>
+            Aforo
+        </a>
+
+        <a class="module module-future">
+            <span>
+                <i class="bi bi-door-open-fill notification-icon"></i>
+            </span>
+            Puertas
+        </a>
+    </div>
+</nav>

@@ -1,0 +1,85 @@
+@import "../../shared/styles/colors.scss";
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: $grey;
+}
+
+.login-header {
+    height: 6rem;
+    padding: 1rem 4rem;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    background-color: $black2;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 6rem);
+    margin-top: -2rem;
+}
+
+.login-rectangle {
+    display: flex;
+    flex-direction: column;
+    padding: 3.5rem 5rem 3rem 5rem;
+    width: 55%;
+    max-width: 70rem;
+    background-color: $white;
+    border-radius: 1.8rem;
+    box-sizing:border-box;
+}
+
+.login-rectangle > h1 {
+    margin-bottom: 3.6rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+form > label {
+    display: inline-flex;
+}
+
+form > input {
+    margin-bottom: 2.2rem;
+}
+
+#submit-login {
+    align-self: flex-end;
+    width: 10rem;
+}
+
+.login-header > a {
+    font-size: 2rem;
+    font-weight: 500;
+    color: $white;
+}
+
+a > span {
+    font-size: 2rem;
+    font-weight: 400;
+    color: $white;
+}
+
+.msg-alert {
+    margin-left: .4rem;
+    width: 18rem;
+    color: $error;
+    align-self: center;
+}
+
+.btn-div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2.4rem;
+}
