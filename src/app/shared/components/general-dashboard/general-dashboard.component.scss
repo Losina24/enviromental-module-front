@@ -1,0 +1,11 @@
+.dashboard-element-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-basis: 200rem;
+    justify-content: flex-start;
+}
+
+.simple-frame {
+    margin: 0 3rem 3rem 0rem;
+}

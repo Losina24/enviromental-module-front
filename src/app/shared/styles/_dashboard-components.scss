@@ -1,0 +1,56 @@
+.dash-element-container {
+    display: flex;
+    flex-direction: column;
+    width: 30rem;
+    min-height: 17rem;
+    padding: 1.8rem 2rem 1.5rem 2.5rem;
+    background-color: $white;
+    border-radius: 2rem;
+    box-sizing: border-box;
+    box-shadow: 5px 15px 50px -10px #dadae71a;
+    transition: all .25s cubic-bezier(1, .33, .33, 1);
+}
+.dash-element-container > div {
+    display: flex;
+    justify-content: space-between;
+}
+.dash-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.8rem;
+    width: 2.8rem;
+    border-radius: 12rem;
+    background-color: $grey3;
+    color: $primary;
+
+    background-color: $primary;
+    color: $grey3;
+}
+.dash-icon > i {
+    font-size: 1.5rem;
+}
+.dash-element-title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 2.2rem;
+}
+.dash-element-subtitle {
+    margin: 0;
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: $grey-placeholder;
+    margin-top: .1rem;
+}
+.dash-element-content {
+    margin: 0;
+    margin-top: .5rem;
+    font-weight: 300;
+    font-size: 7.6rem;
+    color: $primary;
+    font-family: 'Rubik', 'Work Sans', sans-serif;
+}
+
+.dash-element-container:hover {
+    transform: scale(1.03);
+}
