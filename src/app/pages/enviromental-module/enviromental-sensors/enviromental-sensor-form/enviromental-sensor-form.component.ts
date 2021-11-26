@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnChanges } from '@angular/core';
 import FormElement from 'src/app/shared/models/FormElement';
 import FormField from 'src/app/shared/models/FormField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
+import { EnviromentalSensorsService } from '../enviromental-sensors.service';
+import { Router } from '@angular/router';
 
 enum InputType {
   Text = "text",
@@ -21,31 +23,39 @@ enum InputType {
 export class EnviromentalSensorFormComponent implements OnInit {
 
   formElement: FormElement
-  formRecolector: Array<string | number | boolean> = new Array<string | number | boolean>();
+  formRecolector: Array<string> = new Array<string>();
 
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
-		private _cdr: ChangeDetectorRef
+		private _cdr: ChangeDetectorRef,
+    private _service: EnviromentalSensorsService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
     this._titleUpdaterService.changeTitle("Crear sensor");
-    this.generateListElements()
+    this.generateFormElements()
   }
 
-  generateListElements() {
+  generateFormElements() {
     let ff1 = new FormField("Nombre del sensor", "Escribe un nombre", InputType.Text, "name");
+    let ff2 = new FormField("Tipo de sensor", "Selecciona un tipo de sensor", InputType.Select, "type", true, [[1, "ambiental_type"]]);
+    let ff3 = new FormField("Dispositivo", "Elige un dispositivo", InputType.Select, "deviceId", true, [[1, "amb_dev_1"], [2, "amb_dev_2"], [10, "Device123_123"]]);
+    let ff4 = new FormField("DeviceEUI", "DeviceEUI", InputType.Text, "deviceEUI");
 
-    let ff2 = new FormField("Dispositivo", "Elige un dispositivo", InputType.Select, "device", true, [[1, "DispositivoA1S32"], [2, "DispositivoA1S33"], [3, "DispositivoA1S34"]]);
-
-    let ff3 = new FormField("Gateway", "Elige un gateway", InputType.Select, "gateway", true, [[1, "Gateway de Gandia"], [2, "Gateway de Valencia"], [3, "Gateway de Madrid"]]);
-
-    this.formElement = new FormElement([ff1, ff2, ff3])
+    this.formElement = new FormElement([ff1, ff4, ff3, ff2])
 
     this._cdr.detectChanges()
   }
 
   submit() {
-    
+    this._service.storeEnviromentalSensor(this.formRecolector[0], this.formRecolector[1], this.formRecolector[2], this.formRecolector[3]).subscribe((res: any) => {
+      if(res.http == 200) {
+        alert("Sensor creado")
+        this._router.navigateByUrl('/dash/ambiental/sensores')
+      } else {
+        alert("Hay algun error")
+      }
+    })
   }
 }

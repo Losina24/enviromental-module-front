@@ -32,11 +32,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if(this.email.length > 0 && this.password.length > 0) {
-      this._router.navigateByUrl("/dash");
       this._service.checkLogin(this.email, this.password).subscribe( res => {
-        if(res.response.http != 204) {
-          sessionStorage.setItem('userId', "1");
-          sessionStorage.setItem('role', "root");
+        
+        if(res != null) {
+          sessionStorage.setItem('userId', res.response.userId);
+          sessionStorage.setItem('role', res.response.role);
+          this._router.navigateByUrl("/dash");
         } else {
           this.error= true;
         }
