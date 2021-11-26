@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import SimpleDashboardElement from 'src/app/shared/models/SimpleDashboardElement';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-simple-dashboard-frame',

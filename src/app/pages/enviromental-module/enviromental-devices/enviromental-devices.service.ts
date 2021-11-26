@@ -15,8 +15,8 @@ export class EnviromentalDevicesService {
     return this._httpClient.get(`${this.api}/user/${userId}/${pageSize}/${pageIndex}`)
   }
 
-  storeEnviromentalDevice(name:string, deviceEUI: string, gatewayId: string, latitude: string, longitude: string) {
-    let params = {name: name, deviceEUI: deviceEUI, gatewayId: gatewayId, latitude: latitude, longitude: longitude}
+  storeEnviromentalDevice(name:string, deviceEUI: string, gatewayId: string, latitude: string, longitude: string, userId: string) {
+    let params = {name: name, deviceEUI: deviceEUI, gatewayId: gatewayId, latitude: latitude, longitude: longitude, userId: userId}
     console.log('params', params);
     
     return this._httpClient.post(`${this.api}/`, params)

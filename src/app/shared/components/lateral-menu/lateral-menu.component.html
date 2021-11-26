@@ -9,7 +9,7 @@
             Home
         </a>
 
-        <a href="/dash/gestion" class="module">
+        <a *ngIf="role == 'admin' || role == 'root'" href="/dash/gestion" class="module">
             <span>
                 <i class="bi bi-wrench notification-icon"></i>
             </span>

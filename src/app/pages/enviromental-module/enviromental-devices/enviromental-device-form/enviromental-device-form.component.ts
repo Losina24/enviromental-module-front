@@ -23,6 +23,8 @@ export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
   
   formElement: FormElement
   formRecolector: Array<string> = new Array<string >();
+  userId:any;
+  role:any;
 
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
@@ -48,6 +50,10 @@ export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
       this.userId = parseInt(userId)
       //@ts-ignore
       this.role = sessionStorage.getItem("role");
+
+      if(this.role != "admin" && this.role != "root") {
+        this._router.navigateByUrl("/");
+      }
     } else {
       this._router.navigateByUrl("/");
     }
@@ -66,10 +72,12 @@ export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
   }
 
   submit() {
-    this._service.storeEnviromentalDevice(this.formRecolector[0], this.formRecolector[1], this.formRecolector[2], this.formRecolector[3], this.formRecolector[4]).subscribe((res: any) => {
+    this._service.storeEnviromentalDevice(this.formRecolector[0], this.formRecolector[1], this.formRecolector[2], this.formRecolector[3], this.formRecolector[4], this.userId).subscribe((res: any) => {
+      console.log(res);
+      
       if(res.http == 200) {
         alert("Dispositivo creado")
-        this._router.navigateByUrl('/dash/ambiental/dispositivos/crear')
+        this._router.navigateByUrl('/dash/ambiental/dispositivos')
       } else {
         alert("Hay algun error")
       }

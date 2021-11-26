@@ -1,4 +1,4 @@
-<div class="upper-buttons">
+<div *ngIf="role == 'admin' || role == 'root'" class="upper-buttons">
     <a href="/dash/ambiental/sensores/crear" class="link-button white">Crear</a>
 </div>
 

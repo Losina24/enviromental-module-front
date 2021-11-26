@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import DashboardElement from 'src/app/shared/models/DashboardElement';
 import SimpleDashboardElement from 'src/app/shared/models/SimpleDashboardElement';
+import { MainDashboardServiceService } from '../../main-dashboard/main-dashboard-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-enviromental-dashboard',
@@ -11,37 +13,87 @@ import SimpleDashboardElement from 'src/app/shared/models/SimpleDashboardElement
 export class EnviromentalDashboardComponent implements OnInit {
 
   dashboardElements: SimpleDashboardElement[] = new Array<SimpleDashboardElement>();
+  measures: number = 0;
+	devices: number = 0;
+	alerts: number = 0;
+	sensors: number = 0;
+	userId: string;
 
   constructor(
 		private _titleUpdaterService: TitleUpdaterService,
-		private _cdr: ChangeDetectorRef
+		private _cdr: ChangeDetectorRef,
+		private _service: MainDashboardServiceService,
+		private _router: Router
 	) { }
 
 	ngOnInit(): void {
 		this._titleUpdaterService.changeTitle("Dashboard ambiental");
+		this.getUserInformation()
+
+		this._service.getMeasures("1").subscribe((res) => {
+			console.log(res)
+			this.measures = res.response.length;
+			this.generateDashboardComponents();
+			this._cdr.detectChanges()
+		})
+
+		this._service.getDevices(this.userId).subscribe((res) => {
+			console.log(res)
+			this.devices = res.response.length;
+			this.generateDashboardComponents();
+			this._cdr.detectChanges()
+		})
+
+		this._service.getAlerts(this.userId).subscribe((res) => {
+			console.log(res)
+			this.alerts = res.response.length;
+			this.generateDashboardComponents();
+			this._cdr.detectChanges()
+		})
+
+		this._service.getSensors(this.userId).subscribe((res) => {
+			console.log(res)
+			this.sensors = res.response.length;
+			this.generateDashboardComponents();
+			this._cdr.detectChanges()
+		})
+
 		this.generateDashboardComponents();
 	}
 
+	getUserInformation() {
+		if(sessionStorage.getItem("userId") != null) {
+		  let userId = sessionStorage.getItem("userId");
+		  //@ts-ignore
+		  this.userId = parseInt(userId)
+		  //@ts-ignore
+		  this.role = sessionStorage.getItem("role");
+		} else {
+		  this._router.navigateByUrl("/");
+		}
+	  }
+
 	generateDashboardComponents() {
+		this.dashboardElements = []
     let rootUrl: string = "/dash/ambiental/";
 
 		var devicesElement = new SimpleDashboardElement();
 		devicesElement.setTitle('Dispositivos')
-		devicesElement.setContent(286)
+		devicesElement.setContent(this.devices)
 		devicesElement.setLink(rootUrl + 'dispositivos')
 		devicesElement.setIcon('bi-phone-vibrate-fill')
 		this.dashboardElements.push(devicesElement)
 
 		var sensorsElement = new SimpleDashboardElement();
 		sensorsElement.setTitle('Sensores')
-		sensorsElement.setContent(450)
+		sensorsElement.setContent(this.sensors)
 		sensorsElement.setLink(rootUrl + 'sensores')
 		sensorsElement.setIcon('bi-usb-symbol')
 		this.dashboardElements.push(sensorsElement)	
 		
 		var measuresElement = new SimpleDashboardElement();
 		measuresElement.setTitle('Mediciones')
-		measuresElement.setContent("35.2k")
+		measuresElement.setContent(this.measures)
 		measuresElement.setLink(rootUrl + 'mediciones')
 		measuresElement.setIcon('bi-speedometer2')
 		this.dashboardElements.push(measuresElement)
@@ -55,7 +107,7 @@ export class EnviromentalDashboardComponent implements OnInit {
 
     var notificationsElement = new SimpleDashboardElement();
 		notificationsElement.setTitle('Alertas')
-		notificationsElement.setContent(2)
+		notificationsElement.setContent(this.alerts)
 		notificationsElement.setLink(rootUrl + 'alertas')
 		notificationsElement.setIcon('bi-exclamation-triangle-fill')
 		this.dashboardElements.push(notificationsElement)
