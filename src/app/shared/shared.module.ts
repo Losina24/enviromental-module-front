@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ApplicationLayoutComponent } from './components/layouts/application-layout/application-layout.component';
 import { LateralMenuComponent } from './components/lateral-menu/lateral-menu.component';
@@ -13,7 +14,8 @@ import { GeneralFormComponent } from './components/general-form/general-form.com
   imports: [
     // Aqui se declaran los módulos que utilizamos
 	  RouterModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   declarations: [
     // Aqui va la declaración de componentes compartidos
@@ -30,7 +32,8 @@ import { GeneralFormComponent } from './components/general-form/general-form.com
     ApplicationLayoutComponent,
     SimpleDashboardFrameComponent,
     GeneralDashboardComponent,
-    GeneralListComponent
+    GeneralListComponent,
+    GeneralFormComponent
   ],
 })
 export class SharedModule {}
