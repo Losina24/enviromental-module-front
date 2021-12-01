@@ -40,18 +40,6 @@ export class ManagementGatewayFormComponent implements OnInit, OnChanges {
     this.generateFormElements();
   }
 
-  getUserInformation() {
-    if(sessionStorage.getItem("userId") != null) {
-      let userId = sessionStorage.getItem("userId");
-      //@ts-ignore
-      this.userId = parseInt(userId)
-      //@ts-ignore
-      this.role = sessionStorage.getItem("role");
-    } else {
-      this._router.navigateByUrl("/");
-    }
-  }
-
   generateFormElements() {
     let ff1 = new FormField("Nombre del gateway", "Escribe un nombre", InputType.Text, "name");
     let ff2 = new FormField("Mac del gateway", "Escribe una dirección MAC", InputType.Text, "mac");

@@ -33,24 +33,11 @@ export class ManagementCouncilFormComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this._titleUpdaterService.changeTitle("Crear ayuntamiento");
-    this.getUserInformation()
     this.generateFormElements();
   }
 
   ngOnChanges() {
     this.generateFormElements();
-  }
-
-  getUserInformation() {
-    if(sessionStorage.getItem("userId") != null) {
-      let userId = sessionStorage.getItem("userId");
-      //@ts-ignore
-      this.userId = parseInt(userId)
-      //@ts-ignore
-      this.role = sessionStorage.getItem("role");
-    } else {
-      this._router.navigateByUrl("/");
-    }
   }
 
   generateFormElements() {

@@ -21,11 +21,13 @@ enum InputType {
 })
 export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
   
+  // Atributes
   formElement: FormElement
   formRecolector: Array<string> = new Array<string >();
   userId:any;
   role:any;
 
+  // Constructor
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
 		private _cdr: ChangeDetectorRef,
@@ -33,30 +35,17 @@ export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
     private _router: Router
   ) { }
 
+  // Method
   ngOnInit(): void {
+    // Title management
     this._titleUpdaterService.changeTitle("Crear dispositivo");
-    this.getUserInformation()
+
+    // Generating the DOM elements
     this.generateFormElements();
   }
 
   ngOnChanges() {
     this.generateFormElements();
-  }
-
-  getUserInformation() {
-    if(sessionStorage.getItem("userId") != null) {
-      let userId = sessionStorage.getItem("userId");
-      //@ts-ignore
-      this.userId = parseInt(userId)
-      //@ts-ignore
-      this.role = sessionStorage.getItem("role");
-
-      if(this.role != "admin" && this.role != "root") {
-        this._router.navigateByUrl("/");
-      }
-    } else {
-      this._router.navigateByUrl("/");
-    }
   }
 
   generateFormElements() {

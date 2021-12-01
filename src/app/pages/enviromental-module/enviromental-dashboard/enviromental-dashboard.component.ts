@@ -4,22 +4,24 @@ import DashboardElement from 'src/app/shared/models/DashboardElement';
 import SimpleDashboardElement from 'src/app/shared/models/SimpleDashboardElement';
 import { MainDashboardServiceService } from '../../main-dashboard/main-dashboard-service.service';
 import { Router } from '@angular/router';
+import UserSession from 'src/app/shared/models/UserSession';
 
 @Component({
   selector: 'app-enviromental-dashboard',
   templateUrl: './enviromental-dashboard.component.html',
   styleUrls: ['./enviromental-dashboard.component.scss']
 })
+
 export class EnviromentalDashboardComponent implements OnInit {
 
-  dashboardElements: SimpleDashboardElement[] = new Array<SimpleDashboardElement>();
-  measures: number = 0;
+	dashboardElements: SimpleDashboardElement[] = new Array<SimpleDashboardElement>();
+	measures: number = 0;
 	devices: number = 0;
 	alerts: number = 0;
 	sensors: number = 0;
-	userId: string;
+	userId: number;
 
-  constructor(
+    constructor(
 		private _titleUpdaterService: TitleUpdaterService,
 		private _cdr: ChangeDetectorRef,
 		private _service: MainDashboardServiceService,
@@ -27,10 +29,18 @@ export class EnviromentalDashboardComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		// Setting the title
 		this._titleUpdaterService.changeTitle("Dashboard ambiental");
-		this.getUserInformation()
 
-		this._service.getMeasures("1").subscribe((res) => {
+		// Getting the data from the API
+		this.getDashboardElements();
+
+		// Generating the html components
+		this.generateDashboardComponents();
+	}
+
+	getDashboardElements() {
+		this._service.getMeasures(1).subscribe((res) => {
 			console.log(res)
 			this.measures = res.response.length;
 			this.generateDashboardComponents();
@@ -57,25 +67,11 @@ export class EnviromentalDashboardComponent implements OnInit {
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
-
-		this.generateDashboardComponents();
 	}
-
-	getUserInformation() {
-		if(sessionStorage.getItem("userId") != null) {
-		  let userId = sessionStorage.getItem("userId");
-		  //@ts-ignore
-		  this.userId = parseInt(userId)
-		  //@ts-ignore
-		  this.role = sessionStorage.getItem("role");
-		} else {
-		  this._router.navigateByUrl("/");
-		}
-	  }
 
 	generateDashboardComponents() {
 		this.dashboardElements = []
-    let rootUrl: string = "/dash/ambiental/";
+    	let rootUrl: string = "/dash/ambiental/";
 
 		var devicesElement = new SimpleDashboardElement();
 		devicesElement.setTitle('Dispositivos')
@@ -105,7 +101,7 @@ export class EnviromentalDashboardComponent implements OnInit {
 		mapElement.setIcon('bi-geo-fill')
 		this.dashboardElements.push(mapElement)
 
-    var notificationsElement = new SimpleDashboardElement();
+    	var notificationsElement = new SimpleDashboardElement();
 		notificationsElement.setTitle('Alertas')
 		notificationsElement.setContent(this.alerts)
 		notificationsElement.setLink(rootUrl + 'alertas')

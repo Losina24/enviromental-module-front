@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class EnviromentalDeviceListComponent implements OnInit {
   
+  // Atributes
   listElements: ListElement[] = [];
   orderIndex: number = 0;
   pageIndex: number = 1;
@@ -20,6 +21,7 @@ export class EnviromentalDeviceListComponent implements OnInit {
   userId: number;
   role: string;
 
+  // Constructor
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
 		private _cdr: ChangeDetectorRef,
@@ -27,22 +29,13 @@ export class EnviromentalDeviceListComponent implements OnInit {
     private _router: Router
   ) { }
 
+  // Methods
   ngOnInit(): void {
+    // Setting the title
     this._titleUpdaterService.changeTitle("Dispositivos ambientales");
-    this.getUserInformation()
-    this.generateListElements()
-  }
 
-  getUserInformation() {
-    if(sessionStorage.getItem("userId") != null) {
-      let userId = sessionStorage.getItem("userId");
-      //@ts-ignore
-      this.userId = parseInt(userId)
-      //@ts-ignore
-      this.role = sessionStorage.getItem("role");
-    } else {
-      this._router.navigateByUrl("/");
-    }
+    // Generating the DOM elements
+    this.generateListElements()
   }
 
   generateListElements() {

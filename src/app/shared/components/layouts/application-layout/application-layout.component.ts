@@ -6,8 +6,11 @@
  */
 
 import { Component, OnChanges, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
+import UserSession from 'src/app/shared/models/UserSession';
+
 //@ts-ignore
 import anime from 'animejs/lib/anime.es.js';
 
@@ -16,21 +19,36 @@ import anime from 'animejs/lib/anime.es.js';
   templateUrl: './application-layout.component.html',
   styleUrls: ['./application-layout.component.scss']
 })
+
 export class ApplicationLayoutComponent implements OnInit {
 
+  // Atributes
   menu: boolean = true;
-  title: string = "Dashboard general"
+  title: string = "Dashboard general";
+  userId: number;
 
+  // Constructor
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
-    private _cdr: ChangeDetectorRef
+    private _cdr: ChangeDetectorRef,
+    private _router: Router
   ) { }
-
+  
+  // Methods
   ngOnInit(): void {
+    // Page title management
     this._titleUpdaterService.getTitle$().subscribe( (title:string) => {
       this.title = title;
       this._cdr.detectChanges();
     })
+
+    // Session management
+    let userSession = new UserSession();
+		if(userSession.checkSession()) {
+			this.userId = userSession.getUserId();
+		} else {
+			//this._router.navigateByUrl("/");
+		}
   }
   
   changeMenuStatus() {

@@ -10,31 +10,43 @@ import DashboardElement from 'src/app/shared/models/DashboardElement';
 import SimpleDashboardElement from 'src/app/shared/models/SimpleDashboardElement';
 import { MainDashboardServiceService } from './main-dashboard-service.service';
 import { Router } from '@angular/router';
+import UserSession from 'src/app/shared/models/UserSession';
 
 @Component({
 	selector: 'app-main-dashboard',
 	templateUrl: './main-dashboard.component.html',
 	styleUrls: ['./main-dashboard.component.scss'],
 })
-export class MainDashboardComponent implements OnInit, OnChanges {
 
+export class MainDashboardComponent implements OnInit {
+
+	// Atributes
 	dashboardElements: SimpleDashboardElement[] = new Array<SimpleDashboardElement>();
 	measures: number = 0;
 	devices: number = 0;
 	alerts: number = 0;
 	sensors: number = 0;
-	userId: string;
+	userId: number;
 
+	// Constructor
 	constructor(
 		private _cdr: ChangeDetectorRef,
 		private _service: MainDashboardServiceService,
 		private _router: Router
 	) {}
 
+	// On init
 	ngOnInit(): void {
-		this.getUserInformation()
+		// Calling the API
+		this.getDashboardInformation();
 
-		this._service.getMeasures("1").subscribe((res) => {
+		// Creating the HTML components in the DOM
+		this.generateDashboardComponents();
+	}
+
+	// Method used to get the information from the API
+	getDashboardInformation() {
+		this._service.getMeasures(1).subscribe((res) => {
 			console.log(res)
 			this.measures = res.response.length;
 			this.generateDashboardComponents();
@@ -61,26 +73,9 @@ export class MainDashboardComponent implements OnInit, OnChanges {
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
-
-		this.generateDashboardComponents();
 	}
 
-	ngOnChanges(): void {
-
-	}
-
-	getUserInformation() {
-		if(sessionStorage.getItem("userId") != null) {
-		  let userId = sessionStorage.getItem("userId");
-		  //@ts-ignore
-		  this.userId = parseInt(userId)
-		  //@ts-ignore
-		  this.role = sessionStorage.getItem("role");
-		} else {
-		  this._router.navigateByUrl("/");
-		}
-	  }
-
+	// Method that creates the HTML components
 	generateDashboardComponents() {
 		this.dashboardElements = []
 

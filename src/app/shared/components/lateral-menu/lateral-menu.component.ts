@@ -21,17 +21,7 @@ export class LateralMenuComponent implements OnInit {
     private _router: Router
   ) { }
 
-  ngOnInit(): void {
-    if(sessionStorage.getItem("userId") != null) {
-      let userId = sessionStorage.getItem("userId");
-      //@ts-ignore
-      this.userId = parseInt(userId)
-      //@ts-ignore
-      this.role = sessionStorage.getItem("role");
-    } else {
-      this._router.navigateByUrl("/");
-    }
-    
+  ngOnInit(): void {    
   }
 
 }

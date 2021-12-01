@@ -24,20 +24,7 @@ export class ManagementCouncilListComponent implements OnInit {
 
   ngOnInit(): void {
     this._titleUpdaterService.changeTitle("Ayuntamientos");
-    this.getUserInformation();
     this.generateListElements();
-  }
-
-  getUserInformation() {
-    if(sessionStorage.getItem("userId") != null) {
-      let userId = sessionStorage.getItem("userId");
-      //@ts-ignore
-      this.userId = parseInt(userId)
-      //@ts-ignore
-      this.role = sessionStorage.getItem("role");
-    } else {
-      this._router.navigateByUrl("/");
-    }
   }
 
   generateListElements() {
