@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnChanges, AfterViewInit } from '@angular/core';
 import ListElement from 'src/app/shared/models/ListElement';
 import ListField from 'src/app/shared/models/ListField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
@@ -11,7 +11,7 @@ import UserSession from 'src/app/shared/models/UserSession';
   templateUrl: './enviromental-device-list.component.html',
   styleUrls: ['./enviromental-device-list.component.scss']
 })
-export class EnviromentalDeviceListComponent implements OnInit {
+export class EnviromentalDeviceListComponent implements OnInit, AfterViewInit {
   
   // Atributes
   listElements: ListElement[] = [];
@@ -28,7 +28,7 @@ export class EnviromentalDeviceListComponent implements OnInit {
 		private _cdr: ChangeDetectorRef,
     private _service: EnviromentalDevicesService,
     private _router: Router
-  ) { }
+  ) {}
 
   // Methods
   ngOnInit(): void {
@@ -41,6 +41,11 @@ export class EnviromentalDeviceListComponent implements OnInit {
     // Setting the user's role
     let session = new UserSession();
     this.role = session.getRole();
+  }
+
+  ngAfterViewInit() {
+    // Setting the title
+    this._titleUpdaterService.changeTitle("Dispositivos ambientales");
   }
 
   generateListElements() {

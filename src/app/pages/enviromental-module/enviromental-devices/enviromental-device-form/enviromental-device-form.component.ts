@@ -56,7 +56,6 @@ export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
     let ff5 = new FormField("Longitud", "Escribe una longitud", InputType.Text, "longitude");
 
     this.formElement = new FormElement([ff1, ff2, ff3, ff4, ff5])
-
     this._cdr.detectChanges()
   }
 
@@ -73,5 +72,10 @@ export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
         this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el dispositivo"]);
       }
     }) */
+  }
+
+  cancel() {
+    this._router.navigateByUrl('/dash/ambiental/dispositivos')
+    this._cdr.detectChanges()
   }
 }

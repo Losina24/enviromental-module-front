@@ -13,6 +13,7 @@ export default class FormField {
   private type: string;
   private name: string;
   private options: [number, string][];
+  private value: string;
 
   // Constructor
   constructor(
@@ -96,8 +97,18 @@ export default class FormField {
   }
 
   /**
+   * Returns the input's value
+   * getValue() -> Text
+   * 
+   * @returns Value
+   */
+  public getValue(): string {
+    return this.value
+  }
+
+  /**
    * Set the element's label
-   * Text -> setLabel()
+   * Text -> setLabel() ->
    *
    * @param label
    */
@@ -107,7 +118,7 @@ export default class FormField {
 
   /**
    * Set the element's name
-   * Text -> setName()
+   * Text -> setName() ->
    *
    * @param name
    */
@@ -117,7 +128,7 @@ export default class FormField {
 
   /**
    * Set the element's placeholder
-   * Text -> setPlaceholder()
+   * Text -> setPlaceholder() ->
    *
    * @param placeholder
    */
@@ -127,7 +138,7 @@ export default class FormField {
 
   /**
    * Set the element's required
-   * Text -> setRequired()
+   * Text -> setRequired() ->
    *
    * @param required
    */
@@ -137,7 +148,7 @@ export default class FormField {
 
   /**
    * Set the element's type
-   * Text -> setType()
+   * Text -> setType() ->
    *
    * @param type
    */
@@ -147,11 +158,21 @@ export default class FormField {
 
   /**
    * Set the element's type
-   * [[number, string]] -> setOptions()
+   * [[number, string]] -> setOptions() ->
    *
    * @param type
    */
   public setOptions(options: [number, string][]): void {
     this.options = options;
+  }
+
+  /**
+   * Set the input's value
+   * Text -> setValue() ->
+   * 
+   * @param value 
+   */
+  public setValue(value: string) {
+    this.value = value
   }
 }

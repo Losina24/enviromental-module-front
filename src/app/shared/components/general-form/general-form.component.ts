@@ -11,6 +11,7 @@ import { SharedModule } from '../../shared.module';
 export class GeneralFormComponent implements OnInit {
 
   @Output() formValues: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
+  @Output() cancelAction: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() formElement: FormElement
   formRecolector: Array<string> = new Array<string>();
   formError: string;
@@ -23,11 +24,14 @@ export class GeneralFormComponent implements OnInit {
   }
 
   submit() {
-      console.log('este es el form element', this.formElement)
       if( this.formElement.checkRequiredInputs(this.formRecolector) ) {
         this.formValues.emit(this.formRecolector)
       } else {
         this.formError = "Hay campos obligatorios que están vacíos.";
       }
+  }
+
+  cancel() {
+    this.cancelAction.emit(true)
   }
 }
