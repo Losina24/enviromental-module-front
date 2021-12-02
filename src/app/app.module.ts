@@ -56,7 +56,7 @@ import { ManagementUserFormComponent } from './pages/management-module/managemen
     SharedModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

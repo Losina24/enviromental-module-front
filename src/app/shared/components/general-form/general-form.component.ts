@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import FormElement from 'src/app/shared/models/FormElement';
 import FormField from 'src/app/shared/models/FormField';
 import { SharedModule } from '../../shared.module';
@@ -10,23 +10,24 @@ import { SharedModule } from '../../shared.module';
 })
 export class GeneralFormComponent implements OnInit {
 
+  @Output() formValues: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
   @Input() formElement: FormElement
   formRecolector: Array<string> = new Array<string>();
+  formError: string;
 
-  constructor() { }
+  constructor(
+    private _cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
   }
 
-  submit() {    
-    
-    /* this._service.storeGateway(this.formRecolector[0], this.formRecolector[1], this.formRecolector[2], this.formRecolector[3], this.formRecolector[4]).subscribe((res: any) => {
-      if(res.http == 200) {
-        alert("Gateway creado")
-        this._router.navigateByUrl('/dash/gestion/gateways')
+  submit() {
+      console.log('este es el form element', this.formElement)
+      if( this.formElement.checkRequiredInputs(this.formRecolector) ) {
+        this.formValues.emit(this.formRecolector)
       } else {
-        alert("Hay algun error")
+        this.formError = "Hay campos obligatorios que están vacíos.";
       }
-    }) */
   }
 }

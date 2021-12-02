@@ -26,9 +26,11 @@
 
         <!-- Page -->
         <main class="page">
-            <h1>{{ title }}</h1>
+            <h1 class="title">{{ title }}</h1>
             <router-outlet></router-outlet>
         </main>
     </section>
-
 </div>
+
+<!-- Popup message -->
+<app-popup-message [display]="popupMessageStatus" class="popup"></app-popup-message>

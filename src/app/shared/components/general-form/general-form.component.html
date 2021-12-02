@@ -18,8 +18,11 @@
         </div>
 
         <div class="list-buttons list-buttons-form">
-            <a href="/dash/gestion/gateways" class="link-button cancel">Cancelar <!-- <i class="bi bi-arrow-right"></i> --></a>
-            <button (click)="submit()" class="primary"><!-- <i class="bi bi-arrow-left"></i> -->Aceptar </button>
+            <p class="error-msg">{{ formError }}</p>
+            <div class="list-buttons-form-right">
+                <button (click)="submit()" class="primary"><!-- <i class="bi bi-arrow-left"></i> -->Aceptar</button>
+                <a href="/dash/gestion/gateways" class="link-button cancel">Cancelar <!-- <i class="bi bi-arrow-right"></i> --></a>
+            </div>
         </div>
     </form>
 </section>

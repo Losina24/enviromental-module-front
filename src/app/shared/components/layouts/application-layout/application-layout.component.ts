@@ -9,6 +9,7 @@ import { Component, OnChanges, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
+import { PopupMessageService } from '../../popup-message/popup-message.service';
 import UserSession from 'src/app/shared/models/UserSession';
 
 //@ts-ignore
@@ -25,11 +26,14 @@ export class ApplicationLayoutComponent implements OnInit {
   // Atributes
   menu: boolean = true;
   title: string = "Dashboard general";
+  popupMessageStatus = false;
+  popupMessage: [title:string, message:string, error: boolean];
   userId: number;
 
   // Constructor
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
+    private _popupMessageService: PopupMessageService,
     private _cdr: ChangeDetectorRef,
     private _router: Router
   ) { }
@@ -40,6 +44,39 @@ export class ApplicationLayoutComponent implements OnInit {
     this._titleUpdaterService.getTitle$().subscribe( (title:string) => {
       this.title = title;
       this._cdr.detectChanges();
+    })
+
+    this._popupMessageService.getMessage$().subscribe( (message: [string, string, boolean]) => {
+      this.popupMessage = message;
+      this.popupMessageStatus = true;
+
+      setTimeout(() => {
+        anime({
+          targets: '.popup-message-container',
+          right: '52rem',
+          easing: 'easeInOutQuart',
+          duration: 1000,
+        });
+
+        setTimeout(() => {
+          anime({
+            targets: '.popup-message-container',
+            right: '-52rem',
+            easing: 'easeInOutQuart',
+            duration: 1000,
+          });
+
+          setTimeout(() => {
+            this.popupMessageStatus = false;
+          }, 1200);
+
+        }, 4500);
+      }, 50);
+
+    })
+
+    this._popupMessageService.getClose().subscribe( res => {
+      this.popupMessageStatus = false;
     })
 
     // Session management

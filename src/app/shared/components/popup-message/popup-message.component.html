@@ -1,0 +1,12 @@
+<div class="container-popup" *ngIf="display">
+    <section class="popup-message-container">
+        <i *ngIf="error == true" class="bi bi-check-circle popup-icon"></i>
+        <i *ngIf="error == false" class="bi bi-x-circle popup-icon"></i>
+        <div class="popup-text">
+            <h3>{{ title }}</h3>
+            <p>{{ message }}</p>
+        </div>
+
+        <button (click)="closePopup()" class="popup-close"><i class="bi bi-x"></i></button>
+    </section>
+</div>

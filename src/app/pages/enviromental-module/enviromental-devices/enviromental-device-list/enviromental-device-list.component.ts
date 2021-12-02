@@ -4,6 +4,7 @@ import ListField from 'src/app/shared/models/ListField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import { EnviromentalDevicesService } from '../enviromental-devices.service';
 import { Router } from '@angular/router';
+import UserSession from 'src/app/shared/models/UserSession';
 
 @Component({
   selector: 'app-enviromental-device-list',
@@ -36,6 +37,10 @@ export class EnviromentalDeviceListComponent implements OnInit {
 
     // Generating the DOM elements
     this.generateListElements()
+    
+    // Setting the user's role
+    let session = new UserSession();
+    this.role = session.getRole();
   }
 
   generateListElements() {

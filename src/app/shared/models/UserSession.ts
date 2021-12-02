@@ -52,4 +52,8 @@ export default class UserSession {
     public getUserId(): number {
         return this.userId;
     }
+
+    public getRole(): string {
+        return this.userRole;
+    }
 }

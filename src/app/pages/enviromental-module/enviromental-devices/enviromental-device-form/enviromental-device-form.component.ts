@@ -4,6 +4,7 @@ import FormField from 'src/app/shared/models/FormField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import { EnviromentalDevicesService } from '../enviromental-devices.service';
 import { Router } from '@angular/router';
+import { PopupMessageService } from 'src/app/shared/components/popup-message/popup-message.service';
 
 enum InputType {
   Text = "text",
@@ -17,13 +18,12 @@ enum InputType {
 @Component({
   selector: 'app-enviromental-device-form',
   templateUrl: './enviromental-device-form.component.html',
-  styleUrls: ['./enviromental-device-form.component.scss']
+  styleUrls: ['./enviromental-device-form.component.scss'],
 })
 export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
   
   // Atributes
   formElement: FormElement
-  formRecolector: Array<string> = new Array<string >();
   userId:any;
   role:any;
 
@@ -32,6 +32,7 @@ export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
     private _titleUpdaterService: TitleUpdaterService,
 		private _cdr: ChangeDetectorRef,
     private _service: EnviromentalDevicesService,
+    private _popupMessageService: PopupMessageService,
     private _router: Router
   ) { }
 
@@ -39,7 +40,6 @@ export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     // Title management
     this._titleUpdaterService.changeTitle("Crear dispositivo");
-
     // Generating the DOM elements
     this.generateFormElements();
   }
@@ -60,16 +60,18 @@ export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
     this._cdr.detectChanges()
   }
 
-  submit() {
-    this._service.storeEnviromentalDevice(this.formRecolector[0], this.formRecolector[1], this.formRecolector[2], this.formRecolector[3], this.formRecolector[4], this.userId).subscribe((res: any) => {
-      console.log(res);
-      
+  submit(formValues: Array<string>) {
+    this._router.navigateByUrl('/dash/ambiental/dispositivos')
+    this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente", true])
+
+    /* this._service.storeEnviromentalDevice(formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], this.userId).subscribe((res: any) => {
+        
       if(res.http == 200) {
-        alert("Dispositivo creado")
         this._router.navigateByUrl('/dash/ambiental/dispositivos')
+        this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente"])
       } else {
-        alert("Hay algun error")
+        this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el dispositivo"]);
       }
-    })
+    }) */
   }
 }
