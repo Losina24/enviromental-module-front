@@ -37,7 +37,7 @@ export class ManagementDashboardComponent implements OnInit {
 		if(userSession.checkSession()) {
 			this.userId = userSession.getUserId();
 		} else {
-			this._router.navigateByUrl("/");
+			//this._router.navigateByUrl("/");
 		}
 
 		// Getting the information from the API

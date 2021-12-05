@@ -1,1 +1,1 @@
-<app-general-form></app-general-form>
+<app-general-form (formValues)="submit($event)" (cancelAction)="cancel()" [formElement]="formElement"></app-general-form>

@@ -4,6 +4,7 @@ import FormField from 'src/app/shared/models/FormField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import { Router } from '@angular/router';
 import { ManagementUsersService } from '../management-users.service';
+import { PopupMessageService } from 'src/app/shared/components/popup-message/popup-message.service';
 
 enum InputType {
   Text = "text",
@@ -28,7 +29,8 @@ export class ManagementUserFormComponent implements OnInit, OnChanges {
     private _titleUpdaterService: TitleUpdaterService,
 		private _cdr: ChangeDetectorRef,
     private _router: Router,
-    private _service: ManagementUsersService
+    private _service: ManagementUsersService,
+    private _popupMessageService: PopupMessageService
   ) { }
 
   ngOnInit(): void {
@@ -56,14 +58,23 @@ export class ManagementUserFormComponent implements OnInit, OnChanges {
     this._cdr.detectChanges()
   }
 
-  submit() {
-    this._service.storeUser(this.formRecolector[0], this.formRecolector[1], this.formRecolector[2], this.formRecolector[3], this.formRecolector[4], this.formRecolector[5], this.formRecolector[6], this.formRecolector[7], this.formRecolector[8]).subscribe((res: any) => {
+  submit(formValues: Array<string>) {
+    this._router.navigateByUrl('/dash/ambiental/dispositivos')
+    this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente", true])
+
+    /* this._service.storeEnviromentalDevice(formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], this.userId).subscribe((res: any) => {
+        
       if(res.http == 200) {
-        alert("Usuario creado")
-        this._router.navigateByUrl('/dash/gestion/usuarios')
+        this._router.navigateByUrl('/dash/ambiental/dispositivos')
+        this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente"])
       } else {
-        alert("Hay algun error")
+        this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el dispositivo"]);
       }
-    })
+    }) */
+  }
+
+  cancel() {
+    this._router.navigate(['/dash/gestion/usuarios'])
+    this._cdr.detectChanges()
   }
 }

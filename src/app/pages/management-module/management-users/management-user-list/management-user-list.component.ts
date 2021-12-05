@@ -3,7 +3,7 @@ import ListElement from 'src/app/shared/models/ListElement';
 import ListField from 'src/app/shared/models/ListField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import { ManagementUsersService } from '../management-users.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-management-user-list',
@@ -19,7 +19,8 @@ export class ManagementUserListComponent implements OnInit {
 		private _cdr: ChangeDetectorRef,
     private _router: Router,
     private _service: ManagementUsersService
-  ) { }
+  ) { 
+  }
 
   ngOnInit(): void {
     this._titleUpdaterService.changeTitle("Usuarios");

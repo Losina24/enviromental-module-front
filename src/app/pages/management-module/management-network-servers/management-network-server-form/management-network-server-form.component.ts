@@ -4,6 +4,7 @@ import FormField from 'src/app/shared/models/FormField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import { Router } from '@angular/router';
 import { ManagementNetworkServerService } from '../management-network-servers.service';
+import { PopupMessageService } from 'src/app/shared/components/popup-message/popup-message.service';
 
 enum InputType {
   Text = "text",
@@ -28,7 +29,8 @@ export class ManagementNetworkServerFormComponent implements OnInit, OnChanges {
     private _titleUpdaterService: TitleUpdaterService,
 		private _cdr: ChangeDetectorRef,
     private _service: ManagementNetworkServerService,
-    private _router: Router
+    private _router: Router,
+    private _popupMessageService: PopupMessageService
   ) { }
 
   ngOnInit(): void {
@@ -54,14 +56,23 @@ export class ManagementNetworkServerFormComponent implements OnInit, OnChanges {
     this._cdr.detectChanges()
   }
 
-  submit() {    
-    this._service.storeNetorkServer(this.formRecolector[0], this.formRecolector[1], this.formRecolector[2], this.formRecolector[3], this.formRecolector[4], this.formRecolector[5], this.formRecolector[6]).subscribe((res: any) => {
+  submit(formValues: Array<string>) {
+    this._router.navigateByUrl('/dash/gestion/network_servers')
+    this._popupMessageService.sendMessage(["¡Bien!", "El network server ha sido creado correctamente", true])
+
+    /* this._service.storeEnviromentalDevice(formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], this.userId).subscribe((res: any) => {
+        
       if(res.http == 200) {
-        alert("Network server creado")
-        this._router.navigateByUrl('/dash/gestion/network_servers')
+        this._router.navigateByUrl('/dash/ambiental/dispositivos')
+        this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente"])
       } else {
-        alert("Hay algun error")
+        this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el dispositivo"]);
       }
-    })
+    }) */
+  }
+
+  cancel() {
+    this._router.navigate(['/dash/gestion/network_servers'])
+    this._cdr.detectChanges()
   }
 }
