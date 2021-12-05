@@ -1,9 +1,6 @@
 <div *ngIf="role == 'admin' || role == 'root'" class="upper-buttons">
     <a href="/dash/ambiental/dispositivos/crear" class="link-button">Crear</a>
 </div>
-<div class="upper-buttons">
-    <a href="/dash/ambiental/dispositivos/crear" class="link-button">Crear</a>
-</div>
 
 <section class="list-container">
     <app-general-list class="list-component" [listElements]="listElements"></app-general-list>
