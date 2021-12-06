@@ -34,12 +34,34 @@ export class ManagementUserFormComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    this._titleUpdaterService.changeTitle("Crear usuario");
-    this.generateFormElements();
+    if(this.isUpdate() > 0) {
+      this._titleUpdaterService.changeTitle("Editar usuario");
+      this.generateFormElements();
+    } else {
+      this._titleUpdaterService.changeTitle("Crear usuario");
+      this.generateFormElements();
+    }
   }
 
   ngOnChanges() {
-    this.generateFormElements();
+    if(this.isUpdate() > 0) {
+      this._titleUpdaterService.changeTitle("Editar usuario");
+      this.generateFormElements();
+    } else {
+      this._titleUpdaterService.changeTitle("Crear usuario");
+      this.generateFormElements();
+    }
+  }
+
+  isUpdate() {
+    const url = this._router.url.split('/').slice(1);
+    const id = parseInt(url[url.length - 1]);
+    
+    if(url != undefined && id > 0) {
+      return id
+    } else {
+      return 0
+    }
   }
 
   generateFormElements() {

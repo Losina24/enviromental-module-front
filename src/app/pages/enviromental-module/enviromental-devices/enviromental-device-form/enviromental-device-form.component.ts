@@ -38,14 +38,35 @@ export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
 
   // Method
   ngOnInit(): void {
-    // Title management
-    this._titleUpdaterService.changeTitle("Crear dispositivo");
-    // Generating the DOM elements
-    this.generateFormElements();
+    if(this.isUpdate() > 0) {
+      this._titleUpdaterService.changeTitle("Editar dispositivo");
+      this.generateFormElements();
+    } else {
+      this._titleUpdaterService.changeTitle("Crear dispositivo");
+      this.generateFormElements();
+    }
+    
   }
 
   ngOnChanges() {
-    this.generateFormElements();
+    if(this.isUpdate() > 0) {
+      this._titleUpdaterService.changeTitle("Editar dispositivo");
+      this.generateFormElements();
+    } else {
+      this._titleUpdaterService.changeTitle("Crear dispositivo");
+      this.generateFormElements();
+    }
+  }
+
+  isUpdate() {
+    const url = this._router.url.split('/').slice(1);
+    const id = parseInt(url[url.length - 1]);
+    
+    if(url != undefined && id > 0) {
+      return id
+    } else {
+      return 0
+    }
   }
 
   generateFormElements() {

@@ -172,7 +172,7 @@ export class ManagementNetworkServerListComponent implements OnInit {
         list.push(le);
 
         // Setting the action buttons for each table row
-        this.actions.push(new ListActions(["Editar", "Eliminar"], device.id, ["/dash/gestion/gateways/" + device.id, device.id]))
+        this.actions.push(new ListActions(["Editar", "Eliminar"], device.id, ["/dash/gestion/network_servers/" + device.id, device.id]))
       });
     
     this.listElements = list;
