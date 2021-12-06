@@ -98,6 +98,10 @@ const routes: Routes = [
         component: EnviromentalDeviceListComponent 
       },
       {
+        path: 'ambiental/dispositivos/:id',
+        component: EnviromentalDeviceFormComponent
+      },
+      {
         path: 'ambiental/dispositivos/crear',
         component: EnviromentalDeviceFormComponent 
       },

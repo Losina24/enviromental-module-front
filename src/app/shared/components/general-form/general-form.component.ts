@@ -12,7 +12,7 @@ export class GeneralFormComponent implements OnInit {
 
   @Output() formValues: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
   @Output() cancelAction: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() formElement: FormElement
+  @Input() formElement: FormElement;
   formRecolector: Array<string> = new Array<string>();
   formError: string;
 
