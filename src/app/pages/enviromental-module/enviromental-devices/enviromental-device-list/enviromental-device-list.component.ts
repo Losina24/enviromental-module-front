@@ -6,6 +6,7 @@ import { EnviromentalDevicesService } from '../enviromental-devices.service';
 import { Router } from '@angular/router';
 import UserSession from 'src/app/shared/models/UserSession';
 import ListActions from 'src/app/shared/models/ListActions';
+import ConfirmationPopupMessage from 'src/app/shared/models/ConfirmationPopupMessage';
 
 @Component({
   selector: 'app-enviromental-device-list',
@@ -17,6 +18,7 @@ export class EnviromentalDeviceListComponent implements OnInit, AfterViewInit {
   // Atributes
   listElements: ListElement[] = [];
   actions: ListActions[] = [];
+  confirmationPopup: ConfirmationPopupMessage = new ConfirmationPopupMessage("Eliminar dispositivo", "Una vez eliminado desaparecerá para siempre", "/dash/ambiental/dispositivos");
 
   orderIndex: number = 0;
   pageIndex: number = 1;
@@ -59,51 +61,6 @@ export class EnviromentalDeviceListComponent implements OnInit, AfterViewInit {
       
       if(res.http == 200) {
         let devices = res.response;
-        
-        // TESTING //
-        devices = [
-          {
-            id: 1,
-            name: "Device_A1",
-            gatewayId: 1,
-            coords: {
-              latitude: 1.202,
-              longitude: 2.211
-            },
-            status: true
-          },
-          {
-            id: 2,
-            name: "Device_A2",
-            gatewayId: 1,
-            coords: {
-              latitude: 1.202,
-              longitude: 2.211
-            },
-            status: true
-          },
-          {
-            id: 3,
-            name: "Device_A3",
-            gatewayId: 1,
-            coords: {
-              latitude: 1.202,
-              longitude: 2.211
-            },
-            status: true
-          },
-          {
-            id: 4,
-            name: "Device_A4",
-            gatewayId: 1,
-            coords: {
-              latitude: 1.202,
-              longitude: 2.211
-            },
-            status: true
-          }
-        ]
-        //
         
         devices.forEach((device:any) => {
           let lf1 = new ListField();
@@ -223,9 +180,12 @@ export class EnviromentalDeviceListComponent implements OnInit, AfterViewInit {
           lf6.setValue("Apagado");
         }
 
+        // Setting the list of fields of the table
         let le = new ListElement([lf1, lf2, lf3, lf4, lf5, lf6])
         list.push(le);
-        this.actions.push(new ListActions(["Editar", "Eliminar"], device.id, ["/dash/ambiental/dispositivos/" + device.id, ""]))
+
+        // Setting the action buttons for each table row
+        this.actions.push(new ListActions(["Editar", "Eliminar"], device.id, ["/dash/ambiental/dispositivos/" + device.id, device.id]))
       });
     
     this.listElements = list;

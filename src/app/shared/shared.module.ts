@@ -10,6 +10,7 @@ import { GeneralDashboardComponent } from './components/general-dashboard/genera
 import { GeneralListComponent } from './components/general-list/general-list.component';
 import { GeneralFormComponent } from './components/general-form/general-form.component';
 import { PopupMessageComponent } from './components/popup-message/popup-message.component';
+import { PopupConfirmationComponent } from './components/popup-confirmation/popup-confirmation.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { PopupMessageComponent } from './components/popup-message/popup-message.
     GeneralListComponent,
     GeneralFormComponent,
     PopupMessageComponent,
+    PopupConfirmationComponent,
   ],
   exports: [
     // Aqui van los componentes que queremos exportar

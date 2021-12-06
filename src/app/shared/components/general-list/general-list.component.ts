@@ -3,6 +3,7 @@ import ListActions from '../../models/ListActions';
 import ListElement from '../../models/ListElement';
 import ListField from '../../models/ListField';
 import { Router } from '@angular/router';
+import ConfirmationPopupMessage from '../../models/ConfirmationPopupMessage';
 
 @Component({
   selector: 'app-general-list',
@@ -12,12 +13,14 @@ import { Router } from '@angular/router';
 export class GeneralListComponent implements OnInit, OnChanges {
   @Input() listElements: ListElement[];
   @Input() listActions: ListActions[];
+  @Input() confirmationPopup: ConfirmationPopupMessage;
 
   titles: string[];
   orderIndex: number = 0;
   pageIndex: number = 1;
   pageSize: number = 10;
   total: number = 0;
+  removeId: number = 0;
 
   constructor(
     private _router: Router
@@ -39,21 +42,19 @@ export class GeneralListComponent implements OnInit, OnChanges {
     switch (action) {
       case 'Eliminar':
         return 'bi bi-trash2-fill action-red';
-        break;
 
       case 'Editar':
         return 'bi bi-pencil-fill';
-        break;
 
       default:
         return;
-        break;
     }
   }
 
   callAction(name: string, action: string) {
     switch (name) {
       case 'Eliminar':
+        this.removeId = parseInt(action);
         
         break;
 
