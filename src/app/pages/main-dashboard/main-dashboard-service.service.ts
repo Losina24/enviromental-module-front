@@ -11,19 +11,19 @@ export class MainDashboardServiceService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  getMeasures(userId:string): Observable<any> {
+  getMeasures(userId: number): Observable<any> {
     return this._httpClient.get(`${this.api}/enviromental/measures/1`)
   }
 
-  getDevices(userId:string): Observable<any> {
+  getDevices(userId: number): Observable<any> {
     return this._httpClient.get(`${this.api}/enviromental/devices/user/${userId}`)
   }
 
-  getAlerts(userId:string): Observable<any> {
+  getAlerts(userId: number): Observable<any> {
     return this._httpClient.get(`${this.api}/notifications/listByUserId/${userId}`)
   }
 
-  getSensors(userId:string): Observable<any> {
+  getSensors(userId: number): Observable<any> {
     return this._httpClient.get(`${this.api}/enviromental/sensors/list/${userId}`)
   }
 

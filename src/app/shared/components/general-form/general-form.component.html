@@ -1,1 +1,28 @@
-<p>general-form works!</p>
+<section class="formulary-container">
+    <form class="formulary">
+        <div class="form-div">
+            <div class="formulary-basic" *ngFor="let element of formElement.getFormFields(); let i = index;">
+                <label for="{{element.getName()}}">
+                    {{element.getLabel()}}
+                    <p *ngIf="element.isRequired() == true" class="msg-required">Obligatorio</p>
+
+                </label>
+
+                <input *ngIf="element.getType() != 'select'" type="{{element.getType()}}" name="{{element.getName()}}" placeholder="{{element.getPlaceholder()}}" required="{{element.isRequired()}}" [(ngModel)]="formRecolector[i]">
+
+                <select *ngIf="element.getType() == 'select'" name="email" required="{{element.isRequired()}}" [(ngModel)]="formRecolector[i]">
+                    <option selected hidden>{{element.getPlaceholder()}}</option>
+                    <option *ngFor="let option of element.getOptions();" value="{{option[0]}}">{{option[1]}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="list-buttons list-buttons-form">
+            <p class="error-msg">{{ formError }}</p>
+            <div class="list-buttons-form-right">
+                <button (click)="submit()" class="primary"><!-- <i class="bi bi-arrow-left"></i> -->Aceptar</button>
+                <button (click)="cancel()" class="link-button cancel">Cancelar <!-- <i class="bi bi-arrow-right"></i> --></button>
+            </div>
+        </div>
+    </form>
+</section>

@@ -1,12 +1,18 @@
+<app-popup-confirmation *ngIf="removeId > 0" [title]="confirmationPopup.getTitle()" [description]="confirmationPopup.getDescription()" [link]="confirmationPopup.getLink()" (close)="removeId = 0"></app-popup-confirmation>
+
 <table class="list-table">
     <!-- Automatic generated header -->
     <tr class="list-table-header">
         <th *ngFor="let title of titles;" class="list-table-header-field">{{ title }} <i class="bi bi-arrow-down-short icon-down"></i></th>
+        <th *ngIf="listActions.length > 0" class="list-table-header-field list-table-field-small">Acciones</th>
     </tr>
 
     <!-- Automatic generated body -->
     <tr *ngFor="let element of listElements; let i = index;" class="list-table-entry">
         <td *ngFor="let field of element.getListFieldValues();" class="list-table-entry-field">{{ field }}</td>
+        <td *ngIf="listActions[i].getActions().length > 0" class="list-table-entry-field list-table-field-small">
+            <button (click)="callAction(action, listActions[i].getURLs()[j])" *ngFor="let action of listActions[i].getActions(); let j = index;" class="list-action-button"><i class="{{getIcon(action)}}"></i></button>
+        </td>
     </tr>
 </table>
 

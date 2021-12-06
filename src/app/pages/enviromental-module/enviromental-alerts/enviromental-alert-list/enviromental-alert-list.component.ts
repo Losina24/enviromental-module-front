@@ -4,6 +4,7 @@ import ListField from 'src/app/shared/models/ListField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import { EnviromentalAlertsService } from '../enviromental-alerts.service';
 import { Router } from '@angular/router';
+import UserSession from 'src/app/shared/models/UserSession';
 
 @Component({
   selector: 'app-enviromental-alert-list',
@@ -25,22 +26,13 @@ export class EnviromentalAlertListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // Setting the title
     this._titleUpdaterService.changeTitle("Alertas ambientales");
-    this.getUserInformation()
+    
+    // Generating the elements
     this.generateListElements()
   }
 
-  getUserInformation() {
-    if(sessionStorage.getItem("userId") != null) {
-      let userId = sessionStorage.getItem("userId");
-      //@ts-ignore
-      this.userId = parseInt(userId)
-      //@ts-ignore
-      this.role = sessionStorage.getItem("role");
-    } else {
-      this._router.navigateByUrl("/");
-    }
-  }
 
   generateListElements() {
     

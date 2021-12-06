@@ -4,6 +4,7 @@ import DashboardElement from 'src/app/shared/models/DashboardElement';
 import SimpleDashboardElement from 'src/app/shared/models/SimpleDashboardElement';
 import { MainDashboardServiceService } from '../../main-dashboard/main-dashboard-service.service';
 import { Router } from '@angular/router';
+import UserSession from 'src/app/shared/models/UserSession';
 
 @Component({
 	selector: 'app-management-dashboard',
@@ -18,7 +19,7 @@ export class ManagementDashboardComponent implements OnInit {
 	gateways: number = 0;
 	ns: number = 0;
 	users: number = 0;
-	userId: string;
+	userId: number;
 
 	constructor(
 		private _titleUpdaterService: TitleUpdaterService,
@@ -28,9 +29,26 @@ export class ManagementDashboardComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		// Setting the title
 		this._titleUpdaterService.changeTitle("Dashboard de gestión");
-		this.getUserInformation()
 
+		// Checking if users are connected
+		let userSession = new UserSession();
+		if(userSession.checkSession()) {
+			this.userId = userSession.getUserId();
+		} else {
+			//this._router.navigateByUrl("/");
+		}
+
+		// Getting the information from the API
+		this.getDashboardInformation()
+
+		// Creating the HTML components
+		this.generateDashboardComponents();
+	}
+
+	// Method that makes all the API calls required to generate the dashboard information
+	getDashboardInformation() {
 		this._service.getNS().subscribe((res) => {
 			console.log(res)
 			this.ns = res.response.length;
@@ -59,21 +77,9 @@ export class ManagementDashboardComponent implements OnInit {
 			this._cdr.detectChanges()
 		})
 
-		this.generateDashboardComponents();
 	}
 
-	getUserInformation() {
-		if(sessionStorage.getItem("userId") != null) {
-		  let userId = sessionStorage.getItem("userId");
-		  //@ts-ignore
-		  this.userId = parseInt(userId)
-		  //@ts-ignore
-		  this.role = sessionStorage.getItem("role");
-		} else {
-		  this._router.navigateByUrl("/");
-		}
-	  }
-
+	// Method that creates the HTML components
 	generateDashboardComponents() {
 		this.dashboardElements = []
 

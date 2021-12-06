@@ -4,6 +4,7 @@ import FormField from 'src/app/shared/models/FormField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import { EnviromentalDevicesService } from '../enviromental-devices.service';
 import { Router } from '@angular/router';
+import { PopupMessageService } from 'src/app/shared/components/popup-message/popup-message.service';
 
 enum InputType {
   Text = "text",
@@ -17,45 +18,54 @@ enum InputType {
 @Component({
   selector: 'app-enviromental-device-form',
   templateUrl: './enviromental-device-form.component.html',
-  styleUrls: ['./enviromental-device-form.component.scss']
+  styleUrls: ['./enviromental-device-form.component.scss'],
 })
 export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
   
+  // Atributes
   formElement: FormElement
-  formRecolector: Array<string> = new Array<string >();
   userId:any;
   role:any;
 
+  // Constructor
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
 		private _cdr: ChangeDetectorRef,
     private _service: EnviromentalDevicesService,
+    private _popupMessageService: PopupMessageService,
     private _router: Router
   ) { }
 
+  // Method
   ngOnInit(): void {
-    this._titleUpdaterService.changeTitle("Crear dispositivo");
-    this.getUserInformation()
-    this.generateFormElements();
+    if(this.isUpdate() > 0) {
+      this._titleUpdaterService.changeTitle("Editar dispositivo");
+      this.generateFormElements();
+    } else {
+      this._titleUpdaterService.changeTitle("Crear dispositivo");
+      this.generateFormElements();
+    }
+    
   }
 
   ngOnChanges() {
-    this.generateFormElements();
+    if(this.isUpdate() > 0) {
+      this._titleUpdaterService.changeTitle("Editar dispositivo");
+      this.generateFormElements();
+    } else {
+      this._titleUpdaterService.changeTitle("Crear dispositivo");
+      this.generateFormElements();
+    }
   }
 
-  getUserInformation() {
-    if(sessionStorage.getItem("userId") != null) {
-      let userId = sessionStorage.getItem("userId");
-      //@ts-ignore
-      this.userId = parseInt(userId)
-      //@ts-ignore
-      this.role = sessionStorage.getItem("role");
-
-      if(this.role != "admin" && this.role != "root") {
-        this._router.navigateByUrl("/");
-      }
+  isUpdate() {
+    const url = this._router.url.split('/').slice(1);
+    const id = parseInt(url[url.length - 1]);
+    
+    if(url != undefined && id > 0) {
+      return id
     } else {
-      this._router.navigateByUrl("/");
+      return 0
     }
   }
 
@@ -67,20 +77,26 @@ export class EnviromentalDeviceFormComponent implements OnInit, OnChanges {
     let ff5 = new FormField("Longitud", "Escribe una longitud", InputType.Text, "longitude");
 
     this.formElement = new FormElement([ff1, ff2, ff3, ff4, ff5])
-
     this._cdr.detectChanges()
   }
 
-  submit() {
-    this._service.storeEnviromentalDevice(this.formRecolector[0], this.formRecolector[1], this.formRecolector[2], this.formRecolector[3], this.formRecolector[4], this.userId).subscribe((res: any) => {
-      console.log(res);
-      
+  submit(formValues: Array<string>) {
+    this._router.navigateByUrl('/dash/ambiental/dispositivos')
+    this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente", true])
+
+    /* this._service.storeEnviromentalDevice(formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], this.userId).subscribe((res: any) => {
+        
       if(res.http == 200) {
-        alert("Dispositivo creado")
         this._router.navigateByUrl('/dash/ambiental/dispositivos')
+        this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente"])
       } else {
-        alert("Hay algun error")
+        this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el dispositivo"]);
       }
-    })
+    }) */
+  }
+
+  cancel() {
+    this._router.navigateByUrl('/dash/ambiental/dispositivos')
+    this._cdr.detectChanges()
   }
 }

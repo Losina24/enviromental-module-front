@@ -7,6 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import UserSession from 'src/app/shared/models/UserSession';
 import { LoginService } from './login.service';
 
 @Component({
@@ -33,10 +34,9 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if(this.email.length > 0 && this.password.length > 0) {
       this._service.checkLogin(this.email, this.password).subscribe( res => {
-        
         if(res != null) {
-          sessionStorage.setItem('userId', res.response.userId);
-          sessionStorage.setItem('role', res.response.role);
+          let userSession = new UserSession()
+          userSession.createSession(res.response.userId, res.response.role)
           this._router.navigateByUrl("/dash");
         } else {
           this.error= true;

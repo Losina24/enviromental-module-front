@@ -1,0 +1,39 @@
+@import "../../styles/colors.scss";
+
+.popup-confirmation-container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.212);
+}
+
+.popup-confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 45rem;
+    padding: 2rem 3.5rem;
+    border-radius: 2rem;
+    box-sizing: border-box;
+    background-color: $white;
+}
+
+.popup-confirmation > h3 {
+    text-align: center;
+    margin: 0 auto;
+    font-size: 2.2rem;
+}
+
+.popup-confirmation > p {
+    margin: .6rem auto 4.5rem auto;
+    font-size: 1.5rem;
+}
+
+.popup-confirmation-buttons > button {
+    margin: 0 .6rem;
+}

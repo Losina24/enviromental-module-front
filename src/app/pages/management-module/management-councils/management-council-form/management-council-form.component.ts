@@ -4,6 +4,7 @@ import FormField from 'src/app/shared/models/FormField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import { Router } from '@angular/router';
 import { ManagementCouncilsService } from '../management-councils.service';
+import { PopupMessageService } from 'src/app/shared/components/popup-message/popup-message.service';
 
 enum InputType {
   Text = "text",
@@ -28,28 +29,39 @@ export class ManagementCouncilFormComponent implements OnInit, OnChanges {
     private _titleUpdaterService: TitleUpdaterService,
 		private _cdr: ChangeDetectorRef,
     private _router: Router,
-    private _service: ManagementCouncilsService
+    private _service: ManagementCouncilsService,
+    private _popupMessageService: PopupMessageService
   ) { }
 
   ngOnInit(): void {
-    this._titleUpdaterService.changeTitle("Crear ayuntamiento");
-    this.getUserInformation()
-    this.generateFormElements();
+    if(this.isUpdate() > 0) {
+      this._titleUpdaterService.changeTitle("Editar ayuntamiento");
+      this.generateFormElements();
+    } else {
+      this._titleUpdaterService.changeTitle("Crear ayuntamiento");
+      this.generateFormElements();
+    }
+    
   }
 
   ngOnChanges() {
-    this.generateFormElements();
+    if(this.isUpdate() > 0) {
+      this._titleUpdaterService.changeTitle("Editar ayuntamiento");
+      this.generateFormElements();
+    } else {
+      this._titleUpdaterService.changeTitle("Crear ayuntamiento");
+      this.generateFormElements();
+    }
   }
 
-  getUserInformation() {
-    if(sessionStorage.getItem("userId") != null) {
-      let userId = sessionStorage.getItem("userId");
-      //@ts-ignore
-      this.userId = parseInt(userId)
-      //@ts-ignore
-      this.role = sessionStorage.getItem("role");
+  isUpdate() {
+    const url = this._router.url.split('/').slice(1);
+    const id = parseInt(url[url.length - 1]);
+    
+    if(url != undefined && id > 0) {
+      return id
     } else {
-      this._router.navigateByUrl("/");
+      return 0
     }
   }
 
@@ -67,14 +79,23 @@ export class ManagementCouncilFormComponent implements OnInit, OnChanges {
     this._cdr.detectChanges()
   }
 
-  submit() {
-    this._service.storeCouncil(this.formRecolector[0], this.formRecolector[1], this.formRecolector[2], this.formRecolector[3], this.formRecolector[4], this.formRecolector[5], this.formRecolector[6]).subscribe((res: any) => {
+  submit(formValues: Array<string>) {
+    this._router.navigateByUrl('/dash/gestion/ayuntamientos')
+    this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente", true])
+
+    /* this._service.storeEnviromentalDevice(formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], this.userId).subscribe((res: any) => {
+        
       if(res.http == 200) {
-        alert("Ayuntamiento creado")
-        this._router.navigateByUrl('/dash/gestion/ayuntamientos')
+        this._router.navigateByUrl('/dash/ambiental/dispositivos')
+        this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente"])
       } else {
-        alert("Hay algun error")
+        this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el dispositivo"]);
       }
-    })
+    }) */
+  }
+
+  cancel() {
+    this._router.navigate(['/dash/gestion/ayuntamientos'])
+    this._cdr.detectChanges()
   }
 }

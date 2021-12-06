@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import FormElement from 'src/app/shared/models/FormElement';
+import FormField from 'src/app/shared/models/FormField';
+import { SharedModule } from '../../shared.module';
 
 @Component({
   selector: 'app-general-form',
@@ -7,9 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GeneralFormComponent implements OnInit {
 
-  constructor() { }
+  @Output() formValues: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
+  @Output() cancelAction: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() formElement: FormElement;
+  formRecolector: Array<string> = new Array<string>();
+  formError: string;
+
+  constructor(
+    private _cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
   }
 
+  submit() {
+      if( this.formElement.checkRequiredInputs(this.formRecolector) ) {
+        this.formValues.emit(this.formRecolector)
+      } else {
+        this.formError = "Hay campos obligatorios que están vacíos.";
+      }
+  }
+
+  cancel() {
+    this.cancelAction.emit(true)
+  }
 }
