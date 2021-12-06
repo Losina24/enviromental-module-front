@@ -1,10 +1,7 @@
 <div *ngIf="role == 'admin' || role == 'root'" class="upper-buttons">
     <a href="/dash/ambiental/sensores/crear" class="link-button white">Crear</a>
 </div>
-<div class="upper-buttons">
-    <a href="/dash/ambiental/sensores/crear" class="link-button">Crear</a>
-</div>
 
 <section class="list-container">
-    <app-general-list class="list-component" [listElements]="listElements"></app-general-list>
+    <app-general-list class="list-component" [listElements]="listElements" [listActions]="actions" [confirmationPopup]="confirmationPopup"></app-general-list>
 </section>

@@ -60,12 +60,20 @@ const routes: Routes = [
         component: ManagementCouncilListComponent 
       },
       {
+        path: 'gestion/ayuntamientos/:id',
+        component: ManagementCouncilFormComponent 
+      },
+      {
         path: 'gestion/ayuntamientos/crear',
         component: ManagementCouncilFormComponent 
       },
       {
         path: 'gestion/gateways',
         component: ManagementGatewayListComponent 
+      },
+      {
+        path: 'gestion/gateways/:id',
+        component: ManagementGatewayFormComponent 
       },
       {
         path: 'gestion/gateways/crear',
@@ -76,12 +84,20 @@ const routes: Routes = [
         component: ManagementNetworkServerListComponent 
       },
       {
+        path: 'gestion/network_servers/:id',
+        component: ManagementNetworkServerFormComponent 
+      },
+      {
         path: 'gestion/network_servers/crear',
         component: ManagementNetworkServerFormComponent 
       },
       {
         path: 'gestion/usuarios',
         component: ManagementUserListComponent 
+      },
+      {
+        path: 'gestion/usuarios/:id',
+        component: ManagementUserFormComponent 
       },
       {
         path: 'gestion/usuarios/crear',
@@ -108,6 +124,10 @@ const routes: Routes = [
       {
         path: 'ambiental/sensores',
         component: EnviromentalSensorListComponent 
+      },
+      {
+        path: 'ambiental/sensores/:id',
+        component: EnviromentalSensorFormComponent 
       },
       {
         path: 'ambiental/sensores/crear',

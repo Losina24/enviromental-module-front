@@ -13,7 +13,7 @@ import ConfirmationPopupMessage from 'src/app/shared/models/ConfirmationPopupMes
   templateUrl: './enviromental-device-list.component.html',
   styleUrls: ['./enviromental-device-list.component.scss']
 })
-export class EnviromentalDeviceListComponent implements OnInit, AfterViewInit {
+export class EnviromentalDeviceListComponent implements OnInit {
   
   // Atributes
   listElements: ListElement[] = [];
@@ -47,11 +47,6 @@ export class EnviromentalDeviceListComponent implements OnInit, AfterViewInit {
     // Setting the user's role
     let session = new UserSession();
     this.role = session.getRole();
-  }
-
-  ngAfterViewInit() {
-    // Setting the title
-    this._titleUpdaterService.changeTitle("Dispositivos ambientales");
   }
 
   /* generateListElements() {

@@ -72,7 +72,7 @@ export class ManagementCouncilFormComponent implements OnInit, OnChanges {
   }
 
   cancel() {
-    this._router.navigate(['/dash/gestion/usuarios'])
+    this._router.navigate(['/dash/gestion/ayuntamientos'])
     this._cdr.detectChanges()
   }
 }
