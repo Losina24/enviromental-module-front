@@ -17,7 +17,7 @@ export default class UserSession {
             const userId = parseInt("" + sessionStorage.getItem('userId'));
             this.userId = userId;
 
-            const userRole = "" + sessionStorage.getItem('userRole');
+            const userRole = "" + sessionStorage.getItem('role');
             this.userRole = userRole;
         }
     }
@@ -47,6 +47,9 @@ export default class UserSession {
     public createSession(userId: number, role: string): void {
         sessionStorage.setItem('userId', userId.toString());
         sessionStorage.setItem('role', role);
+
+        this.userId = userId;
+        this.userRole = role;
     }
 
     public getUserId(): number {

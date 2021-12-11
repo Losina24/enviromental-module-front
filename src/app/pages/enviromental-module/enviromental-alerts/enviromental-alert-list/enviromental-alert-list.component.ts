@@ -4,7 +4,7 @@ import ListField from 'src/app/shared/models/ListField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import { EnviromentalAlertsService } from '../enviromental-alerts.service';
 import { Router } from '@angular/router';
-import UserSession from 'src/app/shared/models/UserSession';
+import UserSession from 'src/app/shared/models/UserSession'; 
 
 @Component({
   selector: 'app-enviromental-alert-list',

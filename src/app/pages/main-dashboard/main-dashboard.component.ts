@@ -27,6 +27,7 @@ export class MainDashboardComponent implements OnInit {
 	alerts: number = 0;
 	sensors: number = 0;
 	userId: number;
+	userRole: string;
 
 	// Constructor
 	constructor(
@@ -37,8 +38,13 @@ export class MainDashboardComponent implements OnInit {
 
 	// On init
 	ngOnInit(): void {
+		// User session
+		const userSession: UserSession = new UserSession();
+		this.userId = userSession.getUserId();
+		this.userRole = userSession.getRole();
+
 		// Calling the API
-		this.getDashboardInformation();
+		//this.getDashboardInformation();
 
 		// Creating the HTML components in the DOM
 		this.generateDashboardComponents();
@@ -46,29 +52,25 @@ export class MainDashboardComponent implements OnInit {
 
 	// Method used to get the information from the API
 	getDashboardInformation() {
-		this._service.getMeasures(1).subscribe((res) => {
-			console.log(res)
+		this._service.getMeasures(1, this.userRole).subscribe((res) => {
 			this.measures = res.response.length;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getDevices(this.userId).subscribe((res) => {
-			console.log(res)
-			this.devices = res.response.length;
+		this._service.getDevices(this.userId, this.userRole).subscribe((res) => {
+			this.devices = res.result.length;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getAlerts(this.userId).subscribe((res) => {
-			console.log(res)
+		this._service.getAlerts(this.userId, this.userRole).subscribe((res) => {
 			this.alerts = res.response.length;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getSensors(this.userId).subscribe((res) => {
-			console.log(res)
+		this._service.getSensors(this.userId, this.userRole).subscribe((res) => {
 			this.sensors = res.response.length;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()

@@ -20,6 +20,7 @@ export class ManagementDashboardComponent implements OnInit {
 	ns: number = 0;
 	users: number = 0;
 	userId: number;
+	userRole: string;
 
 	constructor(
 		private _titleUpdaterService: TitleUpdaterService,
@@ -36,12 +37,13 @@ export class ManagementDashboardComponent implements OnInit {
 		let userSession = new UserSession();
 		if(userSession.checkSession()) {
 			this.userId = userSession.getUserId();
+			this.userRole = userSession.getRole();
 		} else {
-			//this._router.navigateByUrl("/");
+			this._router.navigateByUrl("/");
 		}
 
 		// Getting the information from the API
-		this.getDashboardInformation()
+		//this.getDashboardInformation()
 
 		// Creating the HTML components
 		this.generateDashboardComponents();
@@ -49,29 +51,25 @@ export class ManagementDashboardComponent implements OnInit {
 
 	// Method that makes all the API calls required to generate the dashboard information
 	getDashboardInformation() {
-		this._service.getNS().subscribe((res) => {
-			console.log(res)
+		this._service.getNS(this.userId, this.userRole).subscribe((res) => {
 			this.ns = res.response.length;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getGateways().subscribe((res) => {
-			console.log(res)
+		this._service.getGateways(this.userId, this.userRole).subscribe((res) => {
 			this.gateways = res.response.length;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getCouncils().subscribe((res) => {
-			console.log(res)
+		this._service.getCouncils(this.userId, this.userRole).subscribe((res) => {
 			this.councils = res.response.length;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getUsers().subscribe((res) => {
-			console.log(res)
+		this._service.getUsers(this.userId, this.userRole).subscribe((res) => {
 			this.users = res.response.length;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()

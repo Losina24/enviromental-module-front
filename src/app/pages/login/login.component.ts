@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
     if(this.email.length > 0 && this.password.length > 0) {
       this._service.checkLogin(this.email, this.password).subscribe( res => {
         if(res != null) {
+          console.log('respuesta', res.response.role)
           let userSession = new UserSession()
           userSession.createSession(res.response.userId, res.response.role)
           this._router.navigateByUrl("/dash");
