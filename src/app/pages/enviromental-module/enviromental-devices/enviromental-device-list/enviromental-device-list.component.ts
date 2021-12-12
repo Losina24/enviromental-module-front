@@ -51,7 +51,7 @@ export class EnviromentalDeviceListComponent implements OnInit {
   }
 
   generateListElements() {
-    this._service.getEnviromentalDevicePagination(this.userId, this.pageSize, this.pageIndex).subscribe( res => {
+    this._service.getEnviromentalDevicePagination(this.userId, this.pageSize, this.pageIndex, this.role).subscribe( res => {
       
       let list: ListElement[] = [];
       
@@ -87,7 +87,6 @@ export class EnviromentalDeviceListComponent implements OnInit {
             listFieldStatus.setValue("Apagado");
           }
           
-
           let listElement = new ListElement([listFieldID, listFieldName, listFieldGateway, listFieldX, listFieldY, listFieldStatus])
           list.push(listElement);
           
