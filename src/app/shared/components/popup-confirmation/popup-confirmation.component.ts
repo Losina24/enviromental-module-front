@@ -11,6 +11,7 @@ export class PopupConfirmationComponent implements OnInit {
   @Input() description: string;
   @Input() link: string;
   @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() confirm: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private _router: Router
@@ -20,7 +21,7 @@ export class PopupConfirmationComponent implements OnInit {
   }
 
   accept() {
-    this.close.emit(true);
+    this.confirm.emit(true);
     this._router.navigateByUrl(this.link);
   }
 

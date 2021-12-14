@@ -2,9 +2,13 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import ListElement from 'src/app/shared/models/ListElement';
 import ListField from 'src/app/shared/models/ListField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
-/* import { EnviromentalDevicesService } from '../enviromental-measure.service'; */
+import { EnviromentalDevicesService } from '../../enviromental-devices/enviromental-devices.service';
 import { EnviromentalMeasuresService } from '../enviromental-measures.service';
 import { Router } from '@angular/router';
+import { PopupMessageService } from 'src/app/shared/components/popup-message/popup-message.service';
+import UserSession from 'src/app/shared/models/UserSession';
+import EnviromentalDevice from 'src/app/shared/models/EnviromentalDevice';
+import Gateway from 'src/app/shared/models/Gateway';
 
 @Component({
   selector: 'app-enviromental-measure-list',
@@ -21,25 +25,37 @@ export class EnviromentalMeasureListComponent implements OnInit {
   total: number = 0;
   userId: number;
   role: string;
+  
+  deviceList: EnviromentalDevice[] = [];
+  device: string;
 
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
 		private _cdr: ChangeDetectorRef,
     private _service: EnviromentalMeasuresService,
-    private _router: Router
+    private _enviromentalDeviceService: EnviromentalDevicesService,
+    private _router: Router,
+    private _popupMessageService: PopupMessageService
   ) { }
 
 
   ngOnInit(): void {
     this._titleUpdaterService.changeTitle("Mediciones ambientales");
-    this.generateListElements()
+
+    // Setting the user's role
+    let session = new UserSession();
+    this.userId = session.getUserId();
+    this.role = session.getRole();
+
+    // Generating stuff
+    this.getUserDevices();
+    this.generateListElements();
   }
 
   generateListElements() {
-    this._service.getMeasures(this.userId + "").subscribe( res => {
+    this._service.getMeasurePagination(parseInt(this.device), this.pageSize, this.pageIndex).subscribe( res => {
       
       let list: ListElement[] = [];
-      console.log('pepinillo', res);
         
       if(res.http == 200) {
         let devices = res.response;
@@ -74,20 +90,42 @@ export class EnviromentalMeasureListComponent implements OnInit {
           list.push(le);
         });
       } else {
-        alert("No hay información en la base de datos")
+        this._popupMessageService.sendMessage(["¡Vaya!", "No existen sensores en la base de datos", false])
       }
 
       this.listElements = list;
       this._cdr.detectChanges()
 
-      setTimeout(() => {
+      /* setTimeout(() => {
         this._service.generateAlert("Alerta", "Hay un dato peligroso", "5", "red").subscribe((res) => {
           console.log('guay');
           
         })
         this.generateListElements()
-      }, 4000);
+      }, 4000); */
     })
   }
 
+  getUserDevices() {
+    this._enviromentalDeviceService.getAllEnviromentalDevices(this.userId).subscribe( (res: any) => {
+      res.result.forEach( (data: any) => {
+        let gateway = new Gateway();
+        gateway.setId(data.gatewayId);
+        
+        let coords: [number, number] = [data.coords[0], data.coords[1]];
+        
+
+        const deviceGenerator = {
+          id: data.id,
+          name: data.name,
+          gateway: gateway,
+          deviceEUI: data.deviceEUI,
+          coords: coords,
+          status: data.status
+        }
+
+        this.deviceList.push(new EnviromentalDevice(deviceGenerator))
+      });
+    })
+  }
 }

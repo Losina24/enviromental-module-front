@@ -140,6 +140,10 @@ const routes: Routes = [
       {
         path: 'ambiental/mediciones',
         component: EnviromentalMeasureListComponent 
+      },
+      {
+        path: 'ambiental/mediciones/:deviceId',
+        component: EnviromentalMeasureListComponent 
       }
     ]
   }

@@ -44,7 +44,7 @@ export class MainDashboardComponent implements OnInit {
 		this.userRole = userSession.getRole();
 
 		// Calling the API
-		//this.getDashboardInformation();
+		this.getDashboardInformation();
 
 		// Creating the HTML components in the DOM
 		this.generateDashboardComponents();
@@ -53,25 +53,25 @@ export class MainDashboardComponent implements OnInit {
 	// Method used to get the information from the API
 	getDashboardInformation() {
 		this._service.getMeasures(1, this.userRole).subscribe((res) => {
-			this.measures = res.response.length;
+			this.measures = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
 		this._service.getDevices(this.userId, this.userRole).subscribe((res) => {
-			this.devices = res.result.length;
+			this.devices = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
 		this._service.getAlerts(this.userId, this.userRole).subscribe((res) => {
-			this.alerts = res.response.length;
+			this.alerts = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
 		this._service.getSensors(this.userId, this.userRole).subscribe((res) => {
-			this.sensors = res.response.length;
+			this.sensors = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})

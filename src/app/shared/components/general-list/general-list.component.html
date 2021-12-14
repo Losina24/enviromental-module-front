@@ -1,4 +1,4 @@
-<app-popup-confirmation *ngIf="removeId > 0" [title]="confirmationPopup.getTitle()" [description]="confirmationPopup.getDescription()" [link]="confirmationPopup.getLink()" (close)="removeId = 0"></app-popup-confirmation>
+<app-popup-confirmation *ngIf="removeId > 0" [title]="confirmationPopup.getTitle()" [description]="confirmationPopup.getDescription()" [link]="confirmationPopup.getLink()" (confirm)="emitRemoveConfirmation()" (close)="removeId = 0"></app-popup-confirmation>
 
 <table class="list-table">
     <!-- Automatic generated header -->

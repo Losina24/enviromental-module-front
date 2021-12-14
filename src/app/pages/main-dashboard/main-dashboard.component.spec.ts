@@ -1,5 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing'; 
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {HttpClientModule} from '@angular/common/http'; 
+import { RouterTestingModule } from '@angular/router/testing';
 import { MainDashboardComponent } from './main-dashboard.component';
 
 describe('MainDashboardComponent', () => {
@@ -8,7 +10,8 @@ describe('MainDashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MainDashboardComponent ]
+      declarations: [ MainDashboardComponent ],
+      imports: [HttpClientTestingModule, HttpClientModule, RouterTestingModule], 
     })
     .compileComponents();
   });

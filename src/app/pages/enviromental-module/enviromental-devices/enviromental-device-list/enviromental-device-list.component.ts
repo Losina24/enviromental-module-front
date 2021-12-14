@@ -26,7 +26,7 @@ export class EnviromentalDeviceListComponent implements OnInit {
   total: number = 0;
 
   userId: number;
-  role: string;
+  role: string = "";
 
   // Constructor
   constructor(
@@ -104,4 +104,9 @@ export class EnviromentalDeviceListComponent implements OnInit {
     })
   }
 
+  removeEnviromentalDevice(id: number) {
+    this._service.deleteEnviromentalDeviceInformation(id).subscribe(res => {
+      console.log('testing', res)
+    })
+  }
 }

@@ -34,6 +34,8 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if(this.email.length > 0 && this.password.length > 0) {
       this._service.checkLogin(this.email, this.password).subscribe( res => {
+        console.log('login res', res);
+        
         if(res != null) {
           console.log('respuesta', res.response.role)
           let userSession = new UserSession()

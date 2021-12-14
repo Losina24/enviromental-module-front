@@ -20,4 +20,8 @@ export default class Gateway {
             this.council = args.council;
         }
     }
+
+    public setId(id: number) {
+        this.id = id;
+    }
 }

@@ -39,7 +39,7 @@ export class EnviromentalDashboardComponent implements OnInit {
 		this.userRole = userSession.getRole();
 
 		// Getting the data from the API
-		//this.getDashboardElements();
+		this.getDashboardElements();
 
 		// Generating the html components
 		this.generateDashboardComponents();
@@ -47,25 +47,25 @@ export class EnviromentalDashboardComponent implements OnInit {
 
 	getDashboardElements() {
 		this._service.getMeasures(1, this.userRole).subscribe((res) => {
-			this.measures = res.response.length;
+			this.measures = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
 		this._service.getDevices(this.userId, this.userRole).subscribe((res) => {
-			this.devices = res.result.length;
+			this.devices = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
 		this._service.getAlerts(this.userId, this.userRole).subscribe((res) => {
-			this.alerts = res.response.length;
+			this.alerts = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
 		this._service.getSensors(this.userId, this.userRole).subscribe((res) => {
-			this.sensors = res.response.length;
+			this.sensors = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})

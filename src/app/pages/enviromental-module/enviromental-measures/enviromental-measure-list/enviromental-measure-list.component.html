@@ -1,6 +1,9 @@
-<!-- <div class="upper-buttons">
-    <button class="white">Crear</button>
-</div> -->
+<div class="upper-buttons">
+    <select [(ngModel)]="device" (ngModelChange)="generateListElements()" *ngIf="deviceList.length > 0" name="device" id="device">
+        <option disabled hidden selected>Elige un dispositivo</option>
+        <option *ngFor="let element of deviceList;" value="{{element.getId()}}">{{ element.getName() }}</option>
+    </select>
+</div>
 
 <section class="list-container">
     <app-general-list class="list-component" [listElements]="listElements"></app-general-list>

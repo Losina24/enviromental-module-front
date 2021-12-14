@@ -100,4 +100,8 @@ export class EnviromentalDevicesService {
    deleteEnviromentalDeviceInformation(deviceId: number) {
     return this._httpClient.delete(`${this.api}/${deviceId}`)
   }
+
+  getAllEnviromentalDevices(userId:number) {
+    return this._httpClient.get(`${this.api}/user/${userId}`)
+  }
 }
