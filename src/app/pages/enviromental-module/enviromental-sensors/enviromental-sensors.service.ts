@@ -41,7 +41,7 @@ export class EnviromentalSensorsService {
       } else {
         type = "user";
       }
-  
+
       return this._httpClient.get(`${this.api}/list/${type}/${userId}/${pageSize}/${pageIndex}`)
     }
   

@@ -15,4 +15,18 @@ export class EnviromentalAlertsService {
     let Id = userId;
     return this._httpClient.get(`${this.api}/listByUserId/${Id}`)
   }
+
+  getEnviromentalAlertPagination(id: number,  pageSize: number, pageIndex: number, role: string): Observable<any> {
+    let type = "";
+  
+      if(role == "root") {
+        type = "root";
+      } else if(role == "admin") {
+        type = "council";
+      } else {
+        type = "user";
+      }
+
+    return this._httpClient.get(`${this.api}/${type}/${id}/${pageSize}/${pageIndex}`)
+  }
 }

@@ -38,7 +38,7 @@ export class EnviromentalSensorListComponent implements OnInit {
 		private _cdr: ChangeDetectorRef,
     private _service: EnviromentalSensorsService,
     private _popupMessageService: PopupMessageService,
-    private _router: Router
+    private _router: Router,
   ) { }
 
   // Methods
