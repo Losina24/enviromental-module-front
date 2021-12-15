@@ -29,6 +29,7 @@ export class ManagementUserListComponent implements OnInit {
 
   userId: number;
   role: string = "";
+  councilId: number;
 
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
@@ -46,44 +47,48 @@ export class ManagementUserListComponent implements OnInit {
     let session = new UserSession();
     this.userId = session.getUserId();
     this.role = session.getRole();
+    this.councilId = session.getCouncilId();
 
     this.generateListElements();
   }
 
   generateListElements() {
-    this._service.getUserPagination(this.userId, this.pageSize, this.pageIndex, this.role).subscribe( res => {
+    this._service.getUserPagination(this.councilId, this.pageSize, this.pageIndex, this.role).subscribe( res => {
       let list: ListElement[] = [];
       
       if(res.http == 200) {
-        let councils = res.result;
+        let users = res.result;
         
-        councils.forEach((council:any) => {
+        users.forEach((user:any) => {
           let lf1 = new ListField();
           lf1.setName("ID");
-          lf1.setValue(council.id);
+          lf1.setValue(user.id);
 
           let lf2 = new ListField();
           lf2.setName("Name");
-          lf2.setValue(council.name);
+          lf2.setValue(user.name);
 
           let lf3 = new ListField();
           lf3.setName("Dirección");
-          lf3.setValue(council.address);
+          lf3.setValue(user.address);
 
           let lf4 = new ListField();
           lf4.setName("Teléfono");
-          lf4.setValue(council.phone);
+          lf4.setValue(user.phone);
           
           let lf5 = new ListField();
           lf5.setName("Email");
-          lf5.setValue(council.email);
+          lf5.setValue(user.email);
 
           let lf6 = new ListField();
           lf6.setName("Código postal");
-          lf6.setValue(council.postalCode);
+          lf6.setValue(user.postalCode);
 
           let le = new ListElement([lf1, lf2, lf3, lf4, lf5, lf6])
           list.push(le);
+
+          // Setting the action buttons for each table row
+          this.actions.push(new ListActions(["Editar", "Eliminar"], user.id, ["/dash/gestion/usuarios/" + user.id, user.id]))
         });
       } else {
         this._popupMessageService.sendMessage(["Error!", "Hay algún problema...", false])
