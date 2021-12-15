@@ -21,4 +21,16 @@ export class ManagementGatewaysService {
     
     return this._httpClient.post(`${this.api}/`, params)
   }
+
+  getGatewaysPagination(userId: number, pageSize: number, pageIndex: number, role: string): Observable<any> {
+    let type = "";
+
+    if(role == "root") {
+      type = "root";
+    } else {
+      type = "council";
+    }
+
+    return this._httpClient.get(`${this.api}/${type}/${userId}/${pageSize}/${pageIndex}`)
+  }
 }

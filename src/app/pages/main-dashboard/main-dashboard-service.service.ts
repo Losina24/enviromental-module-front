@@ -128,7 +128,7 @@ export class MainDashboardServiceService {
       role = 'council';
     }
 
-    return this._httpClient.get(`${this.api}/gateways/count/${role}/${id}`)
+    return this._httpClient.get(`${this.api}/gateway/count/${role}/${id}`)
   }
 
   /**
@@ -148,7 +148,7 @@ export class MainDashboardServiceService {
       role = 'council';
     }
 
-    return this._httpClient.get(`${this.api}/councils/count/${role}/${id}`)
+    return this._httpClient.get(`${this.api}/council/count/${role}/${id}`)
   }
 
   /**
@@ -187,6 +187,6 @@ export class MainDashboardServiceService {
       role = 'council';
     }
 
-    return this._httpClient.get(`${this.api}/users/count/${role}/${id}`)
+    return this._httpClient.get(`${this.api}/user/count/${role}/${id}`)
   }
 }

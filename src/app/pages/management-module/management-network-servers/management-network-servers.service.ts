@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class ManagementNetworkServerService {
 
-  api: string = 'http://localhost:8080/v2/NS';
+  api: string = 'http://localhost:8080/v2/network_servers';
 
   constructor(private _httpClient: HttpClient) {}
 
@@ -21,5 +21,17 @@ export class ManagementNetworkServerService {
     console.log(params);
     
     return this._httpClient.post(`${this.api}/`, params)
+  }
+
+  getNetworkServerPagination(userId: number, pageSize: number, pageIndex: number, role: string): Observable<any> {
+    let type = "";
+
+    if(role == "root") {
+      type = "root";
+    } else {
+      type = "council";
+    }
+
+    return this._httpClient.get(`${this.api}/${type}/${userId}/${pageSize}/${pageIndex}`)
   }
 }

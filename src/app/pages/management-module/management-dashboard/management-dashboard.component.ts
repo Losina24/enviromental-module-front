@@ -43,7 +43,7 @@ export class ManagementDashboardComponent implements OnInit {
 		}
 
 		// Getting the information from the API
-		//this.getDashboardInformation()
+		this.getDashboardInformation()
 
 		// Creating the HTML components
 		this.generateDashboardComponents();
@@ -52,25 +52,25 @@ export class ManagementDashboardComponent implements OnInit {
 	// Method that makes all the API calls required to generate the dashboard information
 	getDashboardInformation() {
 		this._service.getNS(this.userId, this.userRole).subscribe((res) => {
-			this.ns = res.response.length;
+			this.ns = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
 		this._service.getGateways(this.userId, this.userRole).subscribe((res) => {
-			this.gateways = res.response.length;
+			this.gateways = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
 		this._service.getCouncils(this.userId, this.userRole).subscribe((res) => {
-			this.councils = res.response.length;
+			this.councils = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
 		this._service.getUsers(this.userId, this.userRole).subscribe((res) => {
-			this.users = res.response.length;
+			this.users = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
