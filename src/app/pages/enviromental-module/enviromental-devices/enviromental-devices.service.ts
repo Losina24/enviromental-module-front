@@ -67,9 +67,8 @@ export class EnviromentalDevicesService {
    */
   storeEnviromentalDevice(name:string, deviceEUI: string, gatewayId: string, latitude: string, longitude: string, userId: string) {
     let params = {name: name, deviceEUI: deviceEUI, gatewayId: gatewayId, latitude: latitude, longitude: longitude, userId: userId}
-    console.log('params', params);
     
-    return this._httpClient.post(`${this.api}/`, params)
+    return this._httpClient.post(`${this.api}/${userId}`, params)
   }
 
   /**
@@ -84,20 +83,20 @@ export class EnviromentalDevicesService {
    * @param userId 
    * @returns 
    */
-   editEnviromentalDevice(id: number, name:string, deviceEUI: string, gatewayId: string, latitude: string, longitude: string, userId: string) {
-    let params = {name: name, deviceEUI: deviceEUI, gatewayId: gatewayId, latitude: latitude, longitude: longitude, userId: userId}
+   editEnviromentalDevice(id: number, name:string, deviceEUI: string, gatewayId: string, latitude: string, longitude: string, status: boolean = false, userId: string) {
+    let params = {name: name, deviceEUI: deviceEUI, gatewayId: gatewayId, latitude: latitude, longitude: longitude, userId: userId, status: status}
     
     return this._httpClient.put(`${this.api}/${id}`, params)
   }
 
   /**
    * Remove an enviromental device
-   * Z -> deleteEnviromentalDeviceInformation() -> JSON
+   * Z -> deleteEnviromentalDevice() -> JSON
    * 
    * @param deviceId 
    * @returns 
    */
-   deleteEnviromentalDeviceInformation(deviceId: number) {
+   deleteEnviromentalDevice(deviceId: number) {
     return this._httpClient.delete(`${this.api}/${deviceId}`)
   }
 

@@ -105,8 +105,9 @@ export class EnviromentalDeviceListComponent implements OnInit {
   }
 
   removeEnviromentalDevice(id: number) {
-    this._service.deleteEnviromentalDeviceInformation(id).subscribe(res => {
-      console.log('testing', res)
+    this._service.deleteEnviromentalDevice(id).subscribe(res => {
+      console.log('res', res)
+      this._cdr.detectChanges();
     })
   }
 }

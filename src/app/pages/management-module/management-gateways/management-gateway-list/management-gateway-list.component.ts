@@ -28,6 +28,7 @@ export class ManagementGatewayListComponent implements OnInit {
 
   userId: number;
   role: string = "";
+  councilId: number;
 
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
@@ -44,12 +45,13 @@ export class ManagementGatewayListComponent implements OnInit {
     let session = new UserSession();
     this.userId = session.getUserId();
     this.role = session.getRole();
+    this.councilId = session.getCouncilId();
 
     this.generateListElements()
   }
 
   generateListElements() {
-    this._service.getGatewaysPagination(this.userId, this.pageSize, this.pageIndex, this.role).subscribe( (res: any) => {
+    this._service.getGatewaysPagination(this.councilId, this.pageSize, this.pageIndex, this.role).subscribe( (res: any) => {
       console.log(res);
       
       let list: ListElement[] = [];

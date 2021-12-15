@@ -32,6 +32,6 @@ export class ManagementNetworkServerService {
       type = "council";
     }
 
-    return this._httpClient.get(`${this.api}/${type}/${userId}/${pageSize}/${pageIndex}`)
+    return this._httpClient.get(`${this.api}/${type}/${pageSize}/${pageIndex}`)
   }
 }

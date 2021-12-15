@@ -117,8 +117,7 @@ export class EnviromentalSensorFormComponent implements OnInit {
 
   submit(formValues: Array<string>) {
     this._router.navigateByUrl('/dash/ambiental/sensores')
-    
-    this._service.storeEnviromentalSensor(this.formRecolector[0], this.formRecolector[1], this.formRecolector[2], this.formRecolector[3]).subscribe((res: any) => {
+    this._service.storeEnviromentalSensor(formValues[0], formValues[1], formValues[2], formValues[3]).subscribe((res: any) => {
       if(res.http == 200) {
         this._router.navigateByUrl('/dash/ambiental/sensores')
         this._popupMessageService.sendMessage(["¡Bien!", "El sensor ha sido creado correctamente", true])

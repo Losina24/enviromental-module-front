@@ -20,6 +20,7 @@ export class ManagementDashboardComponent implements OnInit {
 	ns: number = 0;
 	users: number = 0;
 	userId: number;
+	councilId: number;
 	userRole: string;
 
 	constructor(
@@ -38,6 +39,7 @@ export class ManagementDashboardComponent implements OnInit {
 		if(userSession.checkSession()) {
 			this.userId = userSession.getUserId();
 			this.userRole = userSession.getRole();
+			this.councilId = userSession.getCouncilId();
 		} else {
 			this._router.navigateByUrl("/");
 		}
@@ -51,25 +53,25 @@ export class ManagementDashboardComponent implements OnInit {
 
 	// Method that makes all the API calls required to generate the dashboard information
 	getDashboardInformation() {
-		this._service.getNS(this.userId, this.userRole).subscribe((res) => {
+		this._service.getNS(this.councilId, this.userRole).subscribe((res) => {
 			this.ns = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getGateways(this.userId, this.userRole).subscribe((res) => {
+		this._service.getGateways(this.councilId, this.userRole).subscribe((res) => {
 			this.gateways = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getCouncils(this.userId, this.userRole).subscribe((res) => {
+		this._service.getCouncils(this.councilId, this.userRole).subscribe((res) => {
 			this.councils = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getUsers(this.userId, this.userRole).subscribe((res) => {
+		this._service.getUsers(this.councilId, this.userRole).subscribe((res) => {
 			this.users = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
@@ -80,13 +82,6 @@ export class ManagementDashboardComponent implements OnInit {
 	// Method that creates the HTML components
 	generateDashboardComponents() {
 		this.dashboardElements = []
-
-		var councilElement = new SimpleDashboardElement();
-		councilElement.setTitle('Ayuntamientos')
-		councilElement.setContent(this.councils)
-		councilElement.setLink('/dash/gestion/ayuntamientos')
-		councilElement.setIcon('bi-house-door-fill')
-		this.dashboardElements.push(councilElement)
 
 		var userElement = new SimpleDashboardElement();
 		userElement.setTitle('Usuarios')

@@ -17,8 +17,8 @@ export class EnviromentalSensorsService {
 
   storeEnviromentalSensor(name:string, deviceEUI: string, deviceId: string, type: string) {
     let params = {deviceId: deviceId, name: name, deviceEUI: deviceEUI, type: type, status: 1}
-    
-    return this._httpClient.post(`${this.api}/add`, params)
+    console.log('params', params)
+    return this._httpClient.post(`${this.api}`, params)
   }
 
    /**

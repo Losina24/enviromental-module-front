@@ -6,6 +6,8 @@ import { EnviromentalDevicesService } from '../enviromental-devices.service';
 import { Router } from '@angular/router';
 import { PopupMessageService } from 'src/app/shared/components/popup-message/popup-message.service';
 import EnviromentalDevice from 'src/app/shared/models/EnviromentalDevice';
+import UserSession from 'src/app/shared/models/UserSession';
+import { ManagementGatewaysService } from 'src/app/pages/management-module/management-gateways/management-gateways.service';
 
 enum InputType {
   Text = "text",
@@ -25,8 +27,10 @@ export class EnviromentalDeviceFormComponent implements OnInit {
   
   // Atributes
   formElement: FormElement;
+  device: EnviromentalDevice;
   userId:any;
   role:any;
+  gateways: any[] = [];
 
   // Constructor
   constructor(
@@ -34,11 +38,20 @@ export class EnviromentalDeviceFormComponent implements OnInit {
 		private _cdr: ChangeDetectorRef,
     private _service: EnviromentalDevicesService,
     private _popupMessageService: PopupMessageService,
+    private _gatewayService: ManagementGatewaysService,
     private _router: Router
   ) { }
 
   // Method
   ngOnInit(): void {
+    // Setting the user's role
+    let session = new UserSession();
+    this.userId = session.getUserId();
+    this.role = session.getRole();
+
+    // Obtaining the gateways
+    this.getGateways();
+
     if(this.isUpdate() > 0) {
       this._titleUpdaterService.changeTitle("Editar dispositivo");
       this.getEnviromentalDeviceInformation()
@@ -78,8 +91,10 @@ export class EnviromentalDeviceFormComponent implements OnInit {
         const longitude = parseFloat(res.result.coords[1]);
         const coords: [number, number] = [latitude, longitude];
         const status = res.result.status;
+
+        this.device = new EnviromentalDevice({id, name, gateway, deviceEUI, coords, status})
   
-        resolve(new EnviromentalDevice({id, name, gateway, deviceEUI, coords, status}));
+        resolve(this.device);
       })
     })
   }
@@ -103,17 +118,34 @@ export class EnviromentalDeviceFormComponent implements OnInit {
     this._cdr.detectChanges()
   }
 
-  submit(formValues: Array<string>) {
-    
-    this._service.storeEnviromentalDevice(formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], this.userId).subscribe((res: any) => {
-        
-      if(res.http == 200) {
-        this._router.navigateByUrl('/dash/ambiental/dispositivos')
-        this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente", true])
-      } else {
-        this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el dispositivo", false]);
-      }
+  getGateways() {
+    this._gatewayService.getGatewaysPagination(this.userId, 10000, 1, this.role).subscribe(res => {
+      console.log('gateways', res)
     })
+  }
+
+  submit(formValues: Array<string>) {
+    if(this.isUpdate() > 0) {
+      this._service.editEnviromentalDevice( this.isUpdate(), formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], this.device.getStatus(),  this.userId).subscribe((res: any) => {
+        
+        if(res.http == 200) {
+          this._router.navigateByUrl('/dash/ambiental/dispositivos')
+          this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido editado correctamente", true])
+        } else {
+          this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al editar el dispositivo", false]);
+        }
+      })
+    } else {
+      this._service.storeEnviromentalDevice(formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], this.userId).subscribe((res: any) => {
+        
+        if(res.http == 200) {
+          this._router.navigateByUrl('/dash/ambiental/dispositivos')
+          this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente", true])
+        } else {
+          this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el dispositivo", false]);
+        }
+      })
+    }
   }
 
   cancel() {

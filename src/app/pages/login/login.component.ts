@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         if(res != null) {
           console.log('respuesta', res.response.role)
           let userSession = new UserSession()
-          userSession.createSession(res.response.userId, res.response.role)
+          userSession.createSession(res.response.userId, res.response.role, res.response.councilId)
           this._router.navigateByUrl("/dash");
         } else {
           this.error= true;

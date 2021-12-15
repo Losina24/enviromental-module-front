@@ -67,5 +67,6 @@ export class GeneralListComponent implements OnInit, OnChanges {
 
   emitRemoveConfirmation() {
     this.confirmedRemoveId.emit(this.removeId)
+    this.removeId = 0;
   }
 }
