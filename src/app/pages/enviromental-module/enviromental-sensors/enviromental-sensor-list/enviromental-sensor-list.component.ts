@@ -107,4 +107,11 @@ export class EnviromentalSensorListComponent implements OnInit {
       this._cdr.detectChanges()
     })
   }
+
+  removeSensor(id: number) {
+    this._service.removeSensor(id).subscribe(res => {
+      this.generateListElements()
+      this._cdr.detectChanges()
+    })
+  }
 }

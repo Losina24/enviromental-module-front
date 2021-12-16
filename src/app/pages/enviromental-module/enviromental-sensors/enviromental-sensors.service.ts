@@ -88,13 +88,13 @@ export class EnviromentalSensorsService {
     }
   
     /**
-     * Remove an enviromental device
-     * Z -> deleteEnviromentalDeviceInformation() -> JSON
+     * Remove a sensor
+     * Z -> removeSensor() -> JSON
      * 
-     * @param deviceId 
+     * @param id 
      * @returns 
      */
-     deleteEnviromentalDeviceInformation(deviceId: number) {
-      return this._httpClient.delete(`${this.api}/${deviceId}`)
+     removeSensor(id: number) {
+      return this._httpClient.delete(`${this.api}/${id}`)
     }
 }
