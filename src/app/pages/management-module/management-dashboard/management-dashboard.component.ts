@@ -65,11 +65,13 @@ export class ManagementDashboardComponent implements OnInit {
 			this._cdr.detectChanges()
 		})
 
-		this._service.getCouncils(this.councilId, this.userRole).subscribe((res) => {
-			this.councils = res.result;
-			this.generateDashboardComponents();
-			this._cdr.detectChanges()
-		})
+		if(this.userRole == "root") {
+			this._service.getCouncils(this.councilId, this.userRole).subscribe((res) => {
+				this.councils = res.result;
+				this.generateDashboardComponents();
+				this._cdr.detectChanges()
+			})
+		}
 
 		this._service.getUsers(this.councilId, this.userRole).subscribe((res) => {
 			this.users = res.result;
@@ -82,6 +84,15 @@ export class ManagementDashboardComponent implements OnInit {
 	// Method that creates the HTML components
 	generateDashboardComponents() {
 		this.dashboardElements = []
+
+		if(this.userRole == "root") {
+			var councilElement = new SimpleDashboardElement();
+			councilElement.setTitle('Ayuntamientos')
+			councilElement.setContent(this.councils)
+			councilElement.setLink('/dash/gestion/ayuntamientos')
+			councilElement.setIcon('bi-house-door-fill')
+			this.dashboardElements.push(councilElement)
+		}
 
 		var userElement = new SimpleDashboardElement();
 		userElement.setTitle('Usuarios')

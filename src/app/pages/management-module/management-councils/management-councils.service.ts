@@ -23,6 +23,6 @@ export class ManagementCouncilsService {
   }
 
   getCouncilPagination(id: number,  pageSize: number, pageIndex: number, role: string): Observable<any> {
-    return this._httpClient.get(`${this.api}/${id}/${pageSize}/${pageIndex}`)
+    return this._httpClient.get(`${this.api}/pagination/${pageSize}/${pageIndex}`)
   }
 }

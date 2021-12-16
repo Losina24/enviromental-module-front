@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
 import ListElement from 'src/app/shared/models/ListElement';
 import ListField from 'src/app/shared/models/ListField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
@@ -15,7 +15,7 @@ import { PopupMessageService } from 'src/app/shared/components/popup-message/pop
   styleUrls: ['./management-user-list.component.scss']
 })
 
-export class ManagementUserListComponent implements OnInit {
+export class ManagementUserListComponent implements OnInit, OnChanges {
 
   // Atributes
   listElements: ListElement[] = [];
@@ -50,6 +50,10 @@ export class ManagementUserListComponent implements OnInit {
     this.councilId = session.getCouncilId();
 
     this.generateListElements();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+      //this.generateListElements();
   }
 
   generateListElements() {
@@ -95,6 +99,13 @@ export class ManagementUserListComponent implements OnInit {
       }
 
       this.listElements = list;
+      this._cdr.detectChanges()
+    })
+  }
+
+  removeUser(id: number) {
+    this._service.deleteUser(id).subscribe(res => {
+      this.generateListElements()
       this._cdr.detectChanges()
     })
   }

@@ -127,7 +127,6 @@ export class EnviromentalDeviceFormComponent implements OnInit {
   submit(formValues: Array<string>) {
     if(this.isUpdate() > 0) {
       this._service.editEnviromentalDevice( this.isUpdate(), formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], this.device.getStatus(),  this.userId).subscribe((res: any) => {
-        
         if(res.http == 200) {
           this._router.navigateByUrl('/dash/ambiental/dispositivos')
           this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido editado correctamente", true])
@@ -135,9 +134,9 @@ export class EnviromentalDeviceFormComponent implements OnInit {
           this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al editar el dispositivo", false]);
         }
       })
+
     } else {
       this._service.storeEnviromentalDevice(formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], this.userId).subscribe((res: any) => {
-        
         if(res.http == 200) {
           this._router.navigateByUrl('/dash/ambiental/dispositivos')
           this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente", true])

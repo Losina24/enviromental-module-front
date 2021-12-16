@@ -5,6 +5,7 @@ import { TitleUpdaterService } from 'src/app/shared/services/title-updater.servi
 import { Router } from '@angular/router';
 import { ManagementNetworkServerService } from '../management-network-servers.service';
 import { PopupMessageService } from 'src/app/shared/components/popup-message/popup-message.service';
+import UserSession from 'src/app/shared/models/UserSession';
 
 enum InputType {
   Text = "text",
@@ -20,10 +21,14 @@ enum InputType {
   templateUrl: './management-network-server-form.component.html',
   styleUrls: ['./management-network-server-form.component.scss']
 })
-export class ManagementNetworkServerFormComponent implements OnInit, OnChanges {
+export class ManagementNetworkServerFormComponent implements OnInit {
   
   formElement: FormElement
   formRecolector: Array<string> = new Array<string>();
+
+  userId: number;
+  role: string = "";
+  councilId: number;
 
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
@@ -34,19 +39,17 @@ export class ManagementNetworkServerFormComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    if(this.isUpdate() > 0) {
-      this._titleUpdaterService.changeTitle("Editar network server");
-      this.generateFormElements();
-    } else {
-      this._titleUpdaterService.changeTitle("Crear network server");
-      this.generateFormElements();
-    }
-  }
+    // Setting the user's role
+    let session = new UserSession();
+    this.userId = session.getUserId();
+    this.role = session.getRole();
+    this.councilId = session.getCouncilId();
 
-  ngOnChanges() {
     if(this.isUpdate() > 0) {
       this._titleUpdaterService.changeTitle("Editar network server");
-      this.generateFormElements();
+      this.getNetworkServer().then(networkServer => {
+        this.generateFormElements(networkServer);
+      })
     } else {
       this._titleUpdaterService.changeTitle("Crear network server");
       this.generateFormElements();
@@ -64,33 +67,83 @@ export class ManagementNetworkServerFormComponent implements OnInit, OnChanges {
     }
   }
 
-  generateFormElements() {
-    let ff1 = new FormField("Nombre del network server", "Escribe un nombre", InputType.Text, "name");
-    let ff2 = new FormField("Mac del gateway", "Escribe una dirección MAC", InputType.Text, "identifier");
-    let ff3 = new FormField("Centralizado", "Si/No", InputType.Text, "centralized");
-    let ff4 = new FormField("URL", "Escribe una URL", InputType.Text, "url");
-    let ff5 = new FormField("Tipo", "Escribe un tipo", InputType.Text, "type");
-    let ff6 = new FormField("Proveedor", "Escribe un proveedor", InputType.Text, "provider");
-    let ff7 = new FormField("Token", "Define el token", InputType.Text, "token");
+  generateFormElements(networkServer?: any) { // Deberia ser networkServer?: NetworkServer
 
-    this.formElement = new FormElement([ff1, ff2, ff3, ff4, ff5, ff7, ff6])
+    // Generating the DOM
+    let formFieldName = new FormField("Nombre del network server", "Escribe un nombre", InputType.Text, "name");
+    let formFieldMac = new FormField("Mac del gateway", "Escribe una dirección MAC", InputType.Text, "identifier");
+    let formFieldCentralized = new FormField("Centralizado", "Si/No", InputType.Text, "centralized");
+    let formFieldURL = new FormField("URL", "Escribe una URL", InputType.Text, "url");
+    let formFieldType = new FormField("Tipo", "Escribe un tipo", InputType.Text, "type");
+    let formFieldProvider = new FormField("Proveedor", "Escribe un proveedor", InputType.Text, "provider");
+    let formFieldToken = new FormField("Token", "Define el token", InputType.Text, "token");
 
+    // Setting the current values if it is an edit page
+    if (networkServer) {
+      formFieldName.setValue(networkServer.name + "");
+      formFieldMac.setValue(networkServer.mac + "");
+      formFieldCentralized.setValue(networkServer.centralized + "");
+      formFieldURL.setValue(networkServer.url + "");
+      formFieldType.setValue(networkServer.type + "");
+      formFieldProvider.setValue(networkServer.provider + "");
+      formFieldToken.setValue(networkServer.token + "");
+    }
+
+    this.formElement = new FormElement([formFieldName, formFieldMac, formFieldCentralized, formFieldURL, formFieldType, formFieldToken, formFieldProvider])
+    console.log(this.formElement);
+    
     this._cdr.detectChanges()
   }
 
-  submit(formValues: Array<string>) {
-    this._router.navigateByUrl('/dash/gestion/network_servers')
-    this._popupMessageService.sendMessage(["¡Bien!", "El network server ha sido creado correctamente", true])
+  async getNetworkServer(): Promise<any> { // Deberia devolver Promise<NetworkServer>
+    return new Promise<any>((resolve, reject) => {
+      this._service.getNetworkServerInformation(this.isUpdate()).subscribe( (res: any) => {
+        /* const id = res.result.id;
+        const name = res.result.name;
+        const gateway = res.result.gatewayId;
+        const deviceEUI = res.result.deviceEUI;
+        const latitude = parseFloat(res.result.coords[0]);
+        const longitude = parseFloat(res.result.coords[1]);
+        const coords: [number, number] = [latitude, longitude];
+        const status = res.result.status;
 
-    /* this._service.storeEnviromentalDevice(formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], this.userId).subscribe((res: any) => {
+        this.device = new EnviromentalDevice({id, name, gateway, deviceEUI, coords, status}) */
+        resolve(res.response);
+      })
+    })
+  }
+
+  submit(formValues: Array<string>) {
+    console.log(formValues);
+    if(this.isUpdate() > 0) {
+      
+      this._service.editNetorkServer(this.isUpdate(), formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], formValues[5], formValues[6]).subscribe((res: any) => { // Hay que cambiar MAC del gateway por Select Gateway
+        console.log(res);
         
-      if(res.http == 200) {
-        this._router.navigateByUrl('/dash/ambiental/dispositivos')
-        this._popupMessageService.sendMessage(["¡Bien!", "El dispositivo ha sido creado correctamente"])
-      } else {
-        this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el dispositivo"]);
-      }
-    }) */
+        if(res.http == 200) {
+          this._router.navigateByUrl('/dash/gestion/network_servers')
+          this._popupMessageService.sendMessage(["¡Bien!", "El servidor ha sido creado correctamente", true])
+        } else {
+          this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el servidor", false]);
+        }
+      }, err => {
+        this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el servidor", false]);
+      })
+    
+    } else {
+      
+      this._service.storeNetorkServer(formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], formValues[5], formValues[6]).subscribe((res: any) => { // Hay que cambiar MAC del gateway por Select Gateway
+        
+        if(res.http == 200) {
+          this._router.navigateByUrl('/dash/gestion/network_servers')
+          this._popupMessageService.sendMessage(["¡Bien!", "El servidor ha sido creado correctamente", true])
+        } else {
+          this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el servidor", false]);
+        }
+      }, err => {
+        this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el servidor", false]);
+      })
+    }
   }
 
   cancel() {

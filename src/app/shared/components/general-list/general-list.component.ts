@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import ListActions from '../../models/ListActions';
 import ListElement from '../../models/ListElement';
 import ListField from '../../models/ListField';
@@ -24,7 +24,8 @@ export class GeneralListComponent implements OnInit, OnChanges {
   removeId: number = 0;
 
   constructor(
-    private _router: Router
+    private _router: Router,
+    private _cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {}

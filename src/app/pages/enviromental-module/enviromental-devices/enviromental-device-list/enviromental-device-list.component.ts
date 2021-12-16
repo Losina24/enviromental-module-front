@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnChanges, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnChanges, AfterViewInit, SimpleChanges } from '@angular/core';
 import ListElement from 'src/app/shared/models/ListElement';
 import ListField from 'src/app/shared/models/ListField';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
@@ -13,7 +13,7 @@ import ConfirmationPopupMessage from 'src/app/shared/models/ConfirmationPopupMes
   templateUrl: './enviromental-device-list.component.html',
   styleUrls: ['./enviromental-device-list.component.scss']
 })
-export class EnviromentalDeviceListComponent implements OnInit {
+export class EnviromentalDeviceListComponent implements OnInit, OnChanges {
   
   // Atributes
   listElements: ListElement[] = [];
@@ -48,6 +48,9 @@ export class EnviromentalDeviceListComponent implements OnInit {
 
     // Generating the DOM elements
     this.generateListElements()
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
   }
 
   generateListElements() {
@@ -96,7 +99,7 @@ export class EnviromentalDeviceListComponent implements OnInit {
           }
         });
       } else {
-        alert("No hay información en la base de datos")
+        alert("No hay información en la base de datos") // Hay que cambiarlo por un mensaje
       }
       
       this.listElements = list;
@@ -106,8 +109,9 @@ export class EnviromentalDeviceListComponent implements OnInit {
 
   removeEnviromentalDevice(id: number) {
     this._service.deleteEnviromentalDevice(id).subscribe(res => {
-      console.log('res', res)
-      this._cdr.detectChanges();
+      console.log(res)
+      this.generateListElements()
+      this._cdr.detectChanges()
     })
   }
 }

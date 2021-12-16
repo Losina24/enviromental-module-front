@@ -31,6 +31,7 @@ export class GeneralFormComponent implements OnInit, OnChanges {
   }
 
   submit() {
+      console.log('probando', this.formElement.checkRequiredInputs(this.formRecolector))
       if( this.formElement.checkRequiredInputs(this.formRecolector) ) {
         this.formValues.emit(this.formRecolector)
       } else {

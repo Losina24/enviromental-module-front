@@ -110,4 +110,11 @@ export class ManagementNetworkServerListComponent implements OnInit {
       this._cdr.detectChanges()
     })
   }
+
+  removeNetorkServer(id: number) {
+    this._service.deleteNetworkServer(id).subscribe(res => {
+      this.generateListElements()
+      this._cdr.detectChanges()
+    })
+  }
 }
