@@ -17,16 +17,17 @@ export class EnviromentalAlertsService {
   }
 
   getEnviromentalAlertPagination(id: number,  pageSize: number, pageIndex: number, role: string): Observable<any> {
-    let type = "";
   
       if(role == "root") {
-        type = "root";
+        return this._httpClient.get(`${this.api}/${role}/${pageSize}/${pageIndex}`)
       } else if(role == "admin") {
-        type = "council";
+        return this._httpClient.get(`${this.api}/${role}/${id}/${pageSize}/${pageIndex}`)
       } else {
-        type = "user";
+        return this._httpClient.get(`${this.api}/${role}/${id}/${pageSize}/${pageIndex}`)
       }
+  }
 
-    return this._httpClient.get(`${this.api}/${type}/${id}/${pageSize}/${pageIndex}`)
+  deleteAlert(id: number) {
+    return this._httpClient.delete(`${this.api}/${id}`)
   }
 }

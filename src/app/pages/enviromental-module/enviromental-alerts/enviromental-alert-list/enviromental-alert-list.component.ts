@@ -6,6 +6,8 @@ import { EnviromentalAlertsService } from '../enviromental-alerts.service';
 import { Router } from '@angular/router';
 import UserSession from 'src/app/shared/models/UserSession'; 
 import { PopupMessageService } from 'src/app/shared/components/popup-message/popup-message.service';
+import ListActions from 'src/app/shared/models/ListActions';
+import ConfirmationPopupMessage from 'src/app/shared/models/ConfirmationPopupMessage';
 
 @Component({
   selector: 'app-enviromental-alert-list',
@@ -16,6 +18,8 @@ import { PopupMessageService } from 'src/app/shared/components/popup-message/pop
 export class EnviromentalAlertListComponent implements OnInit {
 
   listElements: ListElement[];
+  actions: ListActions[] = [];
+  confirmationPopup: ConfirmationPopupMessage = new ConfirmationPopupMessage("Eliminar notificación", "Una vez eliminado desaparecerá para siempre", "/dash/ambiental/alertas");
 
   orderIndex: number = 0;
   pageIndex: number = 1;
@@ -24,6 +28,7 @@ export class EnviromentalAlertListComponent implements OnInit {
 
   userId: number;
   role: string = "";
+  councilId: number;
 
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
@@ -54,9 +59,11 @@ export class EnviromentalAlertListComponent implements OnInit {
       let list: ListElement[] = [];
       
       if(res.http == 200) {
+        
         let alerts = res.result;
         
         alerts.forEach((alert:any) => {
+          console.log(alert);
           let lf1 = new ListField();
           lf1.setName("ID");
           lf1.setValue(alert.id);
@@ -85,12 +92,22 @@ export class EnviromentalAlertListComponent implements OnInit {
 
           let le = new ListElement([lf1, lf2, lf3, lf4, lf5])
           list.push(le);
+
+          // Setting the action buttons for each table row
+          this.actions.push(new ListActions(["Eliminar"], alert.id, [alert.id]))
         });
       } else {
         this._popupMessageService.sendMessage(["Error!", "Hay algún problema...", false])
       }
 
       this.listElements = list;
+      this._cdr.detectChanges()
+    })
+  }
+
+  removeAlert(id: number){
+    this._service.deleteAlert(id).subscribe((res: any) => {
+      this.generateListElements()
       this._cdr.detectChanges()
     })
   }

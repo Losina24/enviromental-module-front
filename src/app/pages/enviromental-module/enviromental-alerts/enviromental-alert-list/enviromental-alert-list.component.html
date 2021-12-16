@@ -3,6 +3,6 @@
 </div> -->
 
 <section class="list-container">
-    <app-general-list class="list-component" [listElements]="listElements"></app-general-list>
+    <app-general-list class="list-component" [listElements]="listElements" [listActions]="actions" [confirmationPopup]="confirmationPopup" (confirmedRemoveId)="removeAlert($event)"></app-general-list>
 </section>
 
