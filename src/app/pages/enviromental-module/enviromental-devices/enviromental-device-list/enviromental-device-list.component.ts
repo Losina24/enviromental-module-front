@@ -109,7 +109,6 @@ export class EnviromentalDeviceListComponent implements OnInit, OnChanges {
 
   removeEnviromentalDevice(id: number) {
     this._service.deleteEnviromentalDevice(id).subscribe(res => {
-      console.log(res)
       this.generateListElements()
       this._cdr.detectChanges()
     })

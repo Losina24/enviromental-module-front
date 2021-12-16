@@ -96,4 +96,11 @@ export class ManagementCouncilListComponent implements OnInit {
       this._cdr.detectChanges()
     })
   }
+
+  removeCouncil(id: number) {
+    this._service.deleteCouncil(id).subscribe(res => {
+      this.generateListElements()
+      this._cdr.detectChanges()
+    })
+  }
 }
