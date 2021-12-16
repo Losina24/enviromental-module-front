@@ -81,7 +81,7 @@ export class ManagementGatewayFormComponent implements OnInit, OnChanges {
 
   generateFormElements(gateway?: any) {
     this.getCouncils().then(res => {
-      console.log('council', gateway)
+
       let ff1 = new FormField("Nombre del gateway", "Escribe un nombre", InputType.Text, "name");
       let ff2 = new FormField("Mac del gateway", "Escribe una dirección MAC", InputType.Text, "mac");
       let ff3 = new FormField("Ayuntamiento", "Elige un ayuntamiento", InputType.Select, "councilId", true, res);
