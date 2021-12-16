@@ -114,7 +114,6 @@ export class ManagementNetworkServerFormComponent implements OnInit {
   }
 
   submit(formValues: Array<string>) {
-    console.log(formValues);
     if(this.isUpdate() > 0) {
       
       this._service.editNetorkServer(this.isUpdate(), formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], formValues[5], formValues[6]).subscribe((res: any) => { // Hay que cambiar MAC del gateway por Select Gateway

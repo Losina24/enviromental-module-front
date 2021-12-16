@@ -11,14 +11,17 @@ export class ManagementGatewaysService {
 
   constructor(private _httpClient: HttpClient) {}
 
+  getGatewayInformation(id: number): Observable<any> {
+    return this._httpClient.get(`${this.api}/${id}`)
+  }
+
   getGateways(): Observable<any> {
     return this._httpClient.get(`${this.api}/`)
   }
 
   storeGateway(name:string, mac: string, councilId: string, latitude: string, longitude: string) {
     let params = {name: name, mac: mac, councilId: councilId, latitude: latitude, longitude: longitude, status: '1'}
-    console.log(params);
-    
+
     return this._httpClient.post(`${this.api}/`, params)
   }
 
@@ -28,5 +31,14 @@ export class ManagementGatewaysService {
     } else {
       return this._httpClient.get(`${this.api}/council/${userId}/${pageSize}/${pageIndex}`)
     }
+  }
+
+  editGateway(id: number, name:string, mac: string, councilId: string, latitude: string, longitude: string) {
+    let params = {name: name, mac: mac, councilId: councilId, latitude: latitude, longitude: longitude, status: '1'}
+    return this._httpClient.put(`${this.api}/${id}`, params)
+  }
+
+  deleteGateway(id: number) {
+    return this._httpClient.delete(`${this.api}/${id}`)
   }
 }

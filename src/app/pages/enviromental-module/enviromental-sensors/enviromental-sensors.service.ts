@@ -35,7 +35,7 @@ export class EnviromentalSensorsService {
       let type = "";
   
       if(role == "root") {
-        type = "root";
+        return this._httpClient.get(`${this.api}/root/${pageSize}/${pageIndex}`)
       } else if(role == "admin") {
         type = "council";
       } else {

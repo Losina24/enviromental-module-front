@@ -52,7 +52,6 @@ export class ManagementGatewayListComponent implements OnInit {
 
   generateListElements() {
     this._service.getGatewaysPagination(this.councilId, this.pageSize, this.pageIndex, this.role).subscribe( (res: any) => {
-      console.log(res);
       
       let list: ListElement[] = [];
       
@@ -99,6 +98,13 @@ export class ManagementGatewayListComponent implements OnInit {
       }
 
       this.listElements = list;
+      this._cdr.detectChanges()
+    })
+  }
+
+  removeGateway(id: number) {
+    this._service.deleteGateway(id).subscribe(res => {
+      this.generateListElements()
       this._cdr.detectChanges()
     })
   }
