@@ -9,7 +9,7 @@
 
     <!-- Automatic generated body -->
     <tr *ngFor="let element of listElements; let i = index;" class="list-table-entry">
-        <td *ngFor="let field of element.getListFieldValues();" class="list-table-entry-field">{{ field || '~' }}</td>
+        <td *ngFor="let field of element.getListFieldValues();" class="list-table-entry-field n-{{field}}">{{ field || '~' }} <span class="eee {{field}}"></span></td>
         <td *ngIf="listActions.length > 0 && listActions[i].getActions().length > 0" class="list-table-entry-field list-table-field-small">
             <button (click)="callAction(action, listActions[i].getURLs()[j])" *ngFor="let action of listActions[i].getActions(); let j = index;" class="list-action-button"><i class="{{getIcon(action)}}"></i></button>
         </td>

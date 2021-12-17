@@ -30,8 +30,18 @@ export class EnviromentalMeasuresService {
    * @param pageIndex 
    * @returns 
    */
-  getMeasurePagination(deviceId: number, pageSize: number, pageIndex: number): Observable<any> {
-    
-    return this._httpClient.get(`${this.api}/${deviceId}/${pageSize}/${pageIndex}`)
+  getMeasurePagination(userId: number, pageSize: number, pageIndex: number, role: string): Observable<any> {
+    let type = "";
+
+    if(role == "root") {
+      type = "root";
+    } else if(role == "admin") {
+      type = "council";
+    } else {
+      type = "user";
+    }
+
+    return this._httpClient.get(`${this.api}/${type}/${userId}/${pageSize}/${pageIndex}`)
   }
+
 }

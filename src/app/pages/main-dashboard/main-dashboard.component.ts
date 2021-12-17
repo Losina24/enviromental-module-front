@@ -26,6 +26,8 @@ export class MainDashboardComponent implements OnInit {
 	devices: number = 0;
 	alerts: number = 0;
 	sensors: number = 0;
+
+	councilId: number;
 	userId: number;
 	userRole: string;
 
@@ -41,6 +43,7 @@ export class MainDashboardComponent implements OnInit {
 		// User session
 		const userSession: UserSession = new UserSession();
 		this.userId = userSession.getUserId();
+		this.councilId = userSession.getCouncilId();
 		this.userRole = userSession.getRole();
 
 		// Calling the API
@@ -52,25 +55,34 @@ export class MainDashboardComponent implements OnInit {
 
 	// Method used to get the information from the API
 	getDashboardInformation() {
-		this._service.getMeasures(1, this.userRole).subscribe((res) => {
+		
+		let id;
+		
+		if(this.userRole == "admin") {
+			id = this.councilId;
+		} else {
+			id = this.userId;
+		}
+
+		this._service.getMeasures(id, this.userRole).subscribe((res) => {
 			this.measures = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getDevices(this.userId, this.userRole).subscribe((res) => {
+		this._service.getDevices(id, this.userRole).subscribe((res) => {
 			this.devices = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getAlerts(this.userId, this.userRole).subscribe((res) => {
+		this._service.getAlerts(id, this.userRole).subscribe((res) => {
 			this.alerts = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getSensors(this.userId, this.userRole).subscribe((res) => {
+		this._service.getSensors(id, this.userRole).subscribe((res) => {
 			this.sensors = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
@@ -84,14 +96,14 @@ export class MainDashboardComponent implements OnInit {
 		var devicesElement = new SimpleDashboardElement();
 		devicesElement.setTitle('Dispositivos')
 		devicesElement.setContent(this.devices)
-		devicesElement.setLink('/dash/gestion/dispositivos')
+		devicesElement.setLink('/dash/ambiental/dispositivos')
 		devicesElement.setIcon('bi-phone-vibrate-fill')
 		this.dashboardElements.push(devicesElement)
 
 		var sensorsElement = new SimpleDashboardElement();
 		sensorsElement.setTitle('Sensores')
 		sensorsElement.setContent(this.sensors)
-		sensorsElement.setLink('/dash/gestion/sensores')
+		sensorsElement.setLink('/dash/ambiental/sensores')
 		sensorsElement.setIcon('bi-usb-symbol')
 		this.dashboardElements.push(sensorsElement)	
 		
@@ -109,12 +121,12 @@ export class MainDashboardComponent implements OnInit {
 		alertsElement.setIcon('bi-exclamation-triangle-fill')
 		this.dashboardElements.push(alertsElement)
 
-		var alertsElement = new SimpleDashboardElement();
-		alertsElement.setTitle('Mapa')
-		alertsElement.setContent('Ver')
-		alertsElement.setLink('/dash/ambiental/alertas')
-		alertsElement.setIcon('bi-geo-fill')
-		this.dashboardElements.push(alertsElement)
+		var mapElement = new SimpleDashboardElement();
+		mapElement.setTitle('Mapa')
+		mapElement.setContent('Ver')
+		mapElement.setLink('/dash/ambiental/mapa')
+		mapElement.setIcon('bi-geo-fill')
+		this.dashboardElements.push(mapElement)
 
 		this._cdr.detectChanges();
 	}

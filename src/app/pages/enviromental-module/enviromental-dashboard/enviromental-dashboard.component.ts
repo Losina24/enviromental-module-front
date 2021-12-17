@@ -17,10 +17,13 @@ export class EnviromentalDashboardComponent implements OnInit {
 	dashboardElements: SimpleDashboardElement[] = new Array<SimpleDashboardElement>();
 	measures: number = 0;
 	devices: number = 0;
+	unpairedDevices: number = 0;
 	alerts: number = 0;
 	sensors: number = 0;
+
 	userId: number;
 	userRole: string;
+	councilId: number;
 	
     constructor(
 		private _titleUpdaterService: TitleUpdaterService,
@@ -37,6 +40,7 @@ export class EnviromentalDashboardComponent implements OnInit {
 		const userSession: UserSession = new UserSession();
 		this.userId = userSession.getUserId();
 		this.userRole = userSession.getRole();
+		this.councilId = userSession.getCouncilId();
 
 		// Getting the data from the API
 		this.getDashboardElements();
@@ -46,25 +50,35 @@ export class EnviromentalDashboardComponent implements OnInit {
 	}
 
 	getDashboardElements() {
-		this._service.getMeasures(1, this.userRole).subscribe((res) => {
+		
+		let id;
+
+		if(this.userRole == "admin") {
+			id = this.councilId;
+		} else {
+			id = this.userId;
+		}
+
+
+		this._service.getMeasures(id, this.userRole).subscribe((res) => {
 			this.measures = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getDevices(this.userId, this.userRole).subscribe((res) => {
+		this._service.getDevices(id, this.userRole).subscribe((res) => {
 			this.devices = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getAlerts(this.userId, this.userRole).subscribe((res) => {
+		this._service.getAlerts(id, this.userRole).subscribe((res) => {
 			this.alerts = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getSensors(this.userId, this.userRole).subscribe((res) => {
+		this._service.getSensors(id, this.userRole).subscribe((res) => {
 			this.sensors = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
@@ -81,6 +95,13 @@ export class EnviromentalDashboardComponent implements OnInit {
 		devicesElement.setLink(rootUrl + 'dispositivos')
 		devicesElement.setIcon('bi-phone-vibrate-fill')
 		this.dashboardElements.push(devicesElement)
+
+		var devicesUnlinkedElement = new SimpleDashboardElement();
+		devicesUnlinkedElement.setTitle('Disp. detectados')
+		devicesUnlinkedElement.setContent(this.devices)
+		devicesUnlinkedElement.setLink(rootUrl + 'dispositivosDetectados')
+		devicesUnlinkedElement.setIcon('bi-phone-vibrate-fill')
+		this.dashboardElements.push(devicesUnlinkedElement)
 
 		var sensorsElement = new SimpleDashboardElement();
 		sensorsElement.setTitle('Sensores')
@@ -99,7 +120,7 @@ export class EnviromentalDashboardComponent implements OnInit {
 		var mapElement = new SimpleDashboardElement();
 		mapElement.setTitle('Mapa')
 		mapElement.setContent("Ver")
-		mapElement.setLink(rootUrl + 'mapa')
+		mapElement.setLink(rootUrl + '')
 		mapElement.setIcon('bi-geo-fill')
 		this.dashboardElements.push(mapElement)
 

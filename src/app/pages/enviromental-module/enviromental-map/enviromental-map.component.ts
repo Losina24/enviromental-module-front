@@ -4,7 +4,6 @@ import UserSession from 'src/app/shared/models/UserSession';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import { MainDashboardServiceService } from '../../main-dashboard/main-dashboard-service.service';
 
-
 @Component({
   selector: 'app-enviromental-map',
   templateUrl: './enviromental-map.component.html',
@@ -15,7 +14,8 @@ export class EnviromentalMapComponent implements OnInit {
   userId: number;
   role: string = "";
   councilId: number;
-  mapCode: string = "<html><body>Cargando...</body></html>";
+  mapCode: boolean = false;
+  code: string;
 
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
@@ -30,6 +30,7 @@ export class EnviromentalMapComponent implements OnInit {
     // Setting the user's role
     let session = new UserSession();
     this.userId = session.getUserId();
+    this.councilId = session.getCouncilId();
     this.role = session.getRole();
 
     this.generateMap()
@@ -37,24 +38,18 @@ export class EnviromentalMapComponent implements OnInit {
 
   generateMap() {
     if (this.role == "admin") {
-      this._service.getMap(this.councilId, this.role).subscribe((res: any) => {
-        this.mapCode = res.result;
+      this._service.getMap(this.userId, this.councilId, this.role).subscribe((res: any) => {
+        this.mapCode = true;
         this._cdr.detectChanges();
       })
     } else {
-      this._service.getMap(this.userId, this.role).subscribe((res: any) => {
-        this.mapCode = res.result;
+      this._service.getMap(this.userId, this.councilId, this.role).subscribe((res: any) => {
+        console.log('123', res.result);
+        this.code = res.result;
+        this.mapCode = true;
         this._cdr.detectChanges();
       })
     }
-    /* let pythonRun = spawn("python3", ['../../../assets/map/mapa.py'])
-    
-    pythonRun.stdout.on('data', function (data: any) {
-      console.log('Pipe data from python script ...');
-      console.log(data.toString())
-    }); */
-
-
   }
 
 }

@@ -190,11 +190,11 @@ export class MainDashboardServiceService {
     return this._httpClient.get(`${this.api}/user/count/${role}/${id}`)
   }
 
-  getMap(id: number, role: string) {
+  getMap(id: number, councilId: number, role: string) {
     if(role == "root") {
-      return this._httpClient.get(`${this.api}/enviromental/map/root`)
+      return this._httpClient.get(`${this.api}/enviromental/devices/map/root`)
     } else {
-      return this._httpClient.get(`${this.api}/enviromental/map/${role}/${id}`)
+      return this._httpClient.get(`${this.api}/enviromental/devices/map/${role}/${id}/${councilId}`)
     }
   }
 }

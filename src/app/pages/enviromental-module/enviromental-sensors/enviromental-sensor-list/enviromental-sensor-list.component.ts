@@ -67,19 +67,19 @@ export class EnviromentalSensorListComponent implements OnInit {
         sensors.forEach((sensor:any) => {
           let lf1 = new ListField();
           lf1.setName("ID");
-          lf1.setValue(sensor._id);
+          lf1.setValue(sensor.id);
           
           let lf2 = new ListField();
           lf2.setName("Nombre");
-          lf2.setValue(sensor._name);
+          lf2.setValue(sensor.name);
 
           let lf3 = new ListField();
           lf3.setName("ID de dispositivo");
-          lf3.setValue(sensor._deviceId);
+          lf3.setValue(sensor.deviceId);
 
           let lf4 = new ListField();
           lf4.setName("DeviceEUI");
-          lf4.setValue(sensor._deviceEUI);
+          lf4.setValue(sensor.deviceEUI);
 
           let lf5 = new ListField();
           lf5.setName("Tipo");
