@@ -1,3 +1,10 @@
+/**
+ * Name: login.service.ts
+ * Date: 23 - 11 - 2021
+ * Author: Alejandro Losa García
+ * Description: Fake logic service used to manage the login formulary
+ */
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';

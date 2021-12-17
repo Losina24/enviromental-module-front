@@ -28,7 +28,7 @@ import { PopupConfirmationComponent } from './components/popup-confirmation/popu
     GeneralListComponent,
     GeneralFormComponent,
     PopupMessageComponent,
-    PopupConfirmationComponent,
+    PopupConfirmationComponent
   ],
   exports: [
     // Aqui van los componentes que queremos exportar

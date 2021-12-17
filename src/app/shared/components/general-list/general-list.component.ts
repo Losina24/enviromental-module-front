@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import ListActions from '../../models/ListActions';
 import ListElement from '../../models/ListElement';
 import ListField from '../../models/ListField';
@@ -14,6 +14,7 @@ export class GeneralListComponent implements OnInit, OnChanges {
   @Input() listElements: ListElement[];
   @Input() listActions: ListActions[];
   @Input() confirmationPopup: ConfirmationPopupMessage;
+  @Output() confirmedRemoveId: EventEmitter<number> = new EventEmitter<number>();
 
   titles: string[];
   orderIndex: number = 0;
@@ -23,7 +24,8 @@ export class GeneralListComponent implements OnInit, OnChanges {
   removeId: number = 0;
 
   constructor(
-    private _router: Router
+    private _router: Router,
+    private _cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {}
@@ -62,5 +64,10 @@ export class GeneralListComponent implements OnInit, OnChanges {
         this._router.navigateByUrl(action)
         break;
     }
+  }
+
+  emitRemoveConfirmation() {
+    this.confirmedRemoveId.emit(this.removeId)
+    this.removeId = 0;
   }
 }

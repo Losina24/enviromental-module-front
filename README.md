@@ -1,27 +1,68 @@
-# EnviromentalModuleFront
+# **Enviromental platform module frontend**
+This repository contains a web application for an IoT management platform. It is developed using `Angular` and `TypeScript`. If you are looking for the API calls and documentation, [click here](https://github.com/Losina24/enviromental-module-api).
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.7.
+# **Contents**
+- [**Project**](#enviromental-platform-module-frontend)
+- [**Contents**](#contents)
+- [**Pre requirements**](#pre-requirements)
+- [**Getting started**](#getting-started)
+- [**Project structure**](#project-structure)
+- [**Requests**](#requests)
+  - [**Enviromental devices**](#enviromental-devices)
+  - [**Sensors**](#sensors)
+  - [**Measures**](#measures)
+- [**Deployment**](#deployment)
 
-## Development server
+# **Pre requirements**
+This API is being developed using `Angular` and `TypeScript` so you need to be installed `npm` and `Node.js`. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- Install [Node.js](https://nodejs.org/en/download/)
+- Install Angular:
 
-## Code scaffolding
+```js
+$ npm install -g @angular/cli
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# **Getting started**
 
-## Build
+1. Clone the repository
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```js
+$ git clone https://github.com/Losina24/enviromental-module-front
+```
 
-## Running unit tests
+2. Install node modules
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```js
+$ cd <path-to-directory>/enviromental-module-front
+$ npm install
+```
 
-## Running end-to-end tests
+3. Run Angular
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```js
+$ ng serve --open
 
-## Further help
+// If the port 4200 is already in use
+$ ng serve --port {port} --open
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+// If you want to run the application without open it in the browser
+$ ng serve
+```
+
+4. `Optional` If you want to use the development API, you must to run it. For more information, see at API docs.
+
+```js
+// On API directory
+$ npm run dev
+```
+
+---
+
+
+# **Deployment**
+To upload the code to production, you just have to drag the files into the `/build` folder inside your server's folder (if it is local, it is not necessary). Then start the express server from the `index.js` file
+
+# **License**
+All the code in this repository is owned by [Alejandro Losa](https://alejandrolosa.es/). <br>
+Copyright © 2021, Alejandro Losa.

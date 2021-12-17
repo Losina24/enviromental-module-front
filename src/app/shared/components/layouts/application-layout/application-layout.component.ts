@@ -46,6 +46,14 @@ export class ApplicationLayoutComponent implements OnInit {
       this._cdr.detectChanges();
     })
 
+    // Session management
+    let userSession = new UserSession();
+		if(userSession.checkSession()) {
+			this.userId = userSession.getUserId();
+		} else {
+			this._router.navigateByUrl("/");
+		}
+
     this._popupMessageService.getMessage$().subscribe( (message: [string, string, boolean]) => {
       this.popupMessage = message;
       this.popupMessageStatus = true;
@@ -78,14 +86,6 @@ export class ApplicationLayoutComponent implements OnInit {
     this._popupMessageService.getClose().subscribe( res => {
       this.popupMessageStatus = false;
     })
-
-    // Session management
-    let userSession = new UserSession();
-		if(userSession.checkSession()) {
-			this.userId = userSession.getUserId();
-		} else {
-			//this._router.navigateByUrl("/");
-		}
   }
   
   changeMenuStatus() {

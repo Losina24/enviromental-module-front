@@ -20,6 +20,8 @@ export class ManagementDashboardComponent implements OnInit {
 	ns: number = 0;
 	users: number = 0;
 	userId: number;
+	councilId: number;
+	userRole: string;
 
 	constructor(
 		private _titleUpdaterService: TitleUpdaterService,
@@ -36,8 +38,10 @@ export class ManagementDashboardComponent implements OnInit {
 		let userSession = new UserSession();
 		if(userSession.checkSession()) {
 			this.userId = userSession.getUserId();
+			this.userRole = userSession.getRole();
+			this.councilId = userSession.getCouncilId();
 		} else {
-			//this._router.navigateByUrl("/");
+			this._router.navigateByUrl("/");
 		}
 
 		// Getting the information from the API
@@ -49,30 +53,28 @@ export class ManagementDashboardComponent implements OnInit {
 
 	// Method that makes all the API calls required to generate the dashboard information
 	getDashboardInformation() {
-		this._service.getNS().subscribe((res) => {
-			console.log(res)
-			this.ns = res.response.length;
+		this._service.getNS(this.councilId, this.userRole).subscribe((res) => {
+			this.ns = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getGateways().subscribe((res) => {
-			console.log(res)
-			this.gateways = res.response.length;
+		this._service.getGateways(this.councilId, this.userRole).subscribe((res) => {
+			this.gateways = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
 
-		this._service.getCouncils().subscribe((res) => {
-			console.log(res)
-			this.councils = res.response.length;
-			this.generateDashboardComponents();
-			this._cdr.detectChanges()
-		})
+		if(this.userRole == "root") {
+			this._service.getCouncils(this.councilId, this.userRole).subscribe((res) => {
+				this.councils = res.result;
+				this.generateDashboardComponents();
+				this._cdr.detectChanges()
+			})
+		}
 
-		this._service.getUsers().subscribe((res) => {
-			console.log(res)
-			this.users = res.response.length;
+		this._service.getUsers(this.councilId, this.userRole).subscribe((res) => {
+			this.users = res.result;
 			this.generateDashboardComponents();
 			this._cdr.detectChanges()
 		})
@@ -83,12 +85,14 @@ export class ManagementDashboardComponent implements OnInit {
 	generateDashboardComponents() {
 		this.dashboardElements = []
 
-		var councilElement = new SimpleDashboardElement();
-		councilElement.setTitle('Ayuntamientos')
-		councilElement.setContent(this.councils)
-		councilElement.setLink('/dash/gestion/ayuntamientos')
-		councilElement.setIcon('bi-house-door-fill')
-		this.dashboardElements.push(councilElement)
+		if(this.userRole == "root") {
+			var councilElement = new SimpleDashboardElement();
+			councilElement.setTitle('Ayuntamientos')
+			councilElement.setContent(this.councils)
+			councilElement.setLink('/dash/gestion/ayuntamientos')
+			councilElement.setIcon('bi-house-door-fill')
+			this.dashboardElements.push(councilElement)
+		}
 
 		var userElement = new SimpleDashboardElement();
 		userElement.setTitle('Usuarios')

@@ -7,6 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import UserSession from 'src/app/shared/models/UserSession'; 
 
 @Component({
   selector: 'app-lateral-menu',
@@ -22,6 +23,8 @@ export class LateralMenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {    
+    let user: UserSession = new UserSession();
+    this.role = user.getRole();
   }
 
 }

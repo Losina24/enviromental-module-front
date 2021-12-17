@@ -359,3 +359,44 @@ option {
 .list-action-button:hover > .action-red {
     color: $red-effect !important;
 }
+
+iframe {
+    width: 100%;
+    height: calc(100vh - 16rem);
+}
+.eee {
+    display: none;
+}
+.n-red, .n-yellow, .n-green {
+ font-size: 0;
+}
+.red {
+
+    display: inline;
+    font-size: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100rem;
+    background-color: $red;
+    padding: 0;
+}
+
+.yellow {
+    display: inline;
+    font-size: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100rem;
+    background-color: rgb(228, 184, 38);
+    padding: 0;
+}
+
+.green {
+    display: inline;
+    font-size: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100rem;
+    background-color: rgb(38, 228, 86);
+    padding: 0;
+}

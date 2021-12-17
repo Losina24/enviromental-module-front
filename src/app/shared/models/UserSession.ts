@@ -10,15 +10,16 @@ export default class UserSession {
     // Atributes
     userId: number;
     userRole: string;
+    councilId: number;
 
     // Constructor
     constructor() {
         if(sessionStorage.getItem('userId')) {
-            const userId = parseInt("" + sessionStorage.getItem('userId'));
-            this.userId = userId;
+            this.userId = parseInt("" + sessionStorage.getItem('userId'));
 
-            const userRole = "" + sessionStorage.getItem('userRole');
-            this.userRole = userRole;
+            this.userRole = "" + sessionStorage.getItem('role');
+
+            this.councilId =  parseInt("" + sessionStorage.getItem('councilId'));
         }
     }
 
@@ -44,9 +45,14 @@ export default class UserSession {
      * @param userId User's ID
      * @param role User's role
      */
-    public createSession(userId: number, role: string): void {
+    public createSession(userId: number, role: string, councilId: number): void {
         sessionStorage.setItem('userId', userId.toString());
         sessionStorage.setItem('role', role);
+        sessionStorage.setItem('councilId', councilId.toString());
+
+        this.userId = userId;
+        this.userRole = role;
+        this.councilId = councilId;
     }
 
     public getUserId(): number {
@@ -55,5 +61,9 @@ export default class UserSession {
 
     public getRole(): string {
         return this.userRole;
+    }
+
+    public getCouncilId(): number {
+        return this.councilId;
     }
 }

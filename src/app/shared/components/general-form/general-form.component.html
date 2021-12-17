@@ -12,7 +12,7 @@
 
                 <select *ngIf="element.getType() == 'select'" name="email" required="{{element.isRequired()}}" [(ngModel)]="formRecolector[i]">
                     <option selected hidden>{{element.getPlaceholder()}}</option>
-                    <option *ngFor="let option of element.getOptions();" value="{{option[0]}}">{{option[1]}}</option>
+                    <option *ngFor="let option of element.getOptions();" [value]="option[0]">{{option[1]}}</option>
                 </select>
             </div>
         </div>

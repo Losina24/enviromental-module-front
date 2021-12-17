@@ -25,6 +25,8 @@ import { ManagementNetworkServerListComponent } from './pages/management-module/
 import { ManagementNetworkServerFormComponent } from './pages/management-module/management-network-servers/management-network-server-form/management-network-server-form.component';
 import { ManagementUserListComponent } from './pages/management-module/management-users/management-user-list/management-user-list.component';
 import { ManagementUserFormComponent } from './pages/management-module/management-users/management-user-form/management-user-form.component';
+import { EnviromentalMapComponent } from './pages/enviromental-module/enviromental-map/enviromental-map.component';
+import { EnviromentalUnpairedDevicesComponent } from './pages/enviromental-module/enviromental-unpaired-devices/enviromental-unpaired-devices.component';
 
 @NgModule({
   declarations: [
@@ -47,16 +49,18 @@ import { ManagementUserFormComponent } from './pages/management-module/managemen
     ManagementNetworkServerListComponent,
     ManagementNetworkServerFormComponent,
     ManagementUserListComponent,
-    ManagementUserFormComponent
+    ManagementUserFormComponent,
+    EnviromentalMapComponent,
+    EnviromentalUnpairedDevicesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [ ],
+  providers: [  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

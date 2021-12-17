@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ApplicationLayoutComponent } from './application-layout.component';
 
@@ -8,7 +9,7 @@ describe('ApplicationLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ApplicationLayoutComponent ]
+      declarations: [ ApplicationLayoutComponent, RouterTestingModule ]
     })
     .compileComponents();
   });

@@ -1,5 +1,5 @@
 /**
- * Name: DashboardElement.ts
+ * Name: ConfirmationPopupMessage.ts
  * Date: 06 - 12 - 2021
  * Author: Alejandro Losa García
  * Description: Class used to manage the message that the user will see 
