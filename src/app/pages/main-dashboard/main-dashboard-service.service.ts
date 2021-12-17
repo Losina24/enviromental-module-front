@@ -189,4 +189,12 @@ export class MainDashboardServiceService {
 
     return this._httpClient.get(`${this.api}/user/count/${role}/${id}`)
   }
+
+  getMap(id: number, role: string) {
+    if(role == "root") {
+      return this._httpClient.get(`${this.api}/enviromental/map/root`)
+    } else {
+      return this._httpClient.get(`${this.api}/enviromental/map/${role}/${id}`)
+    }
+  }
 }

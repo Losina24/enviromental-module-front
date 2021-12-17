@@ -30,6 +30,7 @@ import { EnviromentalSensorListComponent } from './pages/enviromental-module/env
 import { EnviromentalSensorFormComponent } from './pages/enviromental-module/enviromental-sensors/enviromental-sensor-form/enviromental-sensor-form.component';
 import { EnviromentalMeasureListComponent } from './pages/enviromental-module/enviromental-measures/enviromental-measure-list/enviromental-measure-list.component';
 import { EnviromentalAlertListComponent } from './pages/enviromental-module/enviromental-alerts/enviromental-alert-list/enviromental-alert-list.component';
+import { EnviromentalMapComponent } from './pages/enviromental-module/enviromental-map/enviromental-map.component';
 
 const routes: Routes = [
   { 
@@ -142,9 +143,10 @@ const routes: Routes = [
         component: EnviromentalMeasureListComponent 
       },
       {
-        path: 'ambiental/mediciones/:deviceId',
-        component: EnviromentalMeasureListComponent 
-      }
+        path: 'ambiental/mapa',
+        component: EnviromentalMapComponent 
+      },
+
     ]
   }
 ];

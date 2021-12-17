@@ -1,0 +1,113 @@
+{
+    "councils": [{
+            "name": "Ayuntamiento 1",
+            "radius": 30,
+            "lat": 40.43,
+            "lng": -3.67
+        },
+        {
+            "name": "Ayuntamiento 2",
+            "radius": 40,
+            "lat": 40.43,
+            "lng": -3.65
+        }
+    ],
+    "gateways": [{
+            "name": "Gateway 1",
+            "lat": 40.5,
+            "lng": -3.69,
+            "councilName": "Ayuntamiento 1",
+            "radius": 8
+        },
+        {
+            "name": "Gateway 2",
+            "lat": 40.52,
+            "lng": -3.52,
+            "councilName": "Ayuntamiento 1",
+            "radius": 8
+        }
+    ],
+    "devices": [{
+        "name": "device 1",
+        "measurements": [{
+                "type": "co2",
+                "value": 100,
+                "unit": "ppm",
+                "dangerous": "red",
+                "date": "10101010110"
+            },
+            {
+                "type": "H2",
+                "value": 100,
+                "unit": "ppm",
+                "dangerous": "green",
+                "date": "10101010110"
+            },
+            {
+                "type": "O3",
+                "value": 100,
+                "unit": "ppm",
+                "dangerous": "green",
+                "date": "10101010110"
+            }
+        ],
+        "lat": 40.40,
+        "lng": -3.7
+    }, {
+        "name": "device 2",
+        "measurements": [{
+                "type": "co2",
+                "value": 50,
+                "unit": "ppm",
+                "dangerous": "green",
+                "date": "10101010110"
+            },
+            {
+                "type": "H2",
+                "value": 50,
+                "unit": "ppm",
+                "dangerous": "green",
+                "date": "10101010110"
+            },
+            {
+                "type": "O3",
+                "value": 50,
+                "unit": "ppm",
+                "dangerous": "green",
+                "date": "10101010110"
+            }
+        ],
+        "lat": 40.40,
+        "lng": -3.61
+    }],
+    "officialStations": [{
+        "name": "estacion 1",
+        "measurements": [{
+                "type": "co2",
+                "value": 100,
+                "unit": "ppm",
+                "dangerous": "red",
+                "date": "10101010110"
+            },
+            {
+                "type": "H2",
+                "value": 100,
+                "unit": "ppm",
+                "dangerous": "green",
+                "date": "10101010110"
+            },
+            {
+                "type": "O3",
+                "value": 100,
+                "unit": "ppm",
+                "dangerous": "green",
+                "date": "10101010110"
+            }
+        ],
+        "lat": 40.5,
+        "lng": -3.7,
+        "municipality": "mi casa"
+    }]
+
+
+}

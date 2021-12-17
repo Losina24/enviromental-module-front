@@ -359,3 +359,8 @@ option {
 .list-action-button:hover > .action-red {
     color: $red-effect !important;
 }
+
+iframe {
+    width: 100%;
+    height: calc(100vh - 16rem);
+}
