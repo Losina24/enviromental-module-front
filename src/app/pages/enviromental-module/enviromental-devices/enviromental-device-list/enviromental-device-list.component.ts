@@ -113,4 +113,10 @@ export class EnviromentalDeviceListComponent implements OnInit, OnChanges {
       this._cdr.detectChanges()
     })
   }
+
+  startOTA() {
+    this._service.startOTA().subscribe(res => {
+
+    })
+  }
 }

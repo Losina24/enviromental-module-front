@@ -24,7 +24,7 @@ export class EnviromentalMeasureListComponent implements OnInit {
 
   orderIndex: number = 0;
   pageIndex: number = 1;
-  pageSize: number = 30;
+  pageSize: number = 50;
   total: number = 0;
   userId: number;
   councilId: number;
@@ -70,54 +70,37 @@ export class EnviromentalMeasureListComponent implements OnInit {
         
         devices.forEach((device:any) => {
 
-          if(device.value <= 0) {
-
-          } else {
-            console.log(device);
-          let lf1 = new ListField();
-          lf1.setName("Sensor ID");
-          lf1.setValue(device.sensor_id);
-          
-          let lf2 = new ListField();
-          lf2.setName("Valor");
-          if(device.value <= 0) {
-            let medida = Math.random() * (40 - 1) + 1;
-            lf2.setValue(medida);
-            console.log(medida)
-          } else {
+          if(device.value > 0) {
+            let lf1 = new ListField();
+            lf1.setName("Sensor ID");
+            lf1.setValue(device.sensor_id);
+            
+            let lf2 = new ListField();
+            lf2.setName("Valor");
             lf2.setValue(device.value);
-          }
 
-          let lf3 = new ListField();
-          lf3.setName("Unidad");
-          lf3.setValue(device.unit);
+            let lf3 = new ListField();
+            lf3.setName("Unidad");
+            lf3.setValue(device.unit);
 
-          let lft = new ListField();
-          lft.setName("Tipo");
-          if(device.unit == "ppm") {
-            lft.setValue("CO2");
-          } else if(device.unit == "%") {
-            lft.setValue("Soil");
-          } else if(device.unit == "Cº") {
-            lft.setValue("Temperatura");
-          } else if(device.unit == "db") {
-            lft.setValue("Ruido");
-          }
+            let lft = new ListField();
+            lft.setName("Tipo medida");
+            lft.setValue(device.sensor_type_name)
 
-          let lf4 = new ListField();
-          lf4.setName("Tipo");
-          lf4.setValue("Enviromental");
+            let lf4 = new ListField();
+            lf4.setName("Tipo dispositivo");
+            lf4.setValue("Enviromental");
 
-          let lf6 = new ListField();
-          lf6.setName("Peligro");
-          if(device.danger == "red") {
-            lf6.setValue("red");
-          } else {
-            lf6.setValue(device.danger);
-          }
-          console.log(device)
-          let le = new ListElement([lf1, lf2, lf3, lft, lf4, lf6])
-          list.push(le);
+            let lf6 = new ListField();
+            lf6.setName("Peligro");
+            if(device.danger == "red") {
+              lf6.setValue("red");
+            } else {
+              lf6.setValue(device.danger);
+            }
+
+            let le = new ListElement([lf1, lf2, lf3, lft, lf4, lf6])
+            list.push(le);
           }
 
         });
@@ -128,13 +111,9 @@ export class EnviromentalMeasureListComponent implements OnInit {
       this.listElements = list;
       this._cdr.detectChanges()
 
-      /* setTimeout(() => {
-        this._service.generateAlert("Alerta", "Hay un dato peligroso", "5", "red").subscribe((res) => {
-          console.log('guay');
-          
-        })
+      setTimeout(() => {
         this.generateListElements()
-      }, 4000); */
+      }, 4000);
     })
   }
 

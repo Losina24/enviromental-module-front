@@ -103,4 +103,8 @@ export class EnviromentalDevicesService {
   getAllEnviromentalDevices(userId:number) {
     return this._httpClient.get(`${this.api}/user/${userId}`)
   }
+
+  startOTA() {
+    return this._httpClient.get(`http://localhost:8080/v2/`)
+  }
 }

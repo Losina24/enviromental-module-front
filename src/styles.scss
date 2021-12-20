@@ -400,3 +400,39 @@ iframe {
     background-color: rgb(38, 228, 86);
     padding: 0;
 }
+
+.select-div {
+    background-color: $primary;
+    width: auto;
+    height: 3.7rem;
+    width: 8rem;
+    position: absolute;
+    border-radius: .9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -1rem;
+    left: -8.6rem;
+    cursor: pointer;
+}
+
+.select-div:hover {
+    background-color: $primary-effect;
+}
+
+.select-div > input {
+    width: 0;
+    padding: 0;
+    height: 0;
+}
+
+.select-div > label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    width: 100%;
+    margin: 0;
+    font-weight: 400;
+    cursor: pointer;
+}

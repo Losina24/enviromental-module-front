@@ -1,4 +1,5 @@
 <div *ngIf="role == 'admin' || role == 'root'" class="upper-buttons">
+    <button (click)="startOTA()" class="link-button primary ota">OTA</button>
     <a href="/dash/ambiental/dispositivos/crear" class="link-button">Crear</a>
 </div>
 

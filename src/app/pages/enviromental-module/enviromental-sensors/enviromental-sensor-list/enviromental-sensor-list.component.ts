@@ -77,10 +77,6 @@ export class EnviromentalSensorListComponent implements OnInit {
           lf3.setName("ID de dispositivo");
           lf3.setValue(sensor.deviceId);
 
-          let lf4 = new ListField();
-          lf4.setName("DeviceEUI");
-          lf4.setValue(sensor.deviceEUI);
-
           let lf5 = new ListField();
           lf5.setName("Tipo");
           lf5.setValue("Ambiental");
@@ -93,7 +89,7 @@ export class EnviromentalSensorListComponent implements OnInit {
             lf6.setValue("Apagado");
           }
 
-          let le = new ListElement([lf1, lf2, lf3, lf4, lf5, lf6])
+          let le = new ListElement([lf1, lf2, lf3, lf5, lf6])
           list.push(le);
 
           // Setting the action buttons for each table row

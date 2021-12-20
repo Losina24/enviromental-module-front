@@ -107,8 +107,8 @@ export class EnviromentalDeviceFormComponent implements OnInit {
     let formFieldLongitude = new FormField("Longitud", "Escribe una longitud", InputType.Text, "longitude");
 
     if(device) {
-      formFieldName.setValue(device.getName());
-      formFieldDeviceEUI.setValue(device.getDeviceEUI());
+      formFieldName.setValue(device.getName().toString());
+      formFieldDeviceEUI.setValue(device.getDeviceEUI().toString());
       formFieldGateway.setValue(device.getGateway().toString());
       formFieldLatitude.setValue(device.getLatitude().toString())
       formFieldLongitude.setValue(device.getLongitude().toString())
