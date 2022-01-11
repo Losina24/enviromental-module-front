@@ -50,18 +50,19 @@ export class EnviromentalDeviceFormComponent implements OnInit {
     this.role = session.getRole();
 
     // Obtaining the gateways
-    this.getGateways();
+    //this.getGateways();
 
     if(this.isUpdate() > 0) {
       this._titleUpdaterService.changeTitle("Editar dispositivo");
       this.getEnviromentalDeviceInformation()
       .then((device: EnviromentalDevice) => {
+        console.log('device', device)
         this.generateFormElements(device);
         this._cdr.detectChanges();
       })
-      .catch(() => {
+      /* .catch(() => {
         this._popupMessageService.sendMessage(["Error", "Ha ocurrido algún error al crear el dispositivo", true])
-      })
+      }) */
     } else {
       this._titleUpdaterService.changeTitle("Crear dispositivo");
       this.generateFormElements();
@@ -100,28 +101,38 @@ export class EnviromentalDeviceFormComponent implements OnInit {
   }
 
   generateFormElements(device?: EnviromentalDevice) {
-    let formFieldName = new FormField("Nombre del dipositivo", "Escribe un nombre", InputType.Text, "name");
-    let formFieldDeviceEUI = new FormField("DeviceEUI", "Escribe un deviceEUI", InputType.Text, "deviceEUI");
-    let formFieldGateway = new FormField("Gateway", "Elige un gateway", InputType.Select, "gateway", true, [[5, "alcoy_gateway_1"],[6, "alcoy_gateway_2"]]);
-    let formFieldLatitude = new FormField("Latitud", "Escribe una latitud", InputType.Text, "latitude");
-    let formFieldLongitude = new FormField("Longitud", "Escribe una longitud", InputType.Text, "longitude");
 
-    if(device) {
-      formFieldName.setValue(device.getName().toString());
-      formFieldDeviceEUI.setValue(device.getDeviceEUI().toString());
-      formFieldGateway.setValue(device.getGateway().toString());
-      formFieldLatitude.setValue(device.getLatitude().toString())
-      formFieldLongitude.setValue(device.getLongitude().toString())
-    }
-  
-    this.formElement = new FormElement([formFieldName, formFieldDeviceEUI, formFieldGateway, formFieldLatitude, formFieldLongitude])
-    this._cdr.detectChanges()
+    this.getGateways().then(res => {
+      let gateways: any = [];
+      res.forEach(element => {
+        gateways.push([element.id, element.name])
+      });
+      let formFieldName = new FormField("Nombre del dipositivo", "Escribe un nombre", InputType.Text, "name");
+      let formFieldDeviceEUI = new FormField("DeviceEUI", "Escribe un deviceEUI", InputType.Text, "deviceEUI");
+      let formFieldGateway = new FormField("Gateway", "Elige un gateway", InputType.Select, "gateway", true, gateways);
+      let formFieldLatitude = new FormField("Latitud", "Escribe una latitud", InputType.Text, "latitude");
+      let formFieldLongitude = new FormField("Longitud", "Escribe una longitud", InputType.Text, "longitude");
+      
+      if(device) {
+        formFieldName.setValue(device.getName());
+        formFieldDeviceEUI.setValue(device.getDeviceEUI()+"");
+        formFieldGateway.setValue(device.getGateway().toString());
+        formFieldLatitude.setValue(device.getLatitude().toString())
+        formFieldLongitude.setValue(device.getLongitude().toString())
+      }
+    
+      this.formElement = new FormElement([formFieldName, formFieldDeviceEUI, formFieldGateway, formFieldLatitude, formFieldLongitude])
+      this._cdr.detectChanges()
+    })
   }
 
-  getGateways() {
-    this._gatewayService.getGatewaysPagination(this.userId, 10000, 1, this.role).subscribe(res => {
-      console.log('gateways', res)
-    })
+  async getGateways() {
+    return new Promise<any[]>((resolve, reject) => {
+      this._gatewayService.getGatewaysPagination(this.userId, 10000, 1, this.role).subscribe(res => {
+        console.log(res.response)
+        resolve(res.response)
+      })
+    }) 
   }
 
   submit(formValues: Array<string>) {

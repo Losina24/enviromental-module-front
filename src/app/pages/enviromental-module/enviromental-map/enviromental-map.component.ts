@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { spawn } from 'child_process';
 import UserSession from 'src/app/shared/models/UserSession';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import { MainDashboardServiceService } from '../../main-dashboard/main-dashboard-service.service';

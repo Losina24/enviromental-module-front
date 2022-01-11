@@ -105,6 +105,6 @@ export class EnviromentalDevicesService {
   }
 
   startOTA() {
-    return this._httpClient.get(`http://localhost:8080/v2/`)
+    return this._httpClient.get(`${this.api}/ota/update`)
   }
 }

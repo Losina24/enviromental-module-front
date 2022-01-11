@@ -65,16 +65,6 @@ export class EnviromentalSensorFormComponent implements OnInit {
     
   }
 
-  ngOnChanges() {
-    if(this.isUpdate() > 0) {
-      this._titleUpdaterService.changeTitle("Editar sensor");
-      this.generateFormElements();
-    } else {
-      this._titleUpdaterService.changeTitle("Crear sensor");
-      this.generateFormElements();
-    }
-  }
-
   isUpdate() {
     const url = this._router.url.split('/').slice(1);
     const id = parseInt(url[url.length - 1]);
@@ -90,18 +80,19 @@ export class EnviromentalSensorFormComponent implements OnInit {
     return new Promise<Sensor>((resolve, reject) => {
       this._service.getSensorInformation(this.isUpdate()).subscribe( (res: any) => {
 
-        const id = res.result._id;
-        const name = res.result._name;
-        const deviceId = res.result._deviceId;
-        const deviceName = res.result._deviceName;
-        const deviceEUI = res.result._deviceEUI;
-        const type = res.result._type;
-        const status = res.result._status;
+        const id = res.result.id;
+        const name = res.result.name;
+        const deviceId = res.result.deviceId;
+        const deviceName = res.result.deviceName;
+        const deviceEUI = res.result.deviceEUI;
+        const type = res.result.type;
+        const status = res.result.status;
         
         let device = new EnviromentalDevice();
         device.setId(deviceId)
         device.setName(deviceName);
         device.setDeviceEUI(deviceEUI)
+        device.setStatus(status)
 
         resolve(new Sensor({id, name, device, type, status}));
       })
@@ -129,11 +120,12 @@ export class EnviromentalSensorFormComponent implements OnInit {
 
         this.device = new EnviromentalDevice({id, name, gateway, deviceEUI, coords, status}) */
         let result: [number, string][] = [];
-        console.log(res.result);
+        console.log('diosssssss', res.result);
         
         res.result.forEach((element: any) => {
           result.push([element.id, element.name])
         });
+        console.log(result)
         resolve(result);
       })
     })
@@ -145,7 +137,7 @@ export class EnviromentalSensorFormComponent implements OnInit {
       let formFieldType = new FormField("Tipo de sensor", "Selecciona un tipo de sensor", InputType.Select, "type", true, [[1, "Enviromental"]]);
       let formFieldDevice = new FormField("Dispositivo", "Elige un dispositivo", InputType.Select, "deviceId", true, res);
       let formFieldDeviceEUI = new FormField("DeviceEUI", "DeviceEUI", InputType.Text, "deviceEUI");
-
+      console.log('sensor', sensor)
       if(sensor) {
         formFieldName.setValue(sensor.getName());
         formFieldDeviceEUI.setValue(sensor.getDevice().getDeviceEUI());

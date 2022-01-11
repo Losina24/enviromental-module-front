@@ -86,6 +86,10 @@ export class EnviromentalMeasureListComponent implements OnInit {
             let lft = new ListField();
             lft.setName("Tipo medida");
             lft.setValue(device.sensor_type_name)
+            console.log(device.sensor_type_name)
+            if(device.unit == "ppm") {
+              lft.setValue("CO")
+            }
 
             let lf4 = new ListField();
             lf4.setName("Tipo dispositivo");

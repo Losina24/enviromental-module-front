@@ -93,7 +93,7 @@ export class EnviromentalSensorListComponent implements OnInit {
           list.push(le);
 
           // Setting the action buttons for each table row
-          this.actions.push(new ListActions(["Editar", "Eliminar"], sensor._id, ["/dash/ambiental/sensores/" + sensor._id, sensor._id]))
+          this.actions.push(new ListActions(["Editar", "Eliminar"], sensor.id, ["/dash/ambiental/sensores/" + sensor.id, sensor.id]))
         });
       } else {
         this._popupMessageService.sendMessage(["¡Vaya!", "No existen sensores en la base de datos", false])
