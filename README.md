@@ -57,11 +57,50 @@ $ ng serve
 $ npm run dev
 ```
 
+```js
+$ npm install -g @angular/cli
+```
+
+# **Getting started**
+
+1. Clone the repository
+
+```js
+$ git clone https://github.com/Losina24/enviromental-module-front
+```
+
+2. Install node modules
+
+```js
+$ cd <path-to-directory>/enviromental-module-front
+$ npm install
+```
+
+3. Run Angular
+
+```js
+$ ng serve --open
+
+// If the port 4200 is already in use
+$ ng serve --port {port} --open
+
+// If you want to run the application without open it in the browser
+$ ng serve
+```
+
+4. `Optional` If you want to use the development API, you must to run it. For more information, see at API docs.
+
+```js
+// On API directory
+$ npm run dev
+```
+
 ---
 
 
 # **Deployment**
 To upload the code to production, you just have to drag the files into the `/build` folder inside your server's folder (if it is local, it is not necessary). Then start the express server from the `index.js` file
+
 
 # **License**
 All the code in this repository is owned by [Alejandro Losa](https://alejandrolosa.es/). <br>
