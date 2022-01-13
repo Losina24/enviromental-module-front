@@ -11,6 +11,7 @@ import { GeneralListComponent } from './components/general-list/general-list.com
 import { GeneralFormComponent } from './components/general-form/general-form.component';
 import { PopupMessageComponent } from './components/popup-message/popup-message.component';
 import { PopupConfirmationComponent } from './components/popup-confirmation/popup-confirmation.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { PopupConfirmationComponent } from './components/popup-confirmation/popu
     GeneralListComponent,
     GeneralFormComponent,
     PopupMessageComponent,
-    PopupConfirmationComponent
+    PopupConfirmationComponent,
+    SafePipe
   ],
   exports: [
     // Aqui van los componentes que queremos exportar
@@ -37,7 +39,8 @@ import { PopupConfirmationComponent } from './components/popup-confirmation/popu
     SimpleDashboardFrameComponent,
     GeneralDashboardComponent,
     GeneralListComponent,
-    GeneralFormComponent
+    GeneralFormComponent,
+    SafePipe
   ],
 })
 export class SharedModule {}

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.js"> </script>
+
+    <script src="js/idw.js"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.css"/>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+   <style>
+       #map { height: 100vh; width: 100vw; margin:0px}
+
+      .divPopUpSensor{
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        height: auto;
+      }
+
+   </style> 
+</head>
+<body style="margin:0px;">
+
+    <div id="map"></div>
+    
+</body>
+<script src="data.js"></script>
+    
+<script>
+
+
+    var councilsLayer = L.layerGroup([]);
+    var devicesLayer = L.layerGroup([]);
+    var gatewaysLayer = L.layerGroup([]);
+    var stationsLayer = L.layerGroup([]);
+  
+
+    var map = L.map('map', {
+      center: [38.9918992, -0.163353],
+      crs: L.CRS.EPSG3857,
+      zoom: 15,
+      layers: [councilsLayer, devicesLayer, gatewaysLayer, stationsLayer]
+    });
+     
+
+    
+
+
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      minZoom: 3,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+
+    tiles.addTo(this.map);
+  
+    var greenIcon = L.icon({
+      iconUrl: 'https://ualr.edu/systemsengineering/files/2021/02/Location.png',
+
+      iconSize: [38, 95], // size of the icon
+      shadowSize: [50, 64], // size of the shadow
+      iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+      shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+
+    const councilIcon = L.divIcon({
+    html: '<i class="fas fa-university" style="font-size: 30px; color: black;margin:0px"></i>',
+    iconSize: [20, 20],
+    className: 'myDivIcon'
+    });
+    data.councils.forEach(council => {
+      var marker = L.marker([council.coords[0], council.coords[1]], { icon: councilIcon }).addTo(this.map)
+        .bindPopup(council.name)
+      councilsLayer.addLayer(marker);
+    });
+
+
+    const gatewayIcon = L.divIcon({
+      html: '<i class="fas fa-broadcast-tower" style="font-size: 30px; color: black; margin:0px"></i>',
+      iconSize: [20, 20],
+      className: 'myDivIcon'
+    });
+
+    data.gateways.forEach(gateway => {
+
+      var marker = L.marker([gateway.coords[0], gateway.coords[1]], { icon: gatewayIcon }).addTo(this.map)
+        .bindPopup(gateway.name)
+      var circle = L.circle([gateway.coords[0], gateway.coords[1]], {radius: gateway.radius*500, fillOpacity:0.1}).addTo(this.map);
+      gatewaysLayer.addLayer(marker);
+      gatewaysLayer.addLayer(circle);
+
+    });
+
+
+    const deviceIcon = L.divIcon({
+      html: '<i class="fab fa-dev" style="font-size: 30px; color: black;"></i>',
+      iconSize: [20, 20],
+      className: 'myDivIcon'
+    });
+
+    var dataCO2 = [];
+    var dataH2 = [];
+    var dataO3 = [];
+    var dataHCO = [];
+    var dataVOC = [];
+    var dataCO = [];
+    var dataCL2 = [];
+    var dataH2S = [];
+    var dataHCL = [];
+    var dataHCN = [];
+    var dataNH3 = [];
+    var dataHF = [];
+    var dataNO2 = [];
+    var dataO2 = [];
+    var dataSO2 = [];
+    var dataTEMP = [];
+    var dataNOISE = [];
+    var dataEPSILON = [];
+    var dataSOIL = [];
+
+
+    function returnHtml(tipo, valor, unidad, peligrosidad){
+        console.log(tipo)
+        return '<li style="margin:3px; list-style: none;"> '+
+        '          <p style="margin:2px">Tipo:'+tipo+ '</p>'+
+        '          <p style="margin:2px">Unidad:'+unidad+ ' </p>'+
+        '          <p style="margin:2px">Valor:'+valor+ ' </p>'+
+        '          <p style="margin:2px">Nivel de peligro:'+peligrosidad+ ' </p>'+
+        '        </li>';
+
+      }
+
+    data.devices.forEach(device => {
+      
+    var myvar = '<div class="divPopUpSensor">'+
+    '      <h1 style="margin:0px;align-self: center; font-size: 17px;">'+device.name+'</h1>'+
+    '      <h2  style="margin:0px;  border-bottom: black solid 1px; width: 100%; font-size: 14px;">medidas</h2>'+
+    '      <ul style="margin:0px; display: flex;">';
+
+      var marker = L.marker([device.coords[0], device.coords[1]], { icon: deviceIcon }).addTo(this.map)
+
+      
+      devicesLayer.addLayer(marker);
+      device.measurements.forEach(measure => {
+        switch (measure.type) {
+        case "HCO":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+          dataHCO.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "CO2":
+          myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+          dataCO2.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "VOC":
+        dataVOC.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "CO":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataCO.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "CL2":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataCL2.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "H2":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataH2.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "H2S":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataH2S.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "HCL":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataHCL.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "HCN":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataHCN.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "HF":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataHF.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "NH3":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataNH3.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "NO2":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataNO2.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "O2":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataO2.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "O3":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataO3.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "SO2":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataSO2.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "TEMP":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataTEMP.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "NOISE":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataNOISE.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "EPSILON":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataEPSILON.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+        case "SOIL":
+        myvar = myvar+returnHtml(measure.type, measure.value, measure.unit, measure.dangerous);
+        dataSOIL.push([device.coords[0], device.coords[1],measure.value]);
+            break;
+          default:
+            break;
+        }
+      });
+
+      var listFinal = '      </ul>'+ '    </div>';
+      myvar = myvar + listFinal;
+        
+      marker.bindPopup(myvar);
+
+    });
+    var idwCO2 = L.idwLayer(dataCO2, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwH2 = L.idwLayer(dataH2, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwO3 = L.idwLayer(dataO3, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwVOC = L.idwLayer(dataVOC, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwCO = L.idwLayer(dataCO, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwCL2 = L.idwLayer(dataCL2, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwH2S = L.idwLayer(dataH2S, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwHCL = L.idwLayer(dataHCL, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwHCN = L.idwLayer(dataHCN, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwHF = L.idwLayer(dataHF, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwNH3 = L.idwLayer(dataNH3, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwNO2 = L.idwLayer(dataNO2, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwO2 = L.idwLayer(dataO2, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwSO2 = L.idwLayer(dataSO2, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwTEMP = L.idwLayer(dataTEMP, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwNOISE = L.idwLayer(dataNOISE, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwEPSILON = L.idwLayer(dataEPSILON, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+    var idwSOIL = L.idwLayer(dataSOIL, {opacity: 0.65, cellSize: 3, exp: 3, max: 50}).addTo(map);
+
+    
+    councilsLayer.addTo(this.map);
+
+
+
+    var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+	  var mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+    var grayscale = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}).addTo(map);
+    var streets = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
+
+    var maps = {
+      "Mapa de Interpolacion CO2": idwCO2,
+      "Mapa de Interpolacion H2": idwH2,
+      "Mapa de Interpolacion O3": idwO3,
+      "Mapa de Interpolacion VOC": idwVOC,
+      "Mapa de Interpolacion CO": idwCO,
+      "Mapa de Interpolacion CL2": idwCL2,
+      "Mapa de Interpolacion H2S": idwH2S,
+      "Mapa de Interpolacion HCL": idwHCL,
+      "Mapa de Interpolacion HCN": idwHCN,
+      "Mapa de Interpolacion HF": idwHF,
+      "Mapa de Interpolacion NH3": idwNH3,
+      "Mapa de Interpolacion NO2": idwNO2,
+      "Mapa de Interpolacion O2": idwO2,
+      "Mapa de Interpolacion SO2": idwSO2,
+      "Mapa de Interpolacion TEMP": idwTEMP,
+      "Mapa de Interpolacion NOISE": idwNOISE,
+      "Mapa de Interpolacion EPSILON": idwEPSILON,
+      "Mapa de Interpolacion SOIL": idwSOIL,
+      "Escala de Grises": grayscale,
+      "Puntos de Interés": streets,
+    };
+    var overlayMaps = {
+      "Ayuntamientos": councilsLayer,
+      "Gateways": gatewaysLayer,
+      "Dispositivos": devicesLayer,
+    };
+    L.control.layers(maps, overlayMaps).addTo(this.map);
+
+
+</script>
+</html>
+

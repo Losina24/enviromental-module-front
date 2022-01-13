@@ -51,7 +51,7 @@ import { EnviromentalUnpairedDevicesComponent } from './pages/enviromental-modul
     ManagementUserListComponent,
     ManagementUserFormComponent,
     EnviromentalMapComponent,
-    EnviromentalUnpairedDevicesComponent
+    EnviromentalUnpairedDevicesComponent,
   ],
   imports: [
     BrowserModule,

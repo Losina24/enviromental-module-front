@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import UserSession from 'src/app/shared/models/UserSession';
 import { TitleUpdaterService } from 'src/app/shared/services/title-updater.service';
 import { MainDashboardServiceService } from '../../main-dashboard/main-dashboard-service.service';
+import { SafePipe } from 'src/app/shared/pipes/safe.pipe';
 
 @Component({
   selector: 'app-enviromental-map',
@@ -15,11 +16,12 @@ export class EnviromentalMapComponent implements OnInit {
   councilId: number;
   mapCode: boolean = false;
   code: string;
+  url: string = "assets/leaflet/index.html";
 
   constructor(
     private _titleUpdaterService: TitleUpdaterService,
     private _service: MainDashboardServiceService,
-    private _cdr: ChangeDetectorRef
+    private _cdr: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
